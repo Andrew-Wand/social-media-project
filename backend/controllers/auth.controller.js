@@ -28,7 +28,7 @@ exports.signin = (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        return req.status(404).send({ messagE: "User not found." });
+        return res.status(404).send({ message: "User not found." });
       }
 
       let passwordIsValid = bcrypt.compareSync(
