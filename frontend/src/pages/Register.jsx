@@ -51,22 +51,12 @@ const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
-  const onChangeFirstName = (e) => {
-    const firstName = e.target.value;
-    setFirstName(firstName);
-  };
-  const onChangeLastName = (e) => {
-    const lastName = e.target.value;
-    setLastName(lastName);
-  };
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
@@ -89,7 +79,7 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(firstName, lastName, username, email, password).then(
+      AuthService.register(username, email, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -120,32 +110,6 @@ const Register = () => {
           <div className="card-actions">
             <div>
               <Form onSubmit={handleRegister} ref={form}>
-                <div>
-                  <label htmlFor="first_name" className="text-xl">
-                    First Name
-                  </label>
-                  <Input
-                    type="text"
-                    name="first_name"
-                    value={firstName}
-                    onChange={onChangeFirstName}
-                    validations={[required]}
-                    className="input input-bordered bg-slate-100 shadow-lg mt-2 h-[2.5rem]"
-                  />
-                </div>
-                <div className="mt-3">
-                  <label htmlFor="last_name" className="text-xl">
-                    Last Name
-                  </label>
-                  <Input
-                    type="text"
-                    name="last_name"
-                    value={lastName}
-                    onChange={onChangeLastName}
-                    validations={[required]}
-                    className="input input-bordered bg-slate-100 shadow-lg mt-2 h-[2.5rem]"
-                  />
-                </div>
                 <div className="mt-3">
                   <label htmlFor="username" className="text-xl">
                     Username
