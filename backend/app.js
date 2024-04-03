@@ -6,6 +6,7 @@ const cors = require("cors");
 const models = require("./models");
 const controller = require("./controllers/post.controller");
 const userController = require("./controllers/user.controller");
+const commentController = require("./controllers/comment.controller");
 
 const db = require("./models");
 
@@ -36,6 +37,12 @@ const run = async (req, res) => {
   // });
   // const user1 = await userController.findUserById("1");
   // console.log(user1, JSON.stringify(user1, null, 2));
+
+  const comment1 = await commentController.createComment("1", "1", {
+    comment_text: "This is the first comment!",
+  });
+  const post1 = await controller.findPostById("1");
+  console.log(post1, JSON.stringify(post1, null, 2));
 };
 
 db.sequelize.sync().then(() => {
@@ -51,5 +58,6 @@ app.listen(PORT, () => {
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
 require("./routes/post.routes")(app);
+require("./routes/comment.routes")(app);
 
 module.exports = app;

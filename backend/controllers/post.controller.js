@@ -17,6 +17,16 @@ exports.createPost = (req, res) => {
     });
 };
 
+exports.findPostById = (postId) => {
+  return Post.findByPk(postId, { include: ["comments"] })
+    .then((comment) => {
+      return comment;
+    })
+    .catch((err) => {
+      console.log(">> Error while finding tutorial: ", err);
+    });
+};
+
 // exports.createPost = async (req, res) => {
 //   const post = await Post.create({
 //     Title: req.body.Title,
