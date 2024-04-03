@@ -7,16 +7,22 @@ const id = currentUser ? currentUser.id : "";
 
 const API_URL = "http://localhost:8080/test/";
 
-const postCreatePost = (Title, Text, userId) => {
+const postCreatePost = (Title, Text, userId, owner) => {
   return axios.post(API_URL + "create-post", {
     Title,
     Text,
     userId,
+    owner,
   });
+};
+
+const getAllPosts = () => {
+  return axios.get(API_URL + "getAllPosts");
 };
 
 const PostService = {
   postCreatePost,
+  getAllPosts,
 };
 
 export default PostService;

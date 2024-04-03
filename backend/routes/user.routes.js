@@ -13,4 +13,6 @@ module.exports = function (app) {
   });
 
   app.get("/test/all", controller.allAccess);
+
+  app.get("/test/findAllUsers", controller.findAllUsers);
 };

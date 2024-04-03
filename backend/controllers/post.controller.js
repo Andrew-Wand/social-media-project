@@ -6,6 +6,7 @@ exports.createPost = (req, res) => {
     Title: req.body.Title,
     Text: req.body.Text,
     userId: req.body.userId,
+    owner: req.body.owner,
   })
     .then((post) => {
       console.log("Created post: " + JSON.stringify(post, null, 4));
@@ -25,6 +26,20 @@ exports.findPostById = (postId) => {
     .catch((err) => {
       console.log(">> Error while finding tutorial: ", err);
     });
+};
+
+exports.findAllPosts = async (req, res) => {
+  // return Post.findAll({ include: ["comments"] }).then((post) => {
+  //   return post;
+  // });
+
+  try {
+    const response = await Post.findAll({ include: ["comments"] });
+    res.status(200).send(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // exports.createPost = async (req, res) => {

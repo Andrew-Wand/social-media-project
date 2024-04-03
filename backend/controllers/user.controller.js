@@ -5,12 +5,26 @@ exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
 };
 
-exports.findUserById = (userId) => {
-  return User.findByPk(userId, { include: ["posts"] })
-    .then((post) => {
-      return post;
-    })
-    .catch((err) => {
-      console.log(">> Error while finding tutorial: ", err);
-    });
+// exports.findAllUsers = (userId) => {
+//   return User.findByPk(userId, { include: ["posts"] })
+//     .then((post) => {
+//       return post;
+//     })
+//     .catch((err) => {
+//       console.log(">> Error while finding user: ", err);
+//     });
+// };
+
+exports.findAllUsers = async (req, res) => {
+  // return Post.findAll({ include: ["comments"] }).then((post) => {
+  //   return post;
+  // });
+
+  try {
+    const response = await User.findAll();
+    res.status(200).send(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };

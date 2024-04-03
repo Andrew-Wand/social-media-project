@@ -38,13 +38,14 @@ const CreatePost = () => {
   };
 
   const currentUser = AuthService.getCurrentUser();
+  const username = currentUser.username;
   const id = currentUser.id;
 
   const handleCreatePost = (e) => {
     e.preventDefault();
     //   let owner = currentUser.id;
 
-    PostService.postCreatePost(postTitle, postText, id).then(
+    PostService.postCreatePost(postTitle, postText, id, username).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
