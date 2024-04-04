@@ -14,4 +14,5 @@ module.exports = function (app) {
   app.post("/test/create-post", controller.createPost);
 
   app.get("/test/getAllPosts", controller.findAllPosts);
+  app.get("/test/post/:postId", controller.findPostById);
 };

@@ -45,7 +45,7 @@ const run = async (req, res) => {
   console.log(post1, JSON.stringify(post1, null, 2));
 };
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   // run();
 });
 

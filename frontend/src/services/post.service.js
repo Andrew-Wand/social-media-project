@@ -20,9 +20,14 @@ const getAllPosts = () => {
   return axios.get(API_URL + "getAllPosts");
 };
 
+const getSinglePost = (postId) => {
+  return axios.get(API_URL + `post/${postId}`);
+};
+
 const PostService = {
   postCreatePost,
   getAllPosts,
+  getSinglePost,
 };
 
 export default PostService;

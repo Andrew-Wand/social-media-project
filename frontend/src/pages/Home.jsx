@@ -8,6 +8,7 @@ const Home = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [allPosts, setAllPosts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
+  const [singlePost, setSinglePost] = useState([]);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -41,6 +42,17 @@ const Home = () => {
 
     fetchAllUsers();
   }, []);
+
+  // const fetchPostById = async (id) => {
+  //   try {
+  //     const postById = await PostService.getSinglePost(id);
+  //     setSinglePost(postById.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // console.log(singlePost);
 
   const usernameId = allUsers.map((user) => {
     const derp = {
@@ -86,9 +98,20 @@ const Home = () => {
                   className="bg-slate-500 text-black my-10 p-10 m-5 rounded-lg shadow-lg"
                   key={i}
                 >
-                  <p className="underline mb-5">{post.Title}</p>
+                  <Link
+                    to={`/post/${post.id}`}
+                    // onClick={() => fetchPostById(post.id)}
+                    className="underline mb-5"
+                  >
+                    {post.Title}
+                  </Link>
                   <p>{post.Text}</p>
-                  <p>{post.owner}</p>
+                  <p>
+                    Posted By:{" "}
+                    <Link to={`/profile/${post.userId}`} className="btn">
+                      {post.owner}
+                    </Link>
+                  </p>
                 </li>
               ))}
             </ul>

@@ -18,14 +18,18 @@ exports.createPost = (req, res) => {
     });
 };
 
-exports.findPostById = (postId) => {
-  return Post.findByPk(postId, { include: ["comments"] })
-    .then((comment) => {
-      return comment;
-    })
-    .catch((err) => {
-      console.log(">> Error while finding tutorial: ", err);
-    });
+// exports.findPostById = (postId) => {
+//   return Post.findByPk(postId, { include: ["comments"] })
+//     .then((comment) => {
+//       return comment;
+//     })
+//     .catch((err) => {
+//       console.log(">> Error while finding tutorial: ", err);
+//     });
+// };
+exports.findPostById = async (req, res) => {
+  const post = await Post.findByPk(req.params.postId);
+  return res.send(post);
 };
 
 exports.findAllPosts = async (req, res) => {

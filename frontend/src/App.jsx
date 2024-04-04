@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
+import SinglePost from "./pages/SinglePost";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/post/:id" element={<SinglePost />} />
         <Route path="/create-post" element={<CreatePost />} />
       </Routes>
     </div>
