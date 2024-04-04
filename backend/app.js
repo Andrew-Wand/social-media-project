@@ -38,11 +38,11 @@ const run = async (req, res) => {
   // const user1 = await userController.findUserById("1");
   // console.log(user1, JSON.stringify(user1, null, 2));
 
-  const comment1 = await commentController.createComment("1", "1", {
+  const comment1 = await commentController.createComment("2", "1", {
     comment_text: "This is the first comment!",
   });
-  const post1 = await controller.findPostById("1");
-  console.log(post1, JSON.stringify(post1, null, 2));
+  // const post1 = await controller.findPostById("1");
+  // console.log(post1, JSON.stringify(post1, null, 2));
 };
 
 db.sequelize.sync().then(() => {

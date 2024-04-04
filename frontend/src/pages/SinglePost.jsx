@@ -18,7 +18,7 @@ const SinglePost = () => {
     fetchPostById(postIdParam);
   }, []);
 
-  //   console.log(singlePost);
+  console.log(singlePost);
 
   return (
     <div>
@@ -27,6 +27,16 @@ const SinglePost = () => {
       {/* {singlePost.map((post, i) => (
         <h1 key={i}>{post.Title}</h1>
       ))} */}
+      <div className="divider"></div>
+      <div>
+        <h2>Comments:</h2>
+        <ul>
+          {singlePost.comments &&
+            singlePost.comments.map((comment) => (
+              <li>{comment.comment_text}</li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 };
