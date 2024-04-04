@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
 import SinglePost from "./pages/SinglePost";
+import CreateComment from "./pages/CreateComment";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/post/:id" element={<SinglePost />} />
         <Route path="/create-post" element={<CreatePost />} />
+        <Route path="/create-comment/:id" element={<CreateComment />} />
       </Routes>
     </div>
   );

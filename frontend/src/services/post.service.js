@@ -24,10 +24,20 @@ const getSinglePost = (postId) => {
   return axios.get(API_URL + `post/${postId}`);
 };
 
+// Comments
+const postCreateComment = (comment_text, postId, userId) => {
+  return axios.post(API_URL + "create-comment", {
+    comment_text,
+    postId,
+    userId,
+  });
+};
+
 const PostService = {
   postCreatePost,
   getAllPosts,
   getSinglePost,
+  postCreateComment,
 };
 
 export default PostService;
