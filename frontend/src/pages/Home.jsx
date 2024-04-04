@@ -107,7 +107,7 @@ const Home = () => {
                   </Link>
                   <p>{post.Text}</p>
                   <p>
-                    Posted By:{" "}
+                    Posted By:
                     <Link to={`/profile/${post.userId}`} className="btn">
                       {post.owner}
                     </Link>

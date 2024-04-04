@@ -15,10 +15,11 @@ const AddCommentInput = () => {
   const postId = queryString.slice(-1);
 
   const currentUser = AuthService.getCurrentUser();
+  const owner = currentUser.username;
   const id = currentUser.id;
   const handleAddComment = (e) => {
     e.preventDefault();
-    PostService.postCreateComment(commentInput, postId, id).then(
+    PostService.postCreateComment(commentInput, postId, id, owner).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);

@@ -25,11 +25,12 @@ const getSinglePost = (postId) => {
 };
 
 // Comments
-const postCreateComment = (comment_text, postId, userId) => {
+const postCreateComment = (comment_text, postId, userId, owner) => {
   return axios.post(API_URL + "create-comment", {
     comment_text,
     postId,
     userId,
+    owner,
   });
 };
 

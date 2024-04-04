@@ -4,6 +4,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    owner: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
   });
 
   return Comment;

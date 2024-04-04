@@ -25,6 +25,7 @@ exports.createComment = (req, res) => {
     comment_text: req.body.comment_text,
     postId: req.body.postId,
     userId: req.body.userId,
+    owner: req.body.owner,
   })
     .then((post) => {
       console.log("Created post: " + JSON.stringify(post, null, 4));

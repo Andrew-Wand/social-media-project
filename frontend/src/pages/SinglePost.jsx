@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PostService from "../services/post.service";
-import AddCommentInput from "../components/AddCommentInput";
 
 const SinglePost = () => {
   const [singlePost, setSinglePost] = useState([]);
-  const [fart, setFart] = useState(false);
+  const [successful, setSuccessful] = useState(false);
   //   console.log(window.location.pathname.slice(-1));
   const postIdParam = window.location.pathname.slice(-1);
 
@@ -13,14 +12,14 @@ const SinglePost = () => {
     try {
       const postById = await PostService.getSinglePost(id);
       setSinglePost(postById.data);
-      setFart(true);
+      setSuccessful(true);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     fetchPostById(postIdParam);
-  }, [fart]);
+  }, [successful]);
 
   // console.log(singlePost);
 
@@ -39,10 +38,15 @@ const SinglePost = () => {
 
       <div>
         <h2>Comments:</h2>
-        <ul>
+        <ul className="p-10">
           {singlePost.comments &&
             singlePost.comments.map((comment, i) => (
-              <li key={i}>{comment.comment_text}</li>
+              <li key={i}>
+                <p>{comment.comment_text}</p>
+                <Link to={`/profile/${comment.userId}`} className="mt-2 link">
+                  {comment.owner}
+                </Link>
+              </li>
             ))}
         </ul>
       </div>
