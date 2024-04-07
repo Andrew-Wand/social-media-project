@@ -2,14 +2,23 @@ import { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
 import UserService from "../services/user.service";
 import PostService from "../services/post.service";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [allPosts, setAllPosts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
+  const [allLikes, setAllLikes] = useState();
   const [singlePost, setSinglePost] = useState([]);
+  const [likeCount, setLikeCount] = useState(0);
+  const [totalLikes, setTotalLikes] = useState();
+  const [successful, setSuccessful] = useState(false);
+  const [message, setMessage] = useState("");
+  const [keyIndex, setKeyIndex] = useState();
+  const [isLoading, setIsLoading] = useState(null);
 
+  const userIdParam = window.location.pathname.slice(-1);
+  const navigate = useNavigate();
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
@@ -17,17 +26,29 @@ const Home = () => {
     }
   }, []);
 
+  const user = AuthService.getCurrentUser();
+  // console.log(currentUser);
+
   useEffect(() => {
-    const fetchAllPosts = async () => {
+    const fetchAllPosts = async (id) => {
       try {
-        const allPostList = await PostService.getAllPosts();
+        const allPostList = await PostService.getAllPosts(id);
+
         setAllPosts(allPostList.data);
       } catch (error) {
         console.log(error);
       }
     };
-
-    fetchAllPosts();
+    // const fetchAllLikes = async () => {
+    //   try {
+    //     const allLikesList = await PostService.getAllLikes();
+    //     setAllLikes(allLikesList.data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // fetchAllLikes();
+    fetchAllPosts(userIdParam);
   }, []);
 
   useEffect(() => {
@@ -52,32 +73,50 @@ const Home = () => {
   //   }
   // };
 
-  // console.log(singlePost);
+  const handleCreateLike = async (e) => {
+    e.preventDefault();
 
-  const usernameId = allUsers.map((user) => {
-    const derp = {
-      username: user.username,
-      id: user.id,
-    };
-    return derp;
-  });
+    const user = AuthService.getCurrentUser();
+    // setKeyIndex(e.target.getAttribute("key"));
+    // console.log(e.target.entry, index);
+    const userId = user.id;
+    let fart = Number(keyIndex) + 1;
+    const like = likeCount + 1;
+    setIsLoading(true);
 
-  const postUserId = allPosts.map((post) => {
-    const newPost = {
-      postId: post.userId,
-    };
+    PostService.createLike(like, fart, userId).then(
+      (response) => {
+        setMessage(response.data.message);
+        setSuccessful(true);
+        setIsLoading(false);
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
 
-    return newPost;
-  });
-
-  let compareTwoArrayOfObjects = (usernameId, postUserId) => {
-    return usernameId.every((element_1) =>
-      postUserId.some((element_2) =>
-        Object.keys(element_1).every((key) => element_1[key] === element_2[key])
-      )
+        setMessage(resMessage);
+        setSuccessful(false);
+        setIsLoading(false);
+      }
     );
   };
 
+  // const getKey = (index) => {
+  //   let id = index;
+  //   setKeyIndex(id);
+  // };
+
+  const getIndex = (e, index) => {
+    setKeyIndex(e.target.value, index);
+  };
+
+  const likesArr = allPosts;
+
+  console.log(likesArr);
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
   return (
@@ -87,13 +126,16 @@ const Home = () => {
 
         <div className="h-screen bg-slate-400">
           <div className="p-10">
+            <h1 className="mb-2 text-black">
+              Welcome back {currentUser.username}
+            </h1>
             <Link to="/create-post" className="btn">
               Create Post
             </Link>
           </div>
           <div>
             <ul>
-              {allPosts.map((post, i) => (
+              {allPosts?.map((post, i) => (
                 <li
                   className="bg-slate-500 text-black my-10 p-10 m-5 rounded-lg shadow-lg"
                   key={i}
@@ -106,6 +148,56 @@ const Home = () => {
                     {post.Title}
                   </Link>
                   <p>{post.Text}</p>
+
+                  <p>{post.likes.length}</p>
+
+                  <form key={i} value={i} onSubmit={handleCreateLike}>
+                    {/* <button
+                      className={post.likes.length === 0 ? "btn" : "btn-lg"}
+                    >
+                      Like
+                    </button> */}
+                    {post.likes.length > 0 ? (
+                      <button
+                        key={i}
+                        value={i}
+                        onClick={(e) => getIndex(e, i)}
+                        className="btn"
+                      >
+                        Unlike {i}
+                      </button>
+                    ) : (
+                      <button
+                        key={i}
+                        value={i}
+                        onClick={(e) => getIndex(e, i)}
+                        className="btn"
+                      >
+                        Like {i}
+                      </button>
+                    )}
+
+                    {/* {post.likes?.map((like) => (
+                      <div>
+                        <button
+                          className="btn"
+                          onClick={() => console.log(post.likes)}
+                        >
+                          length
+                        </button>
+                        {post.likes?.length ? "yes" : "no"}
+                        <button
+                          key={post.id}
+                          value={post.id}
+                          onClick={() => setKeyIndex(post.id)}
+                          className="btn"
+                        >
+                          Like
+                        </button>
+                      </div>
+                    ))} */}
+                  </form>
+
                   <p>
                     Posted By:
                     <Link to={`/profile/${post.userId}`} className="btn">

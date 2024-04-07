@@ -7,28 +7,31 @@ const models = require("./models");
 const controller = require("./controllers/post.controller");
 const userController = require("./controllers/user.controller");
 const commentController = require("./controllers/comment.controller");
+const session = require("express-session");
 
 const db = require("./models");
 
 const app = express();
 const bodyParser = require("body-parser");
+app.use(
+  session({
+    secret: "my test secret",
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.use(cors());
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.json());
+
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-
-// app.use(async (req, res, next) => {
-//   req.context = {
-//     models,
-//     me: await models.users.findByPk("1"),
-//   };
-//   next();
-// });
 
 const run = async (req, res) => {
   // const post4 = await controller.createPost("2", {
@@ -38,11 +41,11 @@ const run = async (req, res) => {
   // const user1 = await userController.findUserById("1");
   // console.log(user1, JSON.stringify(user1, null, 2));
 
-  const comment1 = await commentController.createComment("2", "1", {
-    comment_text: "This is the first comment!",
-  });
-  // const post1 = await controller.findPostById("1");
-  // console.log(post1, JSON.stringify(post1, null, 2));
+  // const comment1 = await commentController.createComment("2", "1", {
+  //   comment_text: "This is the first comment!",
+  // });
+  const post1 = await controller.findPostById("1");
+  console.log(post1, JSON.stringify(post1, null, 10));
 };
 
 db.sequelize.sync().then(() => {

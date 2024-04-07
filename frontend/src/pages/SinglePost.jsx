@@ -5,7 +5,7 @@ import PostService from "../services/post.service";
 const SinglePost = () => {
   const [singlePost, setSinglePost] = useState([]);
   const [successful, setSuccessful] = useState(false);
-  //   console.log(window.location.pathname.slice(-1));
+  // console.log(window.location.pathname.slice(-1));
   const postIdParam = window.location.pathname.slice(-1);
 
   const fetchPostById = async (id) => {

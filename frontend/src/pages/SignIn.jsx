@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -14,7 +14,7 @@ const required = (value) => {
 
 const SignIn = () => {
   let navigate = useNavigate();
-
+  const [currentUser, setCurrentUser] = useState();
   const form = useRef();
   const checkBtn = useRef();
 
@@ -22,6 +22,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [successful, setSuccessful] = useState(false);
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -39,12 +40,16 @@ const SignIn = () => {
     setLoading(true);
 
     form.current.validateAll();
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    }
 
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
-        () => {
-          navigate("/");
-          window.location.reload();
+        (response) => {
+          setMessage(response.data.message);
+          setSuccessful(true);
         },
         (error) => {
           const resMessage =
@@ -59,6 +64,12 @@ const SignIn = () => {
       );
     } else {
       setLoading(false);
+    }
+
+    if (currentUser) {
+      navigate(`/main/${currentUser.id}`);
+
+      window.location.reload();
     }
   };
 

@@ -76,7 +76,10 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-          <Link to="/" className="btn btn-ghost text-xl">
+          <Link
+            to={`/main/${currentUser.id}`}
+            className="btn btn-ghost text-xl"
+          >
             Chat Room
           </Link>
         </div>

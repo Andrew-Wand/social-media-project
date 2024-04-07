@@ -11,6 +11,7 @@ const CreatePost = () => {
   const [postTitle, setPostTitle] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+  const [likes, setLikes] = useState(0);
 
   const navigate = useNavigate();
 

@@ -16,12 +16,24 @@ const postCreatePost = (Title, Text, userId, owner) => {
   });
 };
 
-const getAllPosts = () => {
-  return axios.get(API_URL + "getAllPosts");
+const getAllPosts = (userId) => {
+  return axios.get(API_URL + `getAllPosts/${userId}`);
 };
 
 const getSinglePost = (postId) => {
   return axios.get(API_URL + `post/${postId}`);
+};
+
+const createLike = (total, postId, userId) => {
+  return axios.post(API_URL + "create-like", {
+    total,
+    postId,
+    userId,
+  });
+};
+
+const getAllLikes = () => {
+  return axios.get(API_URL + "getLikes");
 };
 
 // Comments
@@ -39,6 +51,8 @@ const PostService = {
   getAllPosts,
   getSinglePost,
   postCreateComment,
+  createLike,
+  getAllLikes,
 };
 
 export default PostService;

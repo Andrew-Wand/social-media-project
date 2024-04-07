@@ -22,6 +22,7 @@ exports.findAllUsers = async (req, res) => {
 
   try {
     const response = await User.findAll();
+    req.session.user = response;
     res.status(200).send(response);
     return response;
   } catch (error) {
