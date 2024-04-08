@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
+  const user = AuthService.getCurrentUser();
+
+  const userIdParam = window.location.pathname.slice(-1);
+
+  console.log(userIdParam);
 
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
     }
-  }, [currentUser]);
+  }, []);
 
   const logOut = () => {
     AuthService.logout();
@@ -45,10 +49,7 @@ const Navbar = () => {
                 // User is logged in
                 <div className="navbar-nav ">
                   <li className="nav-item">
-                    <Link
-                      to={`/profile/${currentUser.id}`}
-                      className="nav-link"
-                    >
+                    <Link to={`/profile/${userIdParam}`} className="nav-link">
                       Profile
                     </Link>
                   </li>
@@ -76,12 +77,15 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-          <Link
-            to={`/main/${currentUser?.id}`}
-            className="btn btn-ghost text-xl"
-          >
-            Chat Room
-          </Link>
+          {userIdParam ? (
+            <Link to={`/main/${userIdParam}`} className="btn btn-ghost text-xl">
+              Chat Room
+            </Link>
+          ) : (
+            <Link to={`/`} className="btn btn-ghost text-xl">
+              Chat Room
+            </Link>
+          )}
         </div>
 
         {/* DESKTOP */}
@@ -91,7 +95,7 @@ const Navbar = () => {
               // User is logged in
               <>
                 <li className="nav-item">
-                  <Link to={`/profile/${currentUser.id}`} className="nav-link">
+                  <Link to={`/profile/${userIdParam}`} className="nav-link">
                     Profile
                   </Link>
                 </li>

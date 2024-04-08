@@ -114,9 +114,6 @@ const Home = () => {
     setKeyIndex(e.target.value, index);
   };
 
-  const likesArr = allPosts;
-
-  console.log(likesArr);
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
   return (

@@ -63,6 +63,7 @@ const SignIn = () => {
           setSuccessful(true);
           if (response) {
             navigate(`/main/${response}`);
+            setLoading(true);
           }
         },
         (error) => {

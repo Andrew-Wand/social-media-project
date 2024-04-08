@@ -50,6 +50,9 @@ const CreatePost = () => {
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
+        if (response) {
+          navigate(`/main/${response.data.userId}`);
+        }
       },
       (error) => {
         const resMessage =
@@ -79,7 +82,10 @@ const CreatePost = () => {
             </h1>
           ))}
         </header> */}
-      <Link to="/" className="btn btn-info text-lg mb-5 ml-[3.4rem]">
+      <Link
+        to={`/main/${id}`}
+        className="btn btn-info text-lg mb-5 ml-[3.4rem]"
+      >
         Back
       </Link>
       <form onSubmit={handleCreatePost}>
