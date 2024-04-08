@@ -13,7 +13,7 @@ const required = (value) => {
   }
 };
 
-const SignIn = () => {
+const SignIn = ({ setLoggedIn }) => {
   let navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(undefined);
   const form = useRef();
@@ -64,6 +64,7 @@ const SignIn = () => {
           if (response) {
             navigate(`/main/${response}`);
             setLoading(true);
+            setLoggedIn(true);
           }
         },
         (error) => {

@@ -2,13 +2,11 @@ import { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ loggedIn }) => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const user = AuthService.getCurrentUser();
 
   const userIdParam = window.location.pathname.slice(-1);
-
-  console.log(userIdParam);
 
   useEffect(() => {
     if (user) {
@@ -22,9 +20,9 @@ const Navbar = () => {
   return (
     <div>
       <div className="navbar bg-slate-500 xl:shadow-lg">
+        {/* MOBILE */}
         <div className="navbar-start">
-          {/* MOBILE */}
-          <div className="dropdown">
+          <div className={loggedIn ? "dropdown" : "hidden"}>
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -45,40 +43,23 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {currentUser ? (
-                // User is logged in
-                <div className="navbar-nav ">
-                  <li className="nav-item">
-                    <Link to={`/profile/${userIdParam}`} className="nav-link">
-                      Profile
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <a href="/" className="nav-link" onClick={logOut}>
-                      Log Out
-                    </a>
-                  </li>
-                </div>
-              ) : (
-                // No user logged in
-                <div className="navbar-nav ">
-                  <li className="nav-item">
-                    <Link to={"/sign-in"} className="nav-link">
-                      Login
-                    </Link>
-                  </li>
-
-                  <li className="nav-item">
-                    <Link to={"/register"} className="nav-link">
-                      Sign Up
-                    </Link>
-                  </li>
-                </div>
-              )}
+              {/* User is loggedin */}
+              <div className="navbar-nav ">
+                <li className="nav-item">
+                  <Link to={`/profile/${userIdParam}`} className="nav-link">
+                    Profile
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <a href="/" className="nav-link" onClick={logOut}>
+                    Log Out
+                  </a>
+                </li>
+              </div>
             </ul>
           </div>
-          {userIdParam ? (
-            <Link to={`/main/${userIdParam}`} className="btn btn-ghost text-xl">
+          {user ? (
+            <Link to={`/main/${user.id}`} className="btn btn-ghost text-xl">
               Chat Room
             </Link>
           ) : (

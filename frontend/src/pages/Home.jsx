@@ -28,17 +28,17 @@ const Home = () => {
 
   const user = AuthService.getCurrentUser();
   // console.log(currentUser);
+  const fetchAllPosts = async (id) => {
+    try {
+      const allPostList = await PostService.getAllPosts(id);
+
+      setAllPosts(allPostList.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchAllPosts = async (id) => {
-      try {
-        const allPostList = await PostService.getAllPosts(id);
-
-        setAllPosts(allPostList.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     // const fetchAllLikes = async () => {
     //   try {
     //     const allLikesList = await PostService.getAllLikes();
@@ -89,6 +89,7 @@ const Home = () => {
         setMessage(response.data.message);
         setSuccessful(true);
         setIsLoading(false);
+        fetchAllPosts(response.config.data.slice(-2, -1));
       },
       (error) => {
         const resMessage =

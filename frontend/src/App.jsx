@@ -10,13 +10,14 @@ import SinglePost from "./pages/SinglePost";
 import CreateComment from "./pages/CreateComment";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   return (
     <div>
-      <Navbar />
+      <Navbar loggedIn={loggedIn} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/main/:userId" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-in" element={<SignIn setLoggedIn={setLoggedIn} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/post/:id" element={<SinglePost />} />
