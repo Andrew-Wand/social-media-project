@@ -19,6 +19,7 @@ const login = (username, password) => {
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("SMuser", JSON.stringify(response.data));
+        return response.data.id;
       }
 
       return response.data;

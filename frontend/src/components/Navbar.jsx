@@ -10,7 +10,7 @@ const Navbar = () => {
     if (user) {
       setCurrentUser(user);
     }
-  }, []);
+  }, [currentUser]);
 
   const logOut = () => {
     AuthService.logout();
@@ -77,7 +77,7 @@ const Navbar = () => {
             </ul>
           </div>
           <Link
-            to={`/main/${currentUser.id}`}
+            to={`/main/${currentUser?.id}`}
             className="btn btn-ghost text-xl"
           >
             Chat Room

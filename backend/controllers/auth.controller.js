@@ -48,7 +48,7 @@ exports.signin = (req, res) => {
         allowInsecureKeySizes: true,
         expiresIn: 86400, // 24 hours
       });
-
+      // redirect(`/main/${user.id}`);
       res.status(200).send({
         id: user.id,
         username: user.username,

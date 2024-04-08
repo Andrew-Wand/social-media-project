@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import Loading from "../components/Loading";
 
 import AuthService from "../services/auth.service";
 
@@ -14,7 +15,7 @@ const required = (value) => {
 
 const SignIn = () => {
   let navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(undefined);
   const form = useRef();
   const checkBtn = useRef();
 
@@ -33,6 +34,20 @@ const SignIn = () => {
     setPassword(password);
   };
 
+  // const updateState = () => {
+  //   const user = AuthService.getCurrentUser();
+  //   if (user) {
+  //     setCurrentUser(user);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   console.log("new state", currentUser);
+  //   if (currentUser) {
+  //     navigate(`/main/${currentUser.id}`);
+  //   }
+  // }, [currentUser]);
+
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -40,16 +55,15 @@ const SignIn = () => {
     setLoading(true);
 
     form.current.validateAll();
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
-    }
 
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         (response) => {
-          setMessage(response.data.message);
+          setMessage(response.data);
           setSuccessful(true);
+          if (response) {
+            navigate(`/main/${response}`);
+          }
         },
         (error) => {
           const resMessage =
@@ -65,12 +79,8 @@ const SignIn = () => {
     } else {
       setLoading(false);
     }
-
-    if (currentUser) {
-      navigate(`/main/${currentUser.id}`);
-
-      window.location.reload();
-    }
+    // navigate(`/main/${currentUser.id}`);
+    // window.location.reload();
   };
 
   return (
@@ -112,7 +122,10 @@ const SignIn = () => {
                 </div>
 
                 <div className="mt-10">
-                  <button className="btn btn-wide btn-info">
+                  <button
+                    // onClick={updateState}
+                    className="btn btn-wide btn-info"
+                  >
                     <span>Login</span>
                   </button>
                 </div>
