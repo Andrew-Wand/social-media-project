@@ -2,6 +2,7 @@ const db = require("../models");
 const Post = db.posts;
 const Like = db.likes;
 const User = db.users;
+const Comment = db.comments;
 
 exports.createPost = (req, res) => {
   return Post.create({
@@ -45,6 +46,7 @@ exports.findAllPosts = async (req, res) => {
     const response = await Post.findAll({
       include: [
         { model: User, as: "user", attributes: ["username"] },
+        { model: Comment, as: "comments" },
         // limit the likes based on the logged in user
         {
           model: Like,

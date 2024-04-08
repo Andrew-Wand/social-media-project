@@ -3,8 +3,9 @@ import AuthService from "../services/auth.service";
 import UserService from "../services/user.service";
 import PostService from "../services/post.service";
 import { Link, useNavigate } from "react-router-dom";
+import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 
-const Home = () => {
+const Home = ({ loggedIn }) => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [allPosts, setAllPosts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
@@ -119,13 +120,13 @@ const Home = () => {
 
   return (
     <>
-      {currentUser ? (
+      {loggedIn || currentUser ? (
         // HOME PAGE if user is logged in
 
         <div className="h-screen bg-slate-400">
           <div className="p-10">
             <h1 className="mb-2 text-black">
-              Welcome back {currentUser.username}
+              Welcome back {currentUser?.username}
             </h1>
             <Link to="/create-post" className="btn">
               Create Post
@@ -147,7 +148,8 @@ const Home = () => {
                   </Link>
                   <p>{post.Text}</p>
 
-                  <p>{post.likes.length}</p>
+                  <p>Likes: {post.likes.length}</p>
+                  <p>Comments: {post.comments.length}</p>
 
                   <form key={i} value={i} onSubmit={handleCreateLike}>
                     {/* <button
@@ -160,18 +162,18 @@ const Home = () => {
                         key={i}
                         value={i}
                         onClick={(e) => getIndex(e, i)}
-                        className="btn"
+                        className=""
                       >
-                        Unlike {i}
+                        <HiMiniHeart className="pointer-events-none text-2xl" />
                       </button>
                     ) : (
                       <button
                         key={i}
                         value={i}
                         onClick={(e) => getIndex(e, i)}
-                        className="btn"
+                        className=" "
                       >
-                        Like {i}
+                        <HiOutlineHeart className="pointer-events-none text-2xl " />
                       </button>
                     )}
 

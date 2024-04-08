@@ -16,7 +16,7 @@ function App() {
       <Navbar loggedIn={loggedIn} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/main/:userId" element={<Home />} />
+        <Route path="/main/:userId" element={<Home loggedIn={loggedIn} />} />
         <Route path="/sign-in" element={<SignIn setLoggedIn={setLoggedIn} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile/:id" element={<Profile />} />

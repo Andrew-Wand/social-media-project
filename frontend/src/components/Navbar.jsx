@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = ({ loggedIn }) => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const user = AuthService.getCurrentUser();
-
+  let navigate = useNavigate();
   const userIdParam = window.location.pathname.slice(-1);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const Navbar = ({ loggedIn }) => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a href="/" className="nav-link" onClick={logOut}>
+                  <a className="nav-link" onClick={logOut}>
                     Log Out
                   </a>
                 </li>
