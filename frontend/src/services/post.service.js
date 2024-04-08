@@ -42,12 +42,16 @@ const getAllLikes = () => {
 
 // Comments
 const postCreateComment = (comment_text, postId, userId, owner) => {
-  return axios.post(API_URL + "create-comment", {
-    comment_text,
-    postId,
-    userId,
-    owner,
-  });
+  return axios
+    .post(API_URL + "create-comment", {
+      comment_text,
+      postId,
+      userId,
+      owner,
+    })
+    .then((response) => {
+      return response.data;
+    });
 };
 
 const PostService = {

@@ -123,7 +123,7 @@ const Home = ({ loggedIn }) => {
       {loggedIn || currentUser ? (
         // HOME PAGE if user is logged in
 
-        <div className="h-screen bg-slate-400">
+        <div className="min-h-screen bg-slate-400 pb-5">
           <div className="p-10">
             <h1 className="mb-2 text-black">
               Welcome back {currentUser?.username}

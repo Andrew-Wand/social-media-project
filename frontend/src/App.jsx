@@ -11,12 +11,16 @@ import CreateComment from "./pages/CreateComment";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <div>
-      <Navbar loggedIn={loggedIn} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/main/:userId" element={<Home loggedIn={loggedIn} />} />
+        <Route
+          path="/main/:userId"
+          element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+        />
         <Route path="/sign-in" element={<SignIn setLoggedIn={setLoggedIn} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile/:id" element={<Profile />} />

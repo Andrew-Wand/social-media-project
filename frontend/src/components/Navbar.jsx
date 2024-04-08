@@ -18,11 +18,11 @@ const Navbar = ({ loggedIn }) => {
     AuthService.logout();
   };
   return (
-    <div>
+    <nav>
       <div className="navbar bg-slate-500 xl:shadow-lg">
         {/* MOBILE */}
         <div className="navbar-start">
-          <div className={loggedIn ? "dropdown" : "hidden"}>
+          <div className={user ? "dropdown" : "hidden"}>
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ const Navbar = ({ loggedIn }) => {
           </li>
         </div>
       )} */}
-    </div>
+    </nav>
   );
 };
 
