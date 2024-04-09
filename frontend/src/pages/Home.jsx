@@ -7,7 +7,7 @@ import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 
 const Home = ({ loggedIn }) => {
   const [currentUser, setCurrentUser] = useState(undefined);
-  const [allPosts, setAllPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState();
   const [allUsers, setAllUsers] = useState([]);
   const [allLikes, setAllLikes] = useState();
   const [singlePost, setSinglePost] = useState([]);
@@ -17,6 +17,8 @@ const Home = ({ loggedIn }) => {
   const [message, setMessage] = useState("");
   const [keyIndex, setKeyIndex] = useState();
   const [isLoading, setIsLoading] = useState(null);
+
+  console.log(allPosts);
 
   const userIdParam = window.location.pathname.slice(-1);
   const navigate = useNavigate();
@@ -38,7 +40,6 @@ const Home = ({ loggedIn }) => {
       console.log(error);
     }
   };
-  console.log(allUsers);
 
   useEffect(() => {
     // const fetchAllLikes = async () => {

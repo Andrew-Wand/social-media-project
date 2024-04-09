@@ -3,7 +3,9 @@ const Post = db.posts;
 const Like = db.likes;
 const User = db.users;
 const Comment = db.comments;
+const Follower = db.followers;
 
+const { Op } = require("sequelize");
 exports.createPost = (req, res) => {
   return Post.create({
     Title: req.body.Title,
@@ -37,15 +39,111 @@ exports.findPostById = async (req, res) => {
   return res.send(post);
 };
 
+// exports.findAllPosts = async (req, res) => {
+//   // return Post.findAll({ include: ["comments"] }).then((post) => {
+//   //   return post;
+//   // });
+
+//   try {
+//     const response = await Promise.all([
+//       await Post.findAll({
+//         include: [
+//           {
+//             model: User,
+//             as: "user",
+//             attributes: ["username"],
+//             include: "userFollowers",
+//           },
+//           { model: Comment, as: "comments" },
+//           // limit the likes based on the logged in user
+//           {
+//             model: Like,
+//             as: "likes",
+//             required: false,
+//             where: { userId: req.params.userId },
+//           },
+//         ],
+//         // include: ["comments", "likes"],
+//         order: [["createdAt", "ASC"]],
+//       }),
+
+//       // await Follower.findAll(),
+//       await Follower.findAll({
+//         attributes: ["followerId"],
+//         where: {
+//           userId: req.params.userId,
+//         },
+//         // include: "userFollowers",
+//       }),
+//     ]);
+
+//     res.status(200).send(response);
+//     // console.log(post);
+//     // return followed;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 exports.findAllPosts = async (req, res) => {
   // return Post.findAll({ include: ["comments"] }).then((post) => {
   //   return post;
   // });
 
   try {
-    const response = await Post.findAll({
+    const response = await Promise.all([
+      await Post.findAll({
+        include: [
+          {
+            model: User,
+            as: "user",
+            attributes: ["username"],
+            include: "userFollowers",
+          },
+          { model: Comment, as: "comments" },
+          // limit the likes based on the logged in user
+          {
+            model: Like,
+            as: "likes",
+            required: false,
+            where: { userId: req.params.userId },
+          },
+        ],
+        // include: ["comments", "likes"],
+        order: [["createdAt", "ASC"]],
+      }),
+
+      // await Follower.findAll(),
+      // await Post.findAll({
+      //   include: {
+      //     model: User,
+      //     as: "user",
+      //     // attributes: ["username"],
+      //     include: "userFollowers",
+      //     where: {
+      //       ["$author.followers.id$"]: userId
+      //    }
+
+      //   },
+      // }),
+      await Follower.findAll({
+        attributes: ["followerId"],
+        where: {
+          userId: req.params.userId,
+        },
+      }),
+    ]);
+
+    const derp = await response.flatMap((x) => x);
+    const result = derp.map((x) => x.followerId);
+
+    const findPost = await Post.findAll({
       include: [
-        { model: User, as: "user", attributes: ["username"] },
+        {
+          model: User,
+          as: "user",
+          attributes: ["username"],
+          include: "userFollowers",
+        },
         { model: Comment, as: "comments" },
         // limit the likes based on the logged in user
         {
@@ -57,14 +155,46 @@ exports.findAllPosts = async (req, res) => {
       ],
       // include: ["comments", "likes"],
       order: [["createdAt", "ASC"]],
+      where: {
+        [Op.or]: [{ userId: result }, { userId: req.params.userId }],
+      },
     });
 
-    res.status(200).send(response);
-    return response;
+    res.status(200).send(findPost);
+    // console.log(post);
+    // return followed;
   } catch (error) {
     console.log(error);
   }
 };
+// exports.getMyFeed = async (req, res) => {
+//   try {
+//     const [user] = await Promise.all([
+//       Follower.findAll(),
+//       // Post.findAll({
+//       //   include: [
+//       //     { model: User, as: "user", attributes: ["username", "userFollowers"] },
+//       //     { model: Comment, as: "comments" },
+//       //     // limit the likes based on the logged in user
+//       //     {
+//       //       model: Like,
+//       //       as: "likes",
+//       //       required: false,
+//       //       where: { userId: req.params.userId },
+//       //     },
+//       //   ],
+//       //   // include: ["comments", "likes"],
+//       //   order: [["createdAt", "ASC"]],
+//       //   where: {},
+//       // }),
+//     ]);
+
+//     res.status(200).send(user);
+//     return user;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 exports.createLike = async (req, res) => {
   // fetch created and post at the same time

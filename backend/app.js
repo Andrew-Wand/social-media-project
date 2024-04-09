@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const run = async (req, res) => {
   // const derp = userController.findAllUsers("1");
   // console.log(derp);
-  const derp = followerController.createFollower("luna", "3", "1");
+  const derp = controller.findAllPosts();
   console.log(derp);
 };
 

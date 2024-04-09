@@ -71,12 +71,13 @@ const Profile = () => {
         </h2>
 
         <form onSubmit={handleFollowSubmit}>
-          {userFollowersFiltered?.map((follower) => (
-            <div>
+          {userFollowersFiltered?.map((follower, i) => (
+            <div key={i}>
               {follower.id === currentUser.id ? (
                 <button className="btn">Unfollow</button>
               ) : (
-                <button>Follow</button>
+                ""
+                // <button>Follow</button>
               )}
             </div>
           ))}
