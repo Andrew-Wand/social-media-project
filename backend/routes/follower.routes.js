@@ -1,5 +1,4 @@
-const { authJwt } = require("../middleware");
-const controller = require("../controllers/user.controller");
+const controller = require("../controllers/follower.controller");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -12,8 +11,5 @@ module.exports = function (app) {
     next();
   });
 
-  // app.get("/test/all", controller.allAccess);
-
-  app.get("/test/findAllUsers", controller.findAllUsers);
-  app.get("/test/findProfileDataById/:profileId", controller.findUserById);
+  app.post("/test/createFollower", controller.createFollower);
 };

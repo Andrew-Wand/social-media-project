@@ -38,6 +38,7 @@ const Home = ({ loggedIn }) => {
       console.log(error);
     }
   };
+  console.log(allUsers);
 
   useEffect(() => {
     // const fetchAllLikes = async () => {

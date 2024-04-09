@@ -14,10 +14,14 @@ const getPublicContent = () => {
 const getAllUsers = () => {
   return axios.get(API_URL + "findAllUsers");
 };
+const getUserById = (profileId) => {
+  return axios.get(API_URL + `findProfileDataById/${profileId}`);
+};
 
 const UserService = {
   getPublicContent,
   getAllUsers,
+  getUserById,
 };
 
 export default UserService;

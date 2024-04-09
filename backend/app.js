@@ -7,6 +7,7 @@ const models = require("./models");
 const controller = require("./controllers/post.controller");
 const userController = require("./controllers/user.controller");
 const commentController = require("./controllers/comment.controller");
+const followerController = require("./controllers/follower.controller");
 const session = require("express-session");
 
 const db = require("./models");
@@ -34,18 +35,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 const run = async (req, res) => {
-  // const post4 = await controller.createPost("2", {
-  //   Title: "My first post teehee!",
-  //   Text: "This will be my first woooo!",
-  // });
-  // const user1 = await userController.findUserById("1");
-  // console.log(user1, JSON.stringify(user1, null, 2));
-
-  // const comment1 = await commentController.createComment("2", "1", {
-  //   comment_text: "This is the first comment!",
-  // });
-  const post1 = await controller.findPostById("1");
-  console.log(post1, JSON.stringify(post1, null, 10));
+  // const derp = userController.findAllUsers("1");
+  // console.log(derp);
+  const derp = followerController.createFollower("luna", "3", "1");
+  console.log(derp);
 };
 
 db.sequelize.sync().then(() => {
@@ -62,5 +55,6 @@ require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
 require("./routes/post.routes")(app);
 require("./routes/comment.routes")(app);
+require("./routes/follower.routes")(app);
 
 module.exports = app;
