@@ -14,7 +14,8 @@ module.exports = function (app) {
 
   app.post("/test/create-post", controller.createPost);
 
-  app.get("/test/getAllPosts/:userId", controller.findAllPosts);
+  app.get("/test/getMyHomeFeed/:userId", controller.getMyHomeFeed);
+  app.get("/test/getAllPosts/:userId", controller.getAllPosts);
   app.get("/test/post/:postId", controller.findPostById);
   app.post("/test/create-like", controller.createLike);
   // app.get("/test/getLikes", controller.getAllLikes);

@@ -5,7 +5,7 @@ import PostService from "../services/post.service";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 
-const AllPosts = () => {
+const UserFeed = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [allPosts, setAllPosts] = useState();
   const [allUsers, setAllUsers] = useState([]);
@@ -32,7 +32,7 @@ const AllPosts = () => {
   // console.log(currentUser);
   const fetchAllPosts = async (id) => {
     try {
-      const allPostList = await PostService.getAllPosts(id);
+      const allPostList = await PostService.getMyHomeFeed(id);
 
       setAllPosts(allPostList.data);
       if (userIdParam !== user.id) {
@@ -138,7 +138,7 @@ const AllPosts = () => {
         >
           Like
         </button> */}
-            {/* {post.likes.length > 0 ? (
+            {post.likes.length > 0 ? (
               <button
                 key={i}
                 value={i}
@@ -156,7 +156,7 @@ const AllPosts = () => {
               >
                 <HiOutlineHeart className="pointer-events-none text-2xl " />
               </button>
-            )} */}
+            )}
 
             {/* {post.likes?.map((like) => (
           <div>
@@ -191,4 +191,4 @@ const AllPosts = () => {
   );
 };
 
-export default AllPosts;
+export default UserFeed;

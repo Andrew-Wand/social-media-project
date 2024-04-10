@@ -4,6 +4,8 @@ import UserService from "../services/user.service";
 import PostService from "../services/post.service";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
+import UserFeed from "../components/UserFeed";
+import AllPosts from "../components/AllPosts";
 
 const Home = ({ loggedIn }) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -17,6 +19,7 @@ const Home = ({ loggedIn }) => {
   const [message, setMessage] = useState("");
   const [keyIndex, setKeyIndex] = useState();
   const [isLoading, setIsLoading] = useState(null);
+  const [homeFeed, setHomeFeed] = useState("myFeed");
 
   let auth = { token: true };
   // console.log(auth);
@@ -33,7 +36,7 @@ const Home = ({ loggedIn }) => {
   // console.log(currentUser);
   const fetchAllPosts = async (id) => {
     try {
-      const allPostList = await PostService.getAllPosts(id);
+      const allPostList = await PostService.getMyHomeFeed(id);
 
       setAllPosts(allPostList.data);
       if (userIdParam !== user.id) {
@@ -121,6 +124,14 @@ const Home = ({ loggedIn }) => {
     setKeyIndex(e.target.value, index);
   };
 
+  // const getMyFeed = () => {
+  //     setHomeFeed('myFeed')
+  // }
+
+  // const getAllPosts = () => {
+
+  // }
+
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
   return (
@@ -136,9 +147,25 @@ const Home = ({ loggedIn }) => {
             <Link to="/create-post" className="btn">
               Create Post
             </Link>
+            <div className="flex justify-evenly mt-10">
+              <button
+                className={homeFeed === "myFeed" ? "btn" : "btn btn-outline"}
+                onClick={() => setHomeFeed("myFeed")}
+              >
+                My Feed
+              </button>
+              <button
+                className={homeFeed === "allPosts" ? "btn" : "btn btn-outline"}
+                onClick={() => setHomeFeed("allPosts")}
+              >
+                Popular
+              </button>
+            </div>
           </div>
           <div>
-            <ul>
+            {homeFeed === "myFeed" ? <UserFeed /> : <AllPosts />}
+
+            {/* <ul>
               {allPosts?.map((post, i) => (
                 <li
                   className="bg-slate-500 text-black my-10 p-10 m-5 rounded-lg shadow-lg"
@@ -146,7 +173,7 @@ const Home = ({ loggedIn }) => {
                 >
                   <Link
                     to={`/post/${post.id}`}
-                    // onClick={() => fetchPostById(post.id)}
+                    onClick={() => fetchPostById(post.id)}
                     className="underline mb-5"
                   >
                     {post.Title}
@@ -157,11 +184,11 @@ const Home = ({ loggedIn }) => {
                   <p>Comments: {post.comments.length}</p>
 
                   <form key={i} value={i} onSubmit={handleCreateLike}>
-                    {/* <button
+                    <button
                       className={post.likes.length === 0 ? "btn" : "btn-lg"}
                     >
                       Like
-                    </button> */}
+                    </button>
                     {post.likes.length > 0 ? (
                       <button
                         key={i}
@@ -182,7 +209,7 @@ const Home = ({ loggedIn }) => {
                       </button>
                     )}
 
-                    {/* {post.likes?.map((like) => (
+                    {post.likes?.map((like) => (
                       <div>
                         <button
                           className="btn"
@@ -200,7 +227,7 @@ const Home = ({ loggedIn }) => {
                           Like
                         </button>
                       </div>
-                    ))} */}
+                    ))}
                   </form>
 
                   <p>
@@ -211,7 +238,7 @@ const Home = ({ loggedIn }) => {
                   </p>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
       ) : (

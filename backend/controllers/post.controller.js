@@ -39,52 +39,34 @@ exports.findPostById = async (req, res) => {
   return res.send(post);
 };
 
-// exports.findAllPosts = async (req, res) => {
-//   // return Post.findAll({ include: ["comments"] }).then((post) => {
-//   //   return post;
-//   // });
+exports.getAllPosts = async (req, res) => {
+  try {
+    const response = await Promise.all([
+      await Post.findAll({
+        include: [
+          { model: Comment, as: "comments" },
+          // limit the likes based on the logged in user
+          {
+            model: Like,
+            as: "likes",
+            required: false,
+            where: { userId: req.params.userId },
+          },
+        ],
+        order: [["createdAt", "ASC"]],
+      }),
+    ]);
 
-//   try {
-//     const response = await Promise.all([
-//       await Post.findAll({
-//         include: [
-//           {
-//             model: User,
-//             as: "user",
-//             attributes: ["username"],
-//             include: "userFollowers",
-//           },
-//           { model: Comment, as: "comments" },
-//           // limit the likes based on the logged in user
-//           {
-//             model: Like,
-//             as: "likes",
-//             required: false,
-//             where: { userId: req.params.userId },
-//           },
-//         ],
-//         // include: ["comments", "likes"],
-//         order: [["createdAt", "ASC"]],
-//       }),
+    const newArr = await response.flatMap((x) => x);
 
-//       // await Follower.findAll(),
-//       await Follower.findAll({
-//         attributes: ["followerId"],
-//         where: {
-//           userId: req.params.userId,
-//         },
-//         // include: "userFollowers",
-//       }),
-//     ]);
-
-//     res.status(200).send(response);
-//     // console.log(post);
-//     // return followed;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-exports.findAllPosts = async (req, res) => {
+    res.status(200).send(newArr);
+    // console.log(post);
+    // return followed;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.getMyHomeFeed = async (req, res) => {
   // return Post.findAll({ include: ["comments"] }).then((post) => {
   //   return post;
   // });
@@ -133,8 +115,8 @@ exports.findAllPosts = async (req, res) => {
       }),
     ]);
 
-    const derp = await response.flatMap((x) => x);
-    const result = derp.map((x) => x.followerId);
+    const newArr = await response.flatMap((x) => x);
+    const result = newArr.map((x) => x.followerId);
 
     const findPost = await Post.findAll({
       include: [

@@ -20,6 +20,9 @@ const postCreatePost = (Title, Text, userId, owner) => {
     });
 };
 
+const getMyHomeFeed = (userId) => {
+  return axios.get(API_URL + `getMyHomeFeed/${userId}`);
+};
 const getAllPosts = (userId) => {
   return axios.get(API_URL + `getAllPosts/${userId}`);
 };
@@ -56,11 +59,12 @@ const postCreateComment = (comment_text, postId, userId, owner) => {
 
 const PostService = {
   postCreatePost,
-  getAllPosts,
+  getMyHomeFeed,
   getSinglePost,
   postCreateComment,
   createLike,
   getAllLikes,
+  getAllPosts,
 };
 
 export default PostService;
