@@ -16,11 +16,12 @@ function App() {
     <div>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route
           path="/main/:userId"
           element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
         />
+        <Route path="/" element={<Home />} />
+
         <Route path="/sign-in" element={<SignIn setLoggedIn={setLoggedIn} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile/:id" element={<Profile />} />

@@ -18,8 +18,8 @@ const Home = ({ loggedIn }) => {
   const [keyIndex, setKeyIndex] = useState();
   const [isLoading, setIsLoading] = useState(null);
 
-  console.log(allPosts);
-
+  let auth = { token: true };
+  // console.log(auth);
   const userIdParam = window.location.pathname.slice(-1);
   const navigate = useNavigate();
   useEffect(() => {
@@ -36,6 +36,9 @@ const Home = ({ loggedIn }) => {
       const allPostList = await PostService.getAllPosts(id);
 
       setAllPosts(allPostList.data);
+      if (userIdParam !== user.id) {
+        navigate(`/main/${user.id}`);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -122,7 +125,7 @@ const Home = ({ loggedIn }) => {
 
   return (
     <>
-      {loggedIn || currentUser ? (
+      {auth ? (
         // HOME PAGE if user is logged in
 
         <div className="min-h-screen bg-slate-400 pb-5">
