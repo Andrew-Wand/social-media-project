@@ -117,7 +117,7 @@ const AllPosts = () => {
     <ul>
       {allPosts?.map((post, i) => (
         <li
-          className="bg-slate-500 text-black my-5 p-10 mx-5 rounded-lg shadow-lg"
+          className="bg-slate-500 text-black my-5 p-10 mx-5 rounded-lg shadow-lg first:mt-3"
           key={i}
         >
           <Link

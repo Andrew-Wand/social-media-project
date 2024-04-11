@@ -22,6 +22,7 @@ const Home = ({ loggedIn }) => {
   const [homeFeed, setHomeFeed] = useState("myFeed");
 
   let auth = { token: true };
+  console.log(auth);
   // console.log(auth);
   const userIdParam = window.location.pathname.slice(-1);
   const navigate = useNavigate();
@@ -135,19 +136,60 @@ const Home = ({ loggedIn }) => {
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
   return (
-    <>
-      {auth ? (
+    <div className=" xl:mx-[27rem]">
+      {currentUser ? (
         // HOME PAGE if user is logged in
 
-        <div className="min-h-screen bg-slate-400 pb-5">
-          <div className="p-10">
-            <h1 className="mb-2 text-black">
-              Welcome back {currentUser?.username}
+        <div className="min-h-screen pb-5">
+          <div className="px-5 ">
+            <h1 className="mt-5 ml-2 text-3xl text-white">
+              {currentUser?.username}'s Feed
             </h1>
-            <Link to="/create-post" className="btn">
-              Create Post
-            </Link>
-            <div className="flex justify-evenly mt-10">
+            <div className="divider"></div>
+
+            <div className="flex justify-between">
+              <div className="">
+                <div
+                  role="tablist"
+                  className="tabs tabs-boxed [--rounded-btn:3px] "
+                >
+                  <a
+                    role="tab"
+                    className={
+                      homeFeed === "myFeed"
+                        ? "tab bg-[#666666] text-[1rem] text-white "
+                        : "tab text-[1rem]"
+                    }
+                    onClick={() => setHomeFeed("myFeed")}
+                  >
+                    My Feed
+                  </a>
+                  <a
+                    role="tab"
+                    className={
+                      homeFeed === "allPosts"
+                        ? "tab bg-[#666666] text-[1rem] text-white "
+                        : "tab text-[1rem] "
+                    }
+                    onClick={() => setHomeFeed("allPosts")}
+                  >
+                    All Posts
+                  </a>
+                </div>
+              </div>
+
+              <div className="mt-2">
+                <Link
+                  to="/create-post"
+                  className="bg-[#fff] p-2 rounded-xl shadow-lg text-black  "
+                >
+                  <span>+ </span>
+                  Create Post
+                </Link>
+              </div>
+            </div>
+
+            {/* <div className="flex justify-evenly mt-10">
               <button
                 className={homeFeed === "myFeed" ? "btn" : "btn btn-outline"}
                 onClick={() => setHomeFeed("myFeed")}
@@ -158,11 +200,11 @@ const Home = ({ loggedIn }) => {
                 className={homeFeed === "allPosts" ? "btn" : "btn btn-outline"}
                 onClick={() => setHomeFeed("allPosts")}
               >
-                Popular
+                All
               </button>
-            </div>
+            </div> */}
           </div>
-          <div>
+          <div className="">
             {homeFeed === "myFeed" ? <UserFeed /> : <AllPosts />}
 
             {/* <ul>
@@ -276,7 +318,7 @@ const Home = ({ loggedIn }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

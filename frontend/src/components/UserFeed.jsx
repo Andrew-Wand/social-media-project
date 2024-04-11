@@ -35,7 +35,10 @@ const UserFeed = () => {
       const allPostList = await PostService.getMyHomeFeed(id);
 
       setAllPosts(allPostList.data);
-      if (userIdParam !== user.id) {
+      if (
+        userIdParam !== user.id &&
+        window.location.pathname === "http://localhost:5173"
+      ) {
         navigate(`/main/${user.id}`);
       }
     } catch (error) {
@@ -117,7 +120,7 @@ const UserFeed = () => {
     <ul>
       {allPosts?.map((post, i) => (
         <li
-          className="bg-slate-500 text-black my-5 p-10 mx-5 rounded-lg shadow-lg"
+          className="bg-slate-500 text-black my-5  p-10 mx-5 rounded-lg shadow-lg first:mt-3"
           key={i}
         >
           <Link
