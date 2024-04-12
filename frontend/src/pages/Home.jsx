@@ -22,7 +22,7 @@ const Home = ({ loggedIn }) => {
   const [homeFeed, setHomeFeed] = useState("myFeed");
 
   let auth = { token: true };
-  console.log(auth);
+
   // console.log(auth);
   const userIdParam = window.location.pathname.slice(-1);
   const navigate = useNavigate();
@@ -35,31 +35,31 @@ const Home = ({ loggedIn }) => {
 
   const user = AuthService.getCurrentUser();
   // console.log(currentUser);
-  const fetchAllPosts = async (id) => {
-    try {
-      const allPostList = await PostService.getMyHomeFeed(id);
+  // const fetchAllPosts = async (id) => {
+  //   try {
+  //     const allPostList = await PostService.getMyHomeFeed(id);
 
-      setAllPosts(allPostList.data);
-      if (userIdParam !== user.id) {
-        navigate(`/main/${user.id}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setAllPosts(allPostList.data);
+  //     if (userIdParam !== user.id) {
+  //       navigate(`/main/${user.id}`);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    // const fetchAllLikes = async () => {
-    //   try {
-    //     const allLikesList = await PostService.getAllLikes();
-    //     setAllLikes(allLikesList.data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-    // fetchAllLikes();
-    fetchAllPosts(userIdParam);
-  }, []);
+  // useEffect(() => {
+  //   // const fetchAllLikes = async () => {
+  //   //   try {
+  //   //     const allLikesList = await PostService.getAllLikes();
+  //   //     setAllLikes(allLikesList.data);
+  //   //   } catch (error) {
+  //   //     console.log(error);
+  //   //   }
+  //   // };
+  //   // fetchAllLikes();
+  //   fetchAllPosts(userIdParam);
+  // }, []);
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -136,16 +136,15 @@ const Home = ({ loggedIn }) => {
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
   return (
-    <div className=" xl:mx-[27rem]">
+    <div className=" xl:mx-[27rem] bg-base-300">
       {currentUser ? (
         // HOME PAGE if user is logged in
 
         <div className="min-h-screen pb-5">
-          <div className="px-5 ">
-            <h1 className="mt-5 ml-2 text-3xl text-white">
+          <div className="px-5">
+            <h1 className="ml-2 mb-5 text-3xl text-white">
               {currentUser?.username}'s Feed
             </h1>
-            <div className="divider"></div>
 
             <div className="flex justify-between">
               <div className="">
@@ -181,10 +180,9 @@ const Home = ({ loggedIn }) => {
               <div className="mt-2">
                 <Link
                   to="/create-post"
-                  className="bg-[#fff] p-2 rounded-xl shadow-lg text-black  "
+                  className="bg-[#fff] px-3 py-2 rounded-2xl shadow-xl text-black  "
                 >
-                  <span>+ </span>
-                  Create Post
+                  <span className="text-lg">+ </span>Create Post
                 </Link>
               </div>
             </div>
@@ -205,6 +203,7 @@ const Home = ({ loggedIn }) => {
             </div> */}
           </div>
           <div className="">
+            <div className="divider h-0 mb-0 "></div>
             {homeFeed === "myFeed" ? <UserFeed /> : <AllPosts />}
 
             {/* <ul>

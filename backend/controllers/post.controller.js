@@ -73,40 +73,27 @@ exports.getMyHomeFeed = async (req, res) => {
 
   try {
     const response = await Promise.all([
-      await Post.findAll({
-        include: [
-          {
-            model: User,
-            as: "user",
-            attributes: ["username"],
-            include: "userFollowers",
-          },
-          { model: Comment, as: "comments" },
-          // limit the likes based on the logged in user
-          {
-            model: Like,
-            as: "likes",
-            required: false,
-            where: { userId: req.params.userId },
-          },
-        ],
-        // include: ["comments", "likes"],
-        order: [["createdAt", "ASC"]],
-      }),
-
-      // await Follower.findAll(),
       // await Post.findAll({
-      //   include: {
-      //     model: User,
-      //     as: "user",
-      //     // attributes: ["username"],
-      //     include: "userFollowers",
-      //     where: {
-      //       ["$author.followers.id$"]: userId
-      //    }
-
-      //   },
+      //   include: [
+      //     {
+      //       model: User,
+      //       as: "user",
+      //       attributes: ["username"],
+      //       include: "userFollowers",
+      //     },
+      //     { model: Comment, as: "comments" },
+      //     // limit the likes based on the logged in user
+      //     {
+      //       model: Like,
+      //       as: "likes",
+      //       required: false,
+      //       where: { userId: req.params.userId },
+      //     },
+      //   ],
+      //   // include: ["comments", "likes"],
+      //   order: [["createdAt", "ASC"]],
       // }),
+
       await Follower.findAll({
         attributes: ["followerId"],
         where: {
@@ -115,7 +102,8 @@ exports.getMyHomeFeed = async (req, res) => {
       }),
     ]);
 
-    const newArr = await response.flatMap((x) => x);
+    const newArr = response.flatMap((x) => x);
+
     const result = newArr.map((x) => x.followerId);
 
     const findPost = await Post.findAll({
