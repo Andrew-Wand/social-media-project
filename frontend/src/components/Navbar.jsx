@@ -133,14 +133,14 @@ const Navbar = ({ loggedIn }) => {
         <ul className="menu text-lg ">
           <li className="">
             {user ? (
-              <Link to={`/main/${user.id}`}>
+              <Link to={`/main/${user.id}`} onClick={closeMobileMenu}>
                 <span className="mr-2">
                   <TbHome className="text-2xl" />
                 </span>
                 Home
               </Link>
             ) : (
-              <Link to={`/`}>
+              <Link to={`/`} onClick={closeMobileMenu}>
                 <span className="mr-2">
                   <TbHome className="text-2xl" />
                 </span>

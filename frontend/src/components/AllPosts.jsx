@@ -139,9 +139,10 @@ const AllPosts = () => {
             </Link>
             <p>{post.Text}</p>
           </div>
-          <div className="flex justify-around mr-10 mb-5">
-            <p className="btn rounded-3xl">Likes: {post.likes.length}</p>
-            <p className="btn rounded-3xl">Comments: {post.comments.length}</p>
+          <div className="flex justify-start mr-10 mb-5">
+            <p className="btn rounded-3xl mx-5">
+              Comments: {post.comments.length}
+            </p>
             <form key={i} value={i} onSubmit={handleCreateLike}>
               {post.likes.length > 0 ? (
                 <button
@@ -150,6 +151,7 @@ const AllPosts = () => {
                   onClick={(e) => getIndex(e, i)}
                   className="btn rounded-full"
                 >
+                  <p className="">{post.likes.length}</p>
                   <HiMiniHeart className="pointer-events-none text-2xl" />
                 </button>
               ) : (
@@ -159,6 +161,7 @@ const AllPosts = () => {
                   onClick={(e) => getIndex(e, i)}
                   className="btn rounded-full"
                 >
+                  <p className="">{post.likes.length}</p>
                   <HiOutlineHeart className="pointer-events-none text-2xl " />
                 </button>
               )}
