@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 import UserFeed from "../components/UserFeed";
 import AllPosts from "../components/AllPosts";
+import Pic from "../assets/undraw_blog_post_re_fy5x.svg";
 
 const Home = ({ loggedIn }) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -136,13 +137,13 @@ const Home = ({ loggedIn }) => {
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
   return (
-    <div className=" xl:mx-[27rem] bg-base-300">
+    <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full  ">
       {currentUser ? (
         // HOME PAGE if user is logged in
 
-        <div className="min-h-screen pb-5">
+        <div className="min-h-screen pb-5 xl:mx-[27rem]">
           <div className="px-5">
-            <h1 className="ml-2 mb-5 text-3xl text-white">
+            <h1 className="ml-2 mb-5 text-3xl text-white xl:pt-5">
               {currentUser?.username}'s Feed
             </h1>
 
@@ -284,20 +285,31 @@ const Home = ({ loggedIn }) => {
         </div>
       ) : (
         // HOME PAGE if user is logged out
-        <div className="container xl:min-w-full h-screen bg-slate-400 flex justify-center items-center">
-          <div className="card w-96 bg-base-100 shadow-xl h-[25rem]">
-            <header className="mt-20">
-              <h1 className="card-title justify-center text-2xl">
-                Welcome to Chat Room!
-              </h1>
-            </header>
 
-            <div className="card-body items-center justify-center text-center">
-              <div className="card-actions">
+        <div className="hero bg-base-300 text-white requires-no-scroll ">
+          <div className="hero-content flex-col lg:flex-row text-left xl:mt-36">
+            <div className="text-center lg:text-right lg:mr-[18rem]">
+              <div className="xl:w-[22rem] xl:top-[30%] w-[20rem] hidden xl:block">
+                <img className="xl:h-[22rem]" src={Pic} alt="" />
+              </div>
+            </div>
+            <div className="card shrink-0 w-full max-w-md xl:min-w-fit bg-base-300">
+              <div className="card-body">
                 <div>
+                  <header className="mt-5 mb-10  ">
+                    <h1 className="text-4xl xl:text-[4.3rem]">
+                      Welcome to MyBlog!
+                    </h1>
+                  </header>
+                </div>
+                <div className="xl:flex">
                   <ul>
+                    <p className="text-2xl mb-5">Blog today.</p>
                     <li className="">
-                      <Link to={"/sign-in"} className="btn btn-wide btn-info">
+                      <Link
+                        to={"/sign-in"}
+                        className="btn btn-wide xl:btn-sm xl:h-[2.5rem] xl:w-[18rem] w-[20rem] rounded-full  btn-info"
+                      >
                         Login
                       </Link>
                     </li>
@@ -305,7 +317,7 @@ const Home = ({ loggedIn }) => {
                     <li className="">
                       <Link
                         to={"/register"}
-                        className="btn btn-wide btn-neutral"
+                        className="btn btn-wide xl:btn-sm xl:w-[18rem] xl:h-[2.5rem] w-[20rem]  btn-neutral rounded-full"
                       >
                         Sign Up
                       </Link>
@@ -315,7 +327,91 @@ const Home = ({ loggedIn }) => {
               </div>
             </div>
           </div>
+          <footer className="footer footer-center p-10 bg-base-300 text-base-content rounded xl:mt-5 fixed bottom-0 left-0 ">
+            <nav className="grid grid-flow-col gap-4">
+              <a className="link link-hover">About us</a>
+              <a className="link link-hover">Contact</a>
+              <a className="link link-hover">Jobs</a>
+              <a className="link link-hover">Press kit</a>
+            </nav>
+            <nav>
+              <div className="grid grid-flow-col gap-4">
+                <a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    className="fill-current"
+                  >
+                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                  </svg>
+                </a>
+                <a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    className="fill-current"
+                  >
+                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                  </svg>
+                </a>
+                <a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    className="fill-current"
+                  >
+                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
+                  </svg>
+                </a>
+              </div>
+            </nav>
+            <aside>
+              <p>
+                Copyright © 2024 - All right reserved by ACME Industries Ltd
+              </p>
+            </aside>
+          </footer>
         </div>
+
+        // <div className=" xl:min-w-full xl:flex xl:min-h-full xl:mb-[20rem] ">
+        //   <div className="xl:w-[25rem] xl:top-[30%]">
+        //     <img className="xl:mt-20" src={Pic} alt="" />
+        //   </div>
+        //   <div className="flex flex-col items-start  ml-8 text-white xl:p-[3rem] xl:items-end xl:ml-18  ">
+        //     <header className="mt-14 mb-14 xl:ml-[6.5rem] xl:text-right">
+        //       <h1 className="text-4xl xl:text-[3rem]">Welcome to MyBlog!</h1>
+        //     </header>
+
+        //     <div>
+        //       <ul>
+        //         <p className="text-2xl mb-5">Blog today.</p>
+        //         <li className="">
+        //           <Link
+        //             to={"/sign-in"}
+        //             className="btn btn-wide rounded-full w-[18rem] btn-info"
+        //           >
+        //             Login
+        //           </Link>
+        //         </li>
+        //         <div className="divider ">or</div>
+        //         <li className="">
+        //           <Link
+        //             to={"/register"}
+        //             className="btn btn-wide w-[18rem] btn-neutral rounded-full"
+        //           >
+        //             Sign Up
+        //           </Link>
+        //         </li>
+        //       </ul>
+        //     </div>
+        //   </div>
+        // </div>
       )}
     </div>
   );

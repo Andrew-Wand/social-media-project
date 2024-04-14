@@ -16,7 +16,6 @@ const Navbar = ({ loggedIn }) => {
     if (user) {
       setCurrentUser(user);
     }
-    user;
   }, []);
 
   const logOut = () => {
@@ -32,8 +31,8 @@ const Navbar = ({ loggedIn }) => {
   };
 
   return (
-    <nav className={currentUser ? "" : "hidden"}>
-      <div className="navbar bg-base-300 shadow-lg xl:bg-transparent xl:shadow-none ">
+    <nav className="bg-base-300">
+      <div className="navbar  shadow-lg xl:bg-transparent xl:shadow-none ">
         {/* Mobile */}
         <div className="navbar-start xl:navbar-start xl:ml-[27rem]">
           {user ? (
@@ -44,13 +43,22 @@ const Navbar = ({ loggedIn }) => {
               MyBlog
             </Link>
           ) : (
-            <Link to={`/`} className="btn btn-ghost text-xl xl:text-3xl">
+            <Link
+              to={`/`}
+              className="btn btn-ghost text-xl xl:text-3xl xl:hidden"
+            >
               MyBlog
             </Link>
           )}
         </div>
         <div className="navbar-end">
-          <label className="btn btn-ghost text-white swap swap-rotate lg:hidden ">
+          <label
+            className={
+              user
+                ? "btn btn-ghost text-white swap swap-rotate lg:hidden "
+                : "btn btn-ghost text-white swap swap-rotate lg:hidden hidden "
+            }
+          >
             {/* this hidden checkbox controls the state */}
             {!isOpen ? (
               <input type="checkbox" onClick={openMobileMenu} id="hamburger" />
@@ -89,7 +97,7 @@ const Navbar = ({ loggedIn }) => {
         {/* DESKTOP */}
         <div className="xl:navbar-end hidden xl:flex xl:mr-[27rem] ">
           <ul className="menu menu-horizontal px-1 xl:text-[1.1rem]">
-            {currentUser ? (
+            {user ? (
               // User is logged in
               <>
                 <li className="nav-item">
@@ -106,13 +114,13 @@ const Navbar = ({ loggedIn }) => {
             ) : (
               // No user logged in
               <>
-                <li className="nav-item">
+                <li className="nav-item  xl:hidden">
                   <Link to={"/sign-in"} className="nav-link">
                     Login
                   </Link>
                 </li>
 
-                <li className="nav-item">
+                <li className="nav-item  xl:hidden">
                   <Link to={"/register"} className="nav-link">
                     Sign Up
                   </Link>
