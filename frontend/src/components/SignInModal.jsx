@@ -158,7 +158,6 @@ const SignInModal = ({ onLogin }) => {
                 </button>
               </div>
 
-              {message && <div>{message}</div>}
               <CheckButton ref={checkBtn} style={{ display: "none" }} />
             </Form>
 
@@ -183,6 +182,13 @@ const SignInModal = ({ onLogin }) => {
             </form>
           </div>
         </div>
+        {message && (
+          <div className="toast toast-center">
+            <div className="alert alert-info">
+              <span>{message}</span>
+            </div>
+          </div>
+        )}
       </dialog>
     </>
   );

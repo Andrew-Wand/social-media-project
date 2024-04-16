@@ -82,31 +82,56 @@ const CreatePost = () => {
             </h1>
           ))}
         </header> */}
-      <Link
-        to={`/main/${id}`}
-        className="btn btn-info text-lg mb-5 ml-[3.4rem]"
-      >
-        Back
-      </Link>
-      <form onSubmit={handleCreatePost}>
-        <div>
-          <input type="text" onChange={postTitleOnChange} />
-        </div>
-        <div className="flex justify-center">
-          <textarea
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-            onChange={postTextOnChange}
-            placeholder="Type message here..."
-            className="textarea textarea-bordered textarea-lg w-full max-w-xs bg-white border-black border-2 text-black"
-          ></textarea>
-        </div>
-        <div className="flex justify-center">
-          <button className=" btn mt-5 btn-secondary">Send</button>
-        </div>
-      </form>
+      <div className="flex justify-between mx-5 mt-5 mb-2">
+        <Link to={`/main/${id}`} className="">
+          <button className="btn btn-square btn-ghost">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="3"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </Link>
+        <button className=" btn btn-default rounded-full">Send</button>
+      </div>
+      <div className="divider p-2 m-0  "></div>
+      <div className="flex flex-col items-start w-[26.2rem] ml-1 ">
+        <form onSubmit={handleCreatePost} className="w-full">
+          <div className="">
+            <input
+              type="text "
+              placeholder="Add title here"
+              onChange={postTitleOnChange}
+              className="w-full p-2 outline-none bg-transparent"
+            />
+          </div>
+          <div className="divider m-0 p-3"></div>
+          <div className="">
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              onChange={postTextOnChange}
+              placeholder="Type message here..."
+              className=" w-full p-2  text-white outline-none bg-transparent"
+            ></textarea>
+          </div>
+          <div className="divider"></div>
+          {/* <div className="flex justify-center">
+            <button className=" btn mt-5 btn-secondary">Send</button>
+          </div> */}
+        </form>
+      </div>
     </div>
   );
 };

@@ -28,7 +28,9 @@ exports.signin = (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: "User not found." });
+        return res
+          .status(404)
+          .send({ message: "Username or password not found. Try again." });
       }
 
       let passwordIsValid = bcrypt.compareSync(
@@ -39,7 +41,7 @@ exports.signin = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-          message: "Invalid Password!",
+          message: "Username or password not found. Try again.",
         });
       }
 
