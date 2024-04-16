@@ -58,6 +58,7 @@ const RegisterModal = () => {
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+  const [isFirstRender, setIsFirstRender] = useState(false);
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -143,7 +144,7 @@ const RegisterModal = () => {
                   onChange={onChangeUsername}
                   validations={[required, vusername]}
                   autoComplete="off"
-                  autoFocus="false"
+                  autoFocus={isFirstRender ? true : false}
                   className="input input-bordered  shadow-lg mt-2 h-[2.5rem]"
                 />
               </div>
