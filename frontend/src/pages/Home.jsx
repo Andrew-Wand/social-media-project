@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import AuthService from "../services/auth.service";
 import UserService from "../services/user.service";
 import PostService from "../services/post.service";
@@ -7,8 +7,10 @@ import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 import UserFeed from "../components/UserFeed";
 import AllPosts from "../components/AllPosts";
 import Pic from "../assets/undraw_blog_post_re_fy5x.svg";
+import SignInModal from "../components/SignInModal";
+import RegisterModal from "../components/RegisterModal";
 
-const Home = ({ loggedIn }) => {
+const Home = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [allPosts, setAllPosts] = useState();
   const [allUsers, setAllUsers] = useState([]);
@@ -294,7 +296,7 @@ const Home = ({ loggedIn }) => {
               </div>
             </div>
             <div className="card shrink-0 w-full max-w-md xl:min-w-fit bg-base-300">
-              <div className="card-body">
+              <div className="card-body p-0">
                 <div>
                   <header className="mt-5 mb-10  ">
                     <h1 className="text-4xl xl:text-[4.3rem]">
@@ -306,21 +308,24 @@ const Home = ({ loggedIn }) => {
                   <ul>
                     <p className="text-2xl mb-5">Blog today.</p>
                     <li className="">
-                      <Link
+                      <SignInModal />
+
+                      {/* <Link
                         to={"/sign-in"}
                         className="btn btn-wide xl:btn-sm xl:h-[2.5rem] xl:w-[18rem] w-[20rem] rounded-full  btn-info"
                       >
                         Login
-                      </Link>
+                      </Link> */}
                     </li>
                     <div className="divider">or</div>
                     <li className="">
-                      <Link
+                      <RegisterModal />
+                      {/* <Link
                         to={"/register"}
                         className="btn btn-wide xl:btn-sm xl:w-[18rem] xl:h-[2.5rem] w-[20rem]  btn-neutral rounded-full"
                       >
                         Sign Up
-                      </Link>
+                      </Link> */}
                     </li>
                   </ul>
                 </div>

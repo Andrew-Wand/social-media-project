@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
@@ -8,9 +8,18 @@ import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
 import SinglePost from "./pages/SinglePost";
 import CreateComment from "./pages/CreateComment";
+import SignInModal from "./components/SignInModal";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const onLogin = useCallback(() => {
+    setLoggedIn(true);
+  }, [loggedIn]);
+
+  const onLogout = useCallback(() => {
+    setLoggedIn(false);
+  }, [loggedIn]);
 
   return (
     <div>
