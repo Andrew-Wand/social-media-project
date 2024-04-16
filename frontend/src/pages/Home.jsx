@@ -287,8 +287,8 @@ const Home = ({ loggedIn }) => {
         // HOME PAGE if user is logged out
 
         <div className="hero bg-base-300 text-white requires-no-scroll ">
-          <div className="hero-content flex-col lg:flex-row text-left xl:mt-36">
-            <div className="text-center lg:text-right lg:mr-[18rem]">
+          <div className="hero-content flex-col lg:flex-row text-left xl:mt-48">
+            <div className="text-center lg:text-right lg:mr-[10rem] lg:ml-[10rem]">
               <div className="xl:w-[22rem] xl:top-[30%] w-[20rem] hidden xl:block">
                 <img className="xl:h-[22rem]" src={Pic} alt="" />
               </div>

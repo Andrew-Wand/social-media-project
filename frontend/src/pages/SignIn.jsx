@@ -86,9 +86,9 @@ const SignIn = ({ setLoggedIn }) => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-slate-400">
-      <div className="card w-96 bg-base-200 shadow-xl h-[32rem]">
-        <header className="mt-14">
+    <div className="min-h-screen flex justify-center items-start bg-base-300">
+      <div className="card w-96 bg-base-300  h-[32rem]">
+        <header className="mt-48">
           <h1 className="card-title justify-center text-2xl">Log In</h1>
         </header>
 
