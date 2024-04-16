@@ -9,7 +9,13 @@ import AuthService from "../services/auth.service";
 
 const required = (value) => {
   if (!value) {
-    return <div role="alert">This field is required!</div>;
+    return (
+      <div className="label">
+        <span className="label-text text-[#bd5664]">
+          Please fill out this field
+        </span>
+      </div>
+    );
   }
 };
 
@@ -97,8 +103,10 @@ const SignInModal = ({ onLogin }) => {
         className="modal modal-bottom sm:modal-middle"
         open=""
       >
-        <div className="modal-box h-[60%]">
-          <h3 className="font-bold text-2xl ml-[3.8rem] ">Log In!</h3>
+        <div className="modal-box h-[60%] xl:h-[37rem] xl:w-[50rem]">
+          <h3 className="font-bold text-2xl ml-[3.8rem] xl:ml-[6.5rem] ">
+            Log In
+          </h3>
           {/* <p className="py-4">
             Press ESC key or click the button below to close
           </p> */}
@@ -115,7 +123,7 @@ const SignInModal = ({ onLogin }) => {
                   onChange={onChangeUsername}
                   validations={[required]}
                   autoComplete="off"
-                  className="input input-bordered  shadow-lg mt-2 "
+                  className="input input-bordered shadow-lg mt-2"
                 />
               </div>
               <div className="mt-3">
@@ -146,7 +154,7 @@ const SignInModal = ({ onLogin }) => {
                   className="btn btn-wide btn-neutral"
                   onClick={openSignUpModal}
                 >
-                  Sign In
+                  Sign Up
                 </button>
               </div>
 
@@ -156,7 +164,22 @@ const SignInModal = ({ onLogin }) => {
 
             <form method="dialog" className="absolute top-5 right-5">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn rounded-full">X</button>
+              <button className="btn btn-circle">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
             </form>
           </div>
         </div>

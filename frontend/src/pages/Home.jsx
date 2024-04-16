@@ -291,8 +291,12 @@ const Home = () => {
         <div className="hero bg-base-300 text-white requires-no-scroll ">
           <div className="hero-content flex-col lg:flex-row text-left xl:mt-48">
             <div className="text-center lg:text-right lg:mr-[10rem] lg:ml-[10rem]">
-              <div className="xl:w-[22rem] xl:top-[30%] w-[20rem] hidden xl:block">
-                <img className="xl:h-[22rem]" src={Pic} alt="" />
+              <div className="xl:w-[22rem] xl:top-[30%] w-[20rem] xl:block">
+                <img
+                  className="xl:h-[22rem] h-[15rem] ml-10"
+                  src={Pic}
+                  alt=""
+                />
               </div>
             </div>
             <div className="card shrink-0 w-full max-w-md xl:min-w-fit bg-base-300">
