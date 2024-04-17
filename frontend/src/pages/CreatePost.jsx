@@ -74,7 +74,7 @@ const CreatePost = () => {
   // });
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen xl:mx-[30rem]">
       {/* <header>
           {filteredUserList.map((user, i) => (
             <h1 className="text-center text-3xl mb-5 mt-5" key={i}>
@@ -82,7 +82,7 @@ const CreatePost = () => {
             </h1>
           ))}
         </header> */}
-      <div className="flex justify-between mx-5 mt-5 mb-2">
+      <div className="flex justify-between mx-5 mt-5 mb-2 xl:hidden">
         <Link to={`/main/${id}`} className="">
           <button className="btn btn-square btn-ghost">
             <svg
@@ -103,18 +103,22 @@ const CreatePost = () => {
         </Link>
         <button className=" btn btn-default rounded-full">Send</button>
       </div>
-      <div className="divider p-2 m-0  "></div>
-      <div className="flex flex-col items-start w-[26.2rem] ml-1 ">
+
+      <div>
+        <h2 className="text-3xl mt-10 hidden xl:block">Create Post</h2>
+      </div>
+      <div className="divider p-2 m-0 xl:p-0 xl:mb-3"></div>
+      <div className="flex flex-col items-start w-[26.2rem] xl:w-full ml-1 xl:ml-0 xl:bg-base-300 xl:rounded-xl xl:shadow-lg xl:p-5">
         <form onSubmit={handleCreatePost} className="w-full">
           <div className="">
             <input
               type="text "
               placeholder="Add title here"
               onChange={postTitleOnChange}
-              className="w-full p-2 outline-none bg-transparent"
+              className="w-full p-2 outline-none bg-transparent xl:input xl:input-bordered xl:mb-2 text-white xl:focus:outline-white "
             />
           </div>
-          <div className="divider m-0 p-3"></div>
+          <div className="divider m-0 p-3 xl:hidden"></div>
           <div className="">
             <textarea
               name=""
@@ -123,13 +127,21 @@ const CreatePost = () => {
               rows="10"
               onChange={postTextOnChange}
               placeholder="Type message here..."
-              className=" w-full p-2  text-white outline-none bg-transparent"
+              className=" w-full p-2  text-white outline-none bg-transparent xl:textarea xl:textarea-bordered xl:text-md xl:focus:outline-white"
             ></textarea>
           </div>
           <div className="divider"></div>
           {/* <div className="flex justify-center">
             <button className=" btn mt-5 btn-secondary">Send</button>
           </div> */}
+          <div className="justify-end hidden xl:flex">
+            <Link to={`/main/${id}`} className="">
+              <button className="btn rounded-full btn-neutral mr-5">
+                Cancel
+              </button>
+            </Link>
+            <button className=" btn btn-default rounded-full">Send</button>
+          </div>
         </form>
       </div>
     </div>

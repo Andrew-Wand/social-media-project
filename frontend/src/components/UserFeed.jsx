@@ -125,59 +125,60 @@ const UserFeed = () => {
   return (
     <ul>
       {allPosts?.map((post, i) => (
-        <li
-          className="bg-transparent text-white xl:mx-5 w-full first:mt-3"
-          key={i}
-        >
-          <div className="flex ml-6 mt-3 text-sm">
-            <Link to={`/profile/${post.userId}`} className="link">
-              {post.owner}
-            </Link>
-            <p className="mx-2">•</p>
-            <p className="">{`${moment(post.createdAt).format("L")}`}</p>
-          </div>
+        <>
+          <li
+            className="bg-transparent text-white  w-full first:mt-3 xl:hover:bg-base-100 xl:py-2 xl:rounded-xl xl:cursor-pointer"
+            key={i}
+          >
+            <div className="flex ml-6 mt-3 text-sm">
+              <Link to={`/profile/${post.userId}`} className="link">
+                {post.owner}
+              </Link>
+              <p className="mx-2">•</p>
+              <p className="">{`${moment(post.createdAt).format("L")}`}</p>
+            </div>
 
-          <div className="text-lg ml-6 my-5">
-            <Link
-              to={`/post/${post.id}`}
-              // onClick={() => fetchPostById(post.id)}
-              className="underline mb-5"
-            >
-              {post.Title}
-            </Link>
-            <p>{post.Text}</p>
-          </div>
-          <div className="flex justify-start mr-10 mb-5">
-            <p className="btn rounded-3xl mx-5">
-              Comments: {post.comments.length}
-            </p>
-            <form key={i} value={i} onSubmit={handleCreateLike}>
-              {post.likes.length > 0 ? (
-                <button
-                  key={i}
-                  value={i}
-                  onClick={(e) => getIndex(e, i)}
-                  className="btn rounded-full"
-                >
-                  <p className="">{post.likes.length}</p>
-                  <HiMiniHeart className="pointer-events-none text-2xl" />
-                </button>
-              ) : (
-                <button
-                  key={i}
-                  value={i}
-                  onClick={(e) => getIndex(e, i)}
-                  className="btn rounded-full"
-                >
-                  <p className="">{post.likes.length}</p>
-                  <HiOutlineHeart className="pointer-events-none text-2xl " />
-                </button>
-              )}
-            </form>
-          </div>
-
-          <hr className="border-b-solid border-b-[.0625rem] border-[#242c2e]" />
-        </li>
+            <div className="text-lg ml-6 my-5">
+              <Link
+                to={`/post/${post.id}`}
+                // onClick={() => fetchPostById(post.id)}
+                className="underline mb-5"
+              >
+                {post.Title}
+              </Link>
+              <p>{post.Text}</p>
+            </div>
+            <div className="flex justify-start mr-10 mb-5">
+              <p className="btn rounded-3xl mx-5">
+                Comments: {post.comments.length}
+              </p>
+              <form key={i} value={i} onSubmit={handleCreateLike}>
+                {post.likes.length > 0 ? (
+                  <button
+                    key={i}
+                    value={i}
+                    onClick={(e) => getIndex(e, i)}
+                    className="btn rounded-full"
+                  >
+                    <p className="">{post.likes.length}</p>
+                    <HiMiniHeart className="pointer-events-none text-2xl" />
+                  </button>
+                ) : (
+                  <button
+                    key={i}
+                    value={i}
+                    onClick={(e) => getIndex(e, i)}
+                    className="btn rounded-full"
+                  >
+                    <p className="">{post.likes.length}</p>
+                    <HiOutlineHeart className="pointer-events-none text-2xl " />
+                  </button>
+                )}
+              </form>
+            </div>
+          </li>
+          <hr className="border-b-solid border-b-[.0625rem] border-[#242c2e] xl:my-2" />
+        </>
       ))}
     </ul>
   );
