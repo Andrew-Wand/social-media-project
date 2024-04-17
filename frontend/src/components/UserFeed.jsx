@@ -82,9 +82,10 @@ const UserFeed = () => {
     // setKeyIndex(e.target.getAttribute("key"));
     // console.log(e.target.entry, index);
     const userId = user.id;
-    const fart = Number(keyIndex) + 1;
+    const fart = Number(keyIndex);
     const like = likeCount + 1;
     setIsLoading(true);
+    console.log(fart);
 
     PostService.createLike(like, fart, userId).then(
       (response) => {
@@ -118,7 +119,7 @@ const UserFeed = () => {
     setKeyIndex(e.target.value, index);
   };
 
-  // console.log(allPosts);
+  console.log(allPosts);
 
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
@@ -156,7 +157,7 @@ const UserFeed = () => {
                 {post.likes.length > 0 ? (
                   <button
                     key={i}
-                    value={i}
+                    value={post.id}
                     onClick={(e) => getIndex(e, i)}
                     className="btn rounded-full"
                   >
@@ -166,7 +167,7 @@ const UserFeed = () => {
                 ) : (
                   <button
                     key={i}
-                    value={i}
+                    value={post.id}
                     onClick={(e) => getIndex(e, i)}
                     className="btn rounded-full"
                   >

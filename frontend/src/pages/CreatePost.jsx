@@ -101,7 +101,6 @@ const CreatePost = () => {
             </svg>
           </button>
         </Link>
-        <button className=" btn btn-default rounded-full">Send</button>
       </div>
 
       <div>
@@ -110,6 +109,9 @@ const CreatePost = () => {
       <div className="divider p-2 m-0 xl:p-0 xl:mb-3"></div>
       <div className="flex flex-col items-start w-[26.2rem] xl:w-full ml-1 xl:ml-0 xl:bg-base-300 xl:rounded-xl xl:shadow-lg xl:p-5">
         <form onSubmit={handleCreatePost} className="w-full">
+          <button className=" btn btn-default rounded-full absolute top-[5.2rem] right-5">
+            Send
+          </button>
           <div className="">
             <input
               type="text "
@@ -140,7 +142,7 @@ const CreatePost = () => {
                 Cancel
               </button>
             </Link>
-            <button className=" btn btn-default rounded-full">Send</button>
+            <button className="btn btn-default rounded-full">Send</button>
           </div>
         </form>
       </div>

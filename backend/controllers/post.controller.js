@@ -34,7 +34,7 @@ exports.createPost = (req, res) => {
 // };
 exports.findPostById = async (req, res) => {
   const post = await Post.findByPk(req.params.postId, {
-    include: ["comments"],
+    include: ["comments", "likes"],
   });
   return res.send(post);
 };
