@@ -22,25 +22,25 @@ const SinglePost = () => {
   };
   useEffect(() => {
     fetchPostById(postIdParam);
-  }, [successful]);
+  }, []);
 
   console.log(singlePost);
 
   return (
-    <div>
+    <div className="xl:mx-[30rem]">
       <div className="flex flex-col p-5">
         <div className="flex text-sm mb-2">
-          <Link to={`/profile/${singlePost.userId}`} className="link">
-            {singlePost.owner}
+          <Link to={`/profile/${singlePost?.userId}`} className="link">
+            {singlePost?.owner}
           </Link>
           <p className="mx-2">•</p>
-          <p className="">{`${moment(singlePost.createdAt).format("L")}`}</p>
+          <p className="">{`${moment(singlePost?.createdAt).format("L")}`}</p>
         </div>
         <div>
           <h1 className="font-bold text-white text-xl mb-7">
-            {singlePost.Title}
+            {singlePost?.Title}
           </h1>
-          <p className="">{singlePost.Text}</p>
+          <p className="">{singlePost?.Text}</p>
         </div>
 
         {/* {singlePost.map((post, i) => (
@@ -51,11 +51,11 @@ const SinglePost = () => {
         <div>
           <div className="flex ">
             <p className="btn rounded-3xl mr-5">
-              <FaRegCommentAlt className="text-xl" />
-              {singlePost?.comments.length}
+              <FaRegCommentAlt className="text-lg" />
+              {singlePost?.comments?.length}
             </p>
             <form>
-              {singlePost?.likes.length > 0 ? (
+              {singlePost?.likes?.length > 0 ? (
                 <button
                   // key={i}
                   // value={i}
@@ -63,7 +63,7 @@ const SinglePost = () => {
                   className="btn rounded-full"
                 >
                   <HiMiniHeart className="pointer-events-none text-2xl " />
-                  <p className="">{singlePost?.likes.length}</p>
+                  <p className="">{singlePost?.likes?.length}</p>
                 </button>
               ) : (
                 <button
@@ -73,7 +73,7 @@ const SinglePost = () => {
                   className="btn rounded-full"
                 >
                   <HiOutlineHeart className="pointer-events-none text-2xl text-slate-300 " />
-                  <p className="">{singlePost?.likes.length}</p>
+                  <p className="">{singlePost?.likes?.length}</p>
                 </button>
               )}
             </form>
@@ -83,7 +83,7 @@ const SinglePost = () => {
 
       <div className="flex justify-center mb-10 ">
         <Link
-          className="btn btn-wide w-11/12 rounded-full btn-outline"
+          className="btn btn-wide w-11/12 rounded-full btn-outline xl:w-5/12"
           to={`/create-comment/${postIdParam}`}
         >
           Create comment
@@ -93,8 +93,8 @@ const SinglePost = () => {
       <div>
         <p className="ml-5">Comments:</p>
         <ul className="p-5">
-          {singlePost.comments &&
-            singlePost.comments.map((comment, i) => (
+          {singlePost?.comments &&
+            singlePost?.comments.map((comment, i) => (
               <li key={i}>
                 <p>{comment.comment_text}</p>
                 <span>- </span>
