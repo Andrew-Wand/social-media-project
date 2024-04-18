@@ -31,8 +31,8 @@ const Navbar = ({ loggedIn }) => {
   };
 
   return (
-    <nav className="bg-base-300">
-      <div className="navbar  shadow-lg xl:bg-transparent xl:shadow-none ">
+    <nav className="bg-base-300 border-b-2 border-b-neutral-500/50">
+      <div className="navbar shadow-lg xl:bg-transparent xl:shadow-none ">
         {/* Mobile */}
         <div className="navbar-start xl:navbar-start xl:ml-[27rem]">
           {user ? (

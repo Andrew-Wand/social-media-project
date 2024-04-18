@@ -144,7 +144,7 @@ const Home = () => {
         // HOME PAGE if user is logged in
 
         <div className="min-h-screen pb-5 xl:mx-[32rem] xl:border-x-2 xl:border-x-neutral-500/50">
-          <div className="px-5">
+          <div className="px-5 pt-16">
             <h1 className="ml-2 mb-5 text-3xl text-white xl:pt-5">
               {currentUser?.username}'s Feed
             </h1>
