@@ -74,77 +74,73 @@ const CreatePost = () => {
   // });
 
   return (
-    <div className="min-h-screen xl:mx-[30rem]">
-      {/* <header>
-          {filteredUserList.map((user, i) => (
-            <h1 className="text-center text-3xl mb-5 mt-5" key={i}>
-              Message {user.username}
-            </h1>
-          ))}
-        </header> */}
-      <div className="flex justify-between mx-5 mt-5 mb-2 xl:hidden">
-        <Link to={`/main/${id}`} className="">
-          <button className="btn btn-square btn-ghost">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="3"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </Link>
-      </div>
+    <div className="bg-base-300">
+      <div className="min-h-screen xl:mx-[30rem] xl:pt-10">
+        <div>
+          <h2 className="text-3xl mt-10 mb-5 ml-2 hidden xl:block xl:underline">
+            Create Post
+          </h2>
+        </div>
 
-      <div>
-        <h2 className="text-3xl mt-10 hidden xl:block">Create Post</h2>
-      </div>
-      <div className="divider p-2 m-0 xl:p-0 xl:mb-3"></div>
-      <div className="flex flex-col items-start w-[26.2rem] xl:w-full ml-1 xl:ml-0 xl:bg-base-300 xl:rounded-xl xl:shadow-lg xl:p-5">
-        <form onSubmit={handleCreatePost} className="w-full">
-          <button className=" btn btn-default rounded-full absolute top-[5.2rem] right-5">
-            Send
-          </button>
-          <div className="">
-            <input
-              type="text "
-              placeholder="Add title here"
-              onChange={postTitleOnChange}
-              className="w-full p-2 outline-none bg-transparent xl:input xl:input-bordered xl:mb-2 text-white xl:focus:outline-white "
-            />
-          </div>
-          <div className="divider m-0 p-3 xl:hidden"></div>
-          <div className="">
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              onChange={postTextOnChange}
-              placeholder="Type message here..."
-              className=" w-full p-2  text-white outline-none bg-transparent xl:textarea xl:textarea-bordered xl:text-md xl:focus:outline-white"
-            ></textarea>
-          </div>
-          <div className="divider"></div>
-          {/* <div className="flex justify-center">
+        <div className="flex flex-col items-start max-w-screen xl:w-full  xl:ml-0 xl:bg-base-100 xl:rounded-xl xl:shadow-lg xl:p-5">
+          <form onSubmit={handleCreatePost} className="w-full">
+            <div className="flex justify-between items-center  xl:hidden pt-2 pb-1 px-6 ml-2">
+              <Link to={`/main/${id}`} className="">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="3"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </Link>
+              <button className=" btn btn-default rounded-full  right-5 xl:hidden">
+                Send
+              </button>
+            </div>
+            <div className="divider m-0 xl:p-0 xl:mb-3"></div>
+
+            <div className="">
+              <input
+                type="text "
+                placeholder="Add title here"
+                onChange={postTitleOnChange}
+                className="w-full p-2 outline-none bg-transparent xl:input xl:input-bordered xl:mb-2 text-white xl:focus:outline-white"
+              />
+            </div>
+            <div className="divider m-0 xl:hidden"></div>
+            <div className="">
+              <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                onChange={postTextOnChange}
+                placeholder="Type message here..."
+                className=" w-full p-2  text-white outline-none bg-transparent xl:textarea xl:textarea-bordered xl:text-md xl:focus:outline-white "
+              ></textarea>
+            </div>
+            <div className="divider"></div>
+            {/* <div className="flex justify-center">
             <button className=" btn mt-5 btn-secondary">Send</button>
           </div> */}
-          <div className="justify-end hidden xl:flex">
-            <Link to={`/main/${id}`} className="">
-              <button className="btn rounded-full btn-neutral mr-5">
-                Cancel
-              </button>
-            </Link>
-            <button className="btn btn-default rounded-full">Send</button>
-          </div>
-        </form>
+            <div className="justify-end hidden xl:flex">
+              <Link to={`/main/${id}`} className="">
+                <button className="btn rounded-full btn-neutral mr-5">
+                  Cancel
+                </button>
+              </Link>
+              <button className="btn btn-default rounded-full">Send</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
