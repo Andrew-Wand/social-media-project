@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.users;
 const Follower = db.followers;
+const Post = db.posts;
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -19,7 +20,7 @@ exports.allAccess = (req, res) => {
 exports.findUserById = async (req, res) => {
   const user = await User.findByPk(req.params.profileId, {
     include: [
-      "posts",
+      // "posts",
       {
         model: User,
         as: "userFollowers",
@@ -27,6 +28,11 @@ exports.findUserById = async (req, res) => {
         through: {
           attributes: [],
         },
+      },
+      {
+        model: Post,
+        as: "posts",
+        include: ["comments"],
       },
     ],
   });
