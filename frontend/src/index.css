@@ -19,4 +19,12 @@ body:has(.requires-no-scroll) {
 
 
 
+
+  @layer base {
+    html {
+      font-family: "Lato", system-ui, sans-serif;
+    }
+  }
+
+
   

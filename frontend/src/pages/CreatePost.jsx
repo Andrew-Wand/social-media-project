@@ -75,7 +75,7 @@ const CreatePost = () => {
 
   return (
     <div className="bg-base-300">
-      <div className="min-h-screen xl:mx-[30rem] xl:pt-10">
+      <div className="min-h-screen xl:mx-[30rem] xl:pt-10 xl:border-x-2 xl:border-x-neutral-500/50 xl:px-5">
         <div>
           <h2 className="text-3xl mt-10 mb-5 ml-2 hidden xl:block xl:underline">
             Create Post
