@@ -139,11 +139,11 @@ const Home = () => {
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
   return (
-    <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full  ">
+    <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full   ">
       {user ? (
         // HOME PAGE if user is logged in
 
-        <div className="min-h-screen pb-5 xl:mx-[32rem]">
+        <div className="min-h-screen pb-5 xl:mx-[32rem] xl:border-x-2 xl:border-x-neutral-500/50">
           <div className="px-5">
             <h1 className="ml-2 mb-5 text-3xl text-white xl:pt-5">
               {currentUser?.username}'s Feed
