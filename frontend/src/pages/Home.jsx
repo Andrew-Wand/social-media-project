@@ -145,7 +145,7 @@ const Home = () => {
 
         <div className="min-h-screen pb-5 xl:mx-[32rem] xl:border-x-2 xl:border-x-neutral-500/50">
           <div className="px-5 pt-16">
-            <h1 className="ml-2 mb-5 text-3xl text-white xl:pt-5">
+            <h1 className="ml-2 mb-5 text-3xl text-white xl:pt-5 bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
               {currentUser?.username}'s Feed
             </h1>
 
@@ -159,7 +159,7 @@ const Home = () => {
                     role="tab"
                     className={
                       homeFeed === "myFeed"
-                        ? "tab bg-[#666666] text-[1rem] text-white "
+                        ? "tab bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-[1rem] text-black "
                         : "tab text-[1rem]"
                     }
                     onClick={() => setHomeFeed("myFeed")}
@@ -170,7 +170,7 @@ const Home = () => {
                     role="tab"
                     className={
                       homeFeed === "allPosts"
-                        ? "tab bg-[#666666] text-[1rem] text-white "
+                        ? "tab bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-[1rem] text-black "
                         : "tab text-[1rem] "
                     }
                     onClick={() => setHomeFeed("allPosts")}
@@ -183,7 +183,7 @@ const Home = () => {
               <div className="mt-2">
                 <Link
                   to="/create-post"
-                  className="bg-[#fff] px-3 py-2 rounded-2xl shadow-xl text-black  "
+                  className="px-3 py-2 rounded-2xl shadow-xl text-black bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF]  "
                 >
                   <span className="text-lg">+ </span>Create Post
                 </Link>
