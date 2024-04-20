@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { TbHome } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 import { MdLogout } from "react-icons/md";
+import { TbMessage } from "react-icons/tb";
 
 const Navbar = ({ loggedIn }) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -303,6 +304,14 @@ const Navbar = ({ loggedIn }) => {
                     Profile
                   </Link>
                 </li>
+                <li className="nav-item bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent ">
+                  <Link
+                    to={`/messageDashboard/${userIdParam}`}
+                    className="nav-link  "
+                  >
+                    Messages
+                  </Link>
+                </li>
                 <li className="nav-item bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
                   <a href="/" className="nav-link" onClick={logOut}>
                     Log Out
@@ -404,7 +413,17 @@ const Navbar = ({ loggedIn }) => {
             </Link>
           </li>
           <li>
-            <Link onClick={closeMobileMenu} to={"/messageDashboard"}>
+            <Link
+              onClick={closeMobileMenu}
+              to={`/messageDashboard/${userIdParam}`}
+              className="bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
+            >
+              <span className="mr-2">
+                <TbMessage
+                  className="text-2xl"
+                  fill="url(#paint0_linear_235_990)"
+                />
+              </span>
               Messages
             </Link>
           </li>
@@ -414,7 +433,7 @@ const Navbar = ({ loggedIn }) => {
               href="/"
               onClick={logOut}
             >
-              <span className="mr-2">
+              <span className="mr-1 ml-1">
                 <MdLogout
                   className="text-2xl"
                   fill="url(#paint0_linear_235_990)"

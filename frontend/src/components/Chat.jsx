@@ -72,7 +72,6 @@ const Chat = () => {
     setDrawerVisibile(false);
   };
   const messageURL = "/message/" + selectedUser;
-  console.log(allMessageList);
 
   return (
     <div>
@@ -115,7 +114,7 @@ const Chat = () => {
                       : setDrawerVisibile(true);
                   }}
                 >
-                  Friends List
+                  Followers List
                 </label>
               </div>
               <div className="drawer-side">
@@ -132,7 +131,7 @@ const Chat = () => {
                   >
                     Back
                   </button>
-                  <h3 className="text-2xl mt-1 ml-20">Friends List</h3>
+                  <h3 className="text-2xl mt-1 ml-20">Followers List</h3>
                 </div>
                 <select
                   className="xl:block w-full min-h-full bg-base-100 text-base-content p-0 mt-10 "

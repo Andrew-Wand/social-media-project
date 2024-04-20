@@ -39,7 +39,7 @@ function App() {
         <Route path="/post/:id" element={<SinglePost />} />
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/create-comment/:id" element={<CreateComment />} />
-        <Route path="/messageDashboard" element={<MessageDashboard />} />
+        <Route path="/messageDashboard/:id" element={<MessageDashboard />} />
         <Route path="/message/:id" element={<CreateMessage />} />
       </Routes>
     </div>
