@@ -9,6 +9,8 @@ import CreatePost from "./pages/CreatePost";
 import SinglePost from "./pages/SinglePost";
 import CreateComment from "./pages/CreateComment";
 import SignInModal from "./components/SignInModal";
+import MessageDashboard from "./pages/MessageDashboard";
+import CreateMessage from "./pages/CreateMessage";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -37,6 +39,8 @@ function App() {
         <Route path="/post/:id" element={<SinglePost />} />
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/create-comment/:id" element={<CreateComment />} />
+        <Route path="/messageDashboard" element={<MessageDashboard />} />
+        <Route path="/message/:id" element={<CreateMessage />} />
       </Routes>
     </div>
   );

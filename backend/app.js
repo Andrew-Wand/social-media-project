@@ -8,6 +8,7 @@ const controller = require("./controllers/post.controller");
 const userController = require("./controllers/user.controller");
 const commentController = require("./controllers/comment.controller");
 const followerController = require("./controllers/follower.controller");
+const messageController = require("./controllers/message.controller");
 const session = require("express-session");
 
 const db = require("./models");
@@ -37,7 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const run = async (req, res) => {
   // const derp = userController.findAllUsers("1");
   // console.log(derp);
-  const derp = controller.findAllPosts();
+  const derp = messageController.createMessage("1", "1", "Hello there buddy!");
   console.log(derp);
 };
 
@@ -56,5 +57,6 @@ require("./routes/user.routes")(app);
 require("./routes/post.routes")(app);
 require("./routes/comment.routes")(app);
 require("./routes/follower.routes")(app);
+require("./routes/message.routes")(app);
 
 module.exports = app;

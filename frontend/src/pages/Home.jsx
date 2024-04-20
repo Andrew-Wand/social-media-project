@@ -291,9 +291,9 @@ const Home = () => {
         <div className="hero bg-base-300 text-white requires-no-scroll ">
           <div className="hero-content flex-col lg:flex-row text-left xl:mt-48">
             <div className="text-center lg:text-right lg:mr-[10rem] lg:ml-[10rem]">
-              <div className="xl:w-[22rem] xl:top-[30%] w-[20rem] xl:block">
+              <div className="xl:w-[22rem] xl:top-[30%] w-[15rem] mr-[5rem] xl:block">
                 <img
-                  className="xl:h-[22rem] h-[15rem] ml-10"
+                  className="xl:h-[22rem] h-[15rem] ml-10 bg-gradient-to-b from-[#C0E8FF] to-[#ACAAFF]  rounded-[10%] shadow-xl p-2 "
                   src={Pic}
                   alt=""
                 />
@@ -301,9 +301,9 @@ const Home = () => {
             </div>
             <div className="card shrink-0 w-full max-w-md xl:min-w-fit bg-base-300">
               <div className="card-body p-0">
-                <div>
+                <div className="bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
                   <header className="mt-5 mb-10  ">
-                    <h1 className="text-4xl xl:text-[4.3rem]">
+                    <h1 className="text-4xl xl:text-[4.3rem] ">
                       Welcome to MyBlog!
                     </h1>
                   </header>
@@ -336,7 +336,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <footer className="footer footer-center p-10 bg-base-300 text-base-content rounded xl:mt-5 fixed bottom-0 left-0 ">
+          {/* <footer className="footer footer-center p-10 bg-base-300 text-base-content rounded xl:mt-5 fixed bottom-0 left-0 hidden xl:flex xl:justify-end">
             <nav className="grid grid-flow-col gap-4">
               <a className="link link-hover">About us</a>
               <a className="link link-hover">Contact</a>
@@ -385,7 +385,7 @@ const Home = () => {
                 Copyright © 2024 - All right reserved by ACME Industries Ltd
               </p>
             </aside>
-          </footer>
+          </footer> */}
         </div>
 
         // <div className=" xl:min-w-full xl:flex xl:min-h-full xl:mb-[20rem] ">

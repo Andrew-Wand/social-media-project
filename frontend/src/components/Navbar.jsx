@@ -122,12 +122,95 @@ const Navbar = ({ loggedIn }) => {
               </div>
             </Link>
           ) : (
-            <Link
-              to={`/`}
-              className="btn btn-ghost text-xl xl:text-3xl xl:hidden"
-            >
-              MyBlog
+            <Link to={`/`} className="btn btn-ghost text-xl xl:text-3xl  ">
+              <span className=" ">
+                <svg
+                  width="35"
+                  height="50"
+                  viewBox="0 0 200 200"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {" "}
+                  <g clipPath="url(#clip0_235_970)">
+                    {" "}
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M0 100L7.62939e-06 0H100H200V100C144.78 100 100.013 55.2417 100 0.0239258C99.987 55.2417 55.2204 100 0 100ZM100 200C100 144.771 144.772 100 200 100V200H100ZM100 200C100 144.771 55.2285 100 0 100V200H100Z"
+                      fill="url(#paint0_linear_235_970)"
+                    />{" "}
+                  </g>{" "}
+                  <defs>
+                    {" "}
+                    <linearGradient
+                      id="paint0_linear_235_970"
+                      x1="20.5"
+                      y1="16"
+                      x2="100"
+                      y2="200"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stopColor="#ACAAFF" />{" "}
+                      <stop offset="1" stopColor="#C0E8FF" />{" "}
+                    </linearGradient>{" "}
+                    <clipPath id="clip0_235_970">
+                      {" "}
+                      <rect width="200" height="200" fill="white" />{" "}
+                    </clipPath>{" "}
+                  </defs>{" "}
+                </svg>
+                {/* <svg
+                  width="30"
+                  height="50"
+                  viewBox="0 0 200 200"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {" "}
+                  <g clipPath="url(#clip0_231_793)">
+                    {" "}
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M50 0H200V50V150L150 200L150 50H0L50 0ZM0 165.067V100L65.067 100L0 165.067ZM100 200H35.7777L100 135.778L100 200Z"
+                      fill="url(#paint0_linear_231_793)"
+                    />{" "}
+                  </g>{" "}
+                  <defs>
+                    {" "}
+                    <linearGradient
+                      id="paint0_linear_231_793"
+                      x1="177"
+                      y1="-9.23648e-06"
+                      x2="39.5"
+                      y2="152.5"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      {" "}
+                      <stop stopColor="#B0B9FF" />{" "}
+                      <stop offset="2" stopColor="#E7E9FF" />{" "}
+                    </linearGradient>{" "}
+                    <clipPath id="clip0_231_793">
+                      {" "}
+                      <rect width="200" height="200" fill="white" />{" "}
+                    </clipPath>{" "}
+                  </defs>{" "}
+                </svg> */}
+              </span>
+              <div>
+                <span className=" bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
+                  MyBlog
+                </span>
+              </div>
             </Link>
+
+            // <Link
+            //   to={`/`}
+            //   className="btn btn-ghost text-xl xl:text-3xl xl:hidden bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
+            // >
+            //   MyBlog
+            // </Link>
           )}
         </div>
         <div className="navbar-end">
@@ -250,7 +333,7 @@ const Navbar = ({ loggedIn }) => {
         className={
           !isOpen
             ? "text-center h-0 overflow-hidden transition-[height] ease duration-[400ms] lg:hidden  bg-base-200 w-full z-0 shadow-md"
-            : "text-center h-[9.5rem] overflow-hidden transition-[height] ease duration-[400ms] lg:hidden  bg-base-200 w-full z-0 text-[#b8c5c9]"
+            : "text-center h-[12rem] overflow-hidden transition-[height] ease duration-[400ms] lg:hidden  bg-base-200 w-full z-0 text-[#b8c5c9]"
         }
       >
         <ul className="menu text-lg ">
@@ -318,6 +401,11 @@ const Navbar = ({ loggedIn }) => {
                 </svg>
               </span>
               Profile
+            </Link>
+          </li>
+          <li>
+            <Link onClick={closeMobileMenu} to={"/messageDashboard"}>
+              Messages
             </Link>
           </li>
           <li className="">

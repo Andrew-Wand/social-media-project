@@ -21,6 +21,7 @@ db.posts = require("../models/post")(sequelize, Sequelize);
 db.comments = require("../models/comment")(sequelize, Sequelize);
 db.likes = require("../models/likes")(sequelize, Sequelize);
 db.followers = require("../models/follower")(sequelize, Sequelize);
+db.messages = require("../models/message")(sequelize, Sequelize);
 
 db.users.hasMany(db.posts, { as: "posts" });
 db.users.hasMany(db.likes, { as: "likes" });

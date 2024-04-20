@@ -114,7 +114,7 @@ const RegisterModal = () => {
   return (
     <>
       <button
-        className="btn btn-wide xl:btn-sm xl:w-[18rem] xl:h-[2.5rem] w-[20rem]  btn-neutral rounded-full"
+        className="btn btn-wide xl:btn-sm xl:w-[18rem] xl:h-[2.5rem] w-[20rem]   rounded-full bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-slate-200 "
         onClick={() => document.getElementById("my_modal_6").showModal()}
       >
         Sign Up
@@ -125,7 +125,7 @@ const RegisterModal = () => {
         open=""
       >
         <div className="modal-box h-[75%] xl:h-[42rem] xl:w-[50rem]">
-          <h3 className="font-bold text-2xl ml-[3.8rem] xl:ml-[6.2rem] ">
+          <h3 className="font-bold text-2xl ml-[2rem] xl:ml-[6.2rem] bg-gradient-to-t from-[#B8DBFC] to-[#F8FBFE] bg-clip-text text-transparent ">
             Register
           </h3>
           {/* <p className="py-4">
@@ -134,7 +134,10 @@ const RegisterModal = () => {
           <div className="modal-action justify-center ">
             <Form onSubmit={handleRegister} ref={form}>
               <div>
-                <label htmlFor="username" className="text-xl">
+                <label
+                  htmlFor="username"
+                  className="text-xl bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
+                >
                   Username
                 </label>
                 <Input
@@ -145,11 +148,14 @@ const RegisterModal = () => {
                   validations={[required, vusername]}
                   autoComplete="off"
                   autoFocus={isFirstRender ? true : false}
-                  className="input input-bordered  shadow-lg mt-2 h-[2.5rem]"
+                  className="input input-bordered  shadow-lg mt-2 h-[2.5rem] w-full "
                 />
               </div>
               <div className="mt-3">
-                <label htmlFor="email" className="text-xl">
+                <label
+                  htmlFor="email"
+                  className="text-xl bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
+                >
                   Email
                 </label>
                 <Input
@@ -159,11 +165,14 @@ const RegisterModal = () => {
                   onChange={onChangeEmail}
                   validations={[required, validEmail]}
                   autoComplete="off"
-                  className="input input-bordered  shadow-lg mt-2 h-[2.5rem]"
+                  className="input input-bordered  shadow-lg mt-2 h-[2.5rem] w-full "
                 />
               </div>
               <div className="mt-3">
-                <label htmlFor="password" className="text-xl">
+                <label
+                  htmlFor="password"
+                  className="text-xl bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
+                >
                   Password
                 </label>
                 <Input
@@ -172,12 +181,12 @@ const RegisterModal = () => {
                   value={password}
                   onChange={onChangePassword}
                   validations={[required, vpassword]}
-                  className="input input-bordered  shadow-lg mt-2 h-[2.5rem]"
+                  className="input input-bordered  shadow-lg mt-2 h-[2.5rem] w-full"
                 />
               </div>
 
               <div className="mt-6">
-                <button className="btn btn-wide btn-info">
+                <button className="btn btn-wide bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black">
                   <span>Sign Up</span>
                 </button>
               </div>
@@ -187,7 +196,7 @@ const RegisterModal = () => {
                   Sign In
                 </Link> */}
                 <button
-                  className="btn btn-wide btn-neutral"
+                  className="btn btn-wide bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black"
                   onClick={openSignInModal}
                 >
                   Sign In
@@ -200,7 +209,7 @@ const RegisterModal = () => {
 
             <form method="dialog" className="absolute top-5 right-5">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-circle">
+              <button className="btn btn-circle bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] text-black">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
