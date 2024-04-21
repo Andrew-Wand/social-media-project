@@ -77,7 +77,7 @@ const CreatePost = () => {
     <div className="bg-base-300">
       <div className="min-h-screen xl:mx-[30rem] xl:pt-10 xl:border-x-2 xl:border-x-neutral-500/50 xl:px-5">
         <div>
-          <h2 className="text-3xl mt-10 mb-5 ml-2 hidden xl:block xl:underline">
+          <h2 className="text-3xl mt-10 mb-5 ml-2 hidden xl:block xl:underline bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
             Create Post
           </h2>
         </div>
@@ -101,8 +101,8 @@ const CreatePost = () => {
                   />
                 </svg>
               </Link>
-              <button className=" btn btn-default rounded-full  right-5 xl:hidden">
-                Send
+              <button className=" btn btn-default rounded-full  right-5 xl:hidden bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black">
+                Create Post
               </button>
             </div>
             <div className="divider m-0 xl:p-0 xl:mb-3"></div>
@@ -137,7 +137,9 @@ const CreatePost = () => {
                   Cancel
                 </button>
               </Link>
-              <button className="btn btn-default rounded-full">Send</button>
+              <button className="btn btn-default rounded-full bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black ">
+                Create Post
+              </button>
             </div>
           </form>
         </div>

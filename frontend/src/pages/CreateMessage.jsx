@@ -65,18 +65,20 @@ const CreateMessage = () => {
   });
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-base-300">
       <header>
         {filteredUserList.map((user, i) => (
-          <h1 className="text-center text-3xl mb-5 mt-5" key={i}>
+          <h1
+            className="text-center text-3xl mb-5 pt-5 bg-gradient-to-t from-[#B8DBFC] to-[#F8FBFE] bg-clip-text text-transparent "
+            key={i}
+          >
             Message {user.username}
           </h1>
         ))}
       </header>
-      <Link to="/" className="btn btn-info text-lg mb-5 ml-[3.4rem]">
-        Back
-      </Link>
+
       <form onSubmit={handleSendMessage}>
+        <div className="divider m-0 xl:hidden"></div>
         <div className="flex justify-center">
           <textarea
             name=""
@@ -85,11 +87,20 @@ const CreateMessage = () => {
             rows="10"
             onChange={messageTextOnChange}
             placeholder="Type message here..."
-            className="textarea textarea-bordered textarea-lg w-full max-w-xs bg-white border-black border-2 text-black"
+            className="w-full p-2 text-lg text-white outline-none bg-transparent xl:textarea xl:textarea-bordered xl:text-md xl:focus:outline-white"
           ></textarea>
         </div>
-        <div className="flex justify-center">
-          <button className=" btn mt-5 btn-secondary">Send</button>
+        <div className="divider m-0 xl:hidden"></div>
+        <div className="flex justify-center mt-5">
+          <button className=" btn text-black bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF]">
+            Send
+          </button>
+          <Link
+            to="/"
+            className="btn text-black  mb-5 ml-[3.4rem] bg-gradient-to-t from-[#A7B5FF] to-[#F3ACFF] "
+          >
+            Cancel
+          </Link>
         </div>
       </form>
     </div>

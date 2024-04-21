@@ -114,7 +114,7 @@ const RegisterModal = () => {
   return (
     <>
       <button
-        className="btn btn-wide xl:btn-sm xl:w-[18rem] xl:h-[2.5rem] w-[20rem]   rounded-full bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-slate-200 "
+        className="btn btn-wide xl:btn-sm xl:w-[18rem] xl:h-[2.5rem] w-[20rem] rounded-full bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black "
         onClick={() => document.getElementById("my_modal_6").showModal()}
       >
         Sign Up

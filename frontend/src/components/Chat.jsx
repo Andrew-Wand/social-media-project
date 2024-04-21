@@ -74,16 +74,19 @@ const Chat = () => {
   const messageURL = "/message/" + selectedUser;
 
   return (
-    <div>
+    <div className="min-h-screen bg-base-300">
       {user ? (
         <div>
           {/* MOBILE friends list */}
           <div>
             <div className="drawer xl:hidden">
               {userFilteredOnSelect.map((user, i) => (
-                <h1 key={i} className="text-2xl mt-6 ml-5">
+                <h1
+                  key={i}
+                  className="text-2xl mt-7 ml-5 bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent "
+                >
                   Chatting with
-                  <span className="text-black underline"> {user.username}</span>
+                  <span className="  "> {user.username}</span>
                 </h1>
               ))}
 
@@ -107,7 +110,7 @@ const Chat = () => {
 
                 <label
                   htmlFor="my-drawer"
-                  className="btn btn-primary drawer-button mb-2 mt-5"
+                  className="btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] drawer-button mb-2 mt-5 text-black"
                   onClick={() => {
                     drawerVisible
                       ? setDrawerVisibile(false)
@@ -124,17 +127,24 @@ const Chat = () => {
                   className="drawer-overlay"
                 ></label>
 
-                <div className="bg-slate-500 h-[3rem] w-full text-center flex">
-                  <button
-                    onClick={() => setDrawerVisibile(false)}
-                    className="btn btn-sm btn-info mt-1 ml-5"
-                  >
-                    Back
-                  </button>
-                  <h3 className="text-2xl mt-1 ml-20">Followers List</h3>
+                <div className="bg-base-300 h-[4rem] w-full text-center flex items-center">
+                  <div className="">
+                    <button
+                      onClick={() => setDrawerVisibile(false)}
+                      className="btn btn-sm text-black mt-1  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF]"
+                    >
+                      Back
+                    </button>
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl mt-1 ml-20 text-[#C0E8FF]">
+                      Followers List
+                    </h3>
+                  </div>
                 </div>
                 <select
-                  className="xl:block w-full min-h-full bg-base-100 text-base-content p-0 mt-10 "
+                  className="xl:block w-full min-h-full bg-base-300 text-base-content p-0 mt-[4rem] "
                   size={10}
                   name=""
                   id=""
@@ -143,7 +153,7 @@ const Chat = () => {
                   {followers.map((user, i) => (
                     <>
                       <option
-                        className="text-2xl border-solid border-b-[1px] border-slate-500 bg-white text-black h-[5rem]"
+                        className="text-2xl border-solid border-y-[1px] border-slate-500 bg-base-300 text-[#C0E8FF] h-[5rem]"
                         value={user.id}
                         key={i}
                       >
@@ -163,9 +173,9 @@ const Chat = () => {
             </div>
           </div>
           {/* Chat Area for DESKTOP AND MOBILE / Friends list DESKTOP */}
-          <div className="flex justify-center xl:justify-end xl:mr-10">
+          <div className="flex justify-center xl:justify-center xl:mr-10">
             <select
-              className="hidden xl:block xl:w-60 min-h-full bg-slate-400 text-base-content p-0 mt-10 xl:rounded-xl xl:shadow-lg"
+              className="hidden xl:block xl:w-60 min-h-full bg-base-300 text-base-content p-0 mt-10 xl:rounded-xl xl:shadow-lg"
               size={5}
               name=""
               id=""
@@ -188,7 +198,7 @@ const Chat = () => {
                 </option>
               ))}
             </select>
-            <div className="w-full h-[26rem] xl:w-[46rem] xl:h-[27rem] xl:mt-10 artboard artboard-horizontal bg-slate-200 shadow-lg overflow-auto flex flex-col-reverse">
+            <div className="w-full h-[26rem] xl:w-[46rem] xl:h-[27rem] xl:mt-10 artboard artboard-horizontal bg-base-200 shadow-lg overflow-auto flex flex-col-reverse">
               {/* Messages in chat room box */}
               <ul>
                 {filteredMessageList.map((message, i) => (
@@ -201,7 +211,7 @@ const Chat = () => {
                           </div>
                         ))}
 
-                        <div className="chat-bubble chat-bubble-error static">
+                        <div className="chat-bubble chat-bubble-error static bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF]">
                           {message.text}
                         </div>
                       </div>
@@ -210,7 +220,7 @@ const Chat = () => {
                         <div className="chat-header">
                           {currentUser.username}
                         </div>
-                        <div className="chat-bubble chat-bubble-info static">
+                        <div className="chat-bubble chat-bubble-info bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] static">
                           {message.text}
                         </div>
                       </div>
@@ -222,13 +232,16 @@ const Chat = () => {
           </div>
 
           {btnvisible ? (
-            <div className="xl:flex xl:mr-10 xl:mt-10 xl:justify-end mt-10 flex justify-center">
-              <Link className="btn btn-secondary" to={messageURL}>
+            <div className="xl:flex xl:mr-10 xl:mt-10 xl:justify-end mt-10 flex justify-center ">
+              <Link
+                className="btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black"
+                to={messageURL}
+              >
                 Send message
               </Link>
             </div>
           ) : (
-            <div className="xl:flex xl:mr-10 xl:mt-10 xl:justify-end mt-10 ml-5">
+            <div className="xl:flex xl:mr-10 xl:mt-10 xl:justify-end mt-10 ml-5 ">
               <button className="btn btn-secondary" disabled>
                 Send Message
               </button>
