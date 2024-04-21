@@ -77,35 +77,100 @@ const Chat = () => {
     <div className="min-h-screen bg-base-300 ">
       {user ? (
         <>
-          <div className="flex ">
-            <div className="xl:h-[75vh] xl:w-fit lg:border-b-2 lg:border-b-neutral-500/50  ">
-              <select
-                className="hidden xl:block xl:w-96 xl:min-h-full bg-base-300 text-base-content  "
-                size={5}
-                name=""
-                id=""
-                onChange={onChangeSelect}
-              >
-                {followers.map((user, i) => (
-                  <option
-                    value={user.id}
-                    key={i}
-                    className="text-2xl border-solid border-b-[1px] border-slate-500 bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent h-[5rem]"
-                  >
-                    <div className="avatar placeholder">
-                      <div className="bg-neutral text-neutral-content border-2 rounded-full w-16 mr-10 mt-2">
-                        <span className="text-xl">
-                          {user.username.slice(0, 1)}
-                        </span>
+          <div className="flex h-full ">
+            <div className="xl:h-[75vh] xl:w-fit  ">
+              <div className="flex justify-center text-xl lg:border-b-2 lg:border-b-neutral-500/50 lg:border-r-2 lg:border-r-neutral-500/50 ">
+                <p className="my-8 ">Followers List</p>
+              </div>
+
+              <div className="h-full">
+                <select
+                  className="hidden xl:block xl:w-96 xl:min-h-full  bg-base-300 text-base-content lg:border-b-2 lg:border-b-neutral-500/50 lg:border-r-2 lg:border-r-neutral-500/50  "
+                  size={5}
+                  name=""
+                  id=""
+                  onChange={onChangeSelect}
+                >
+                  {followers.map((user, i) => (
+                    <option
+                      value={user.id}
+                      key={i}
+                      className="text-2xl border-solid border-b-[1px] border-slate-500 bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent h-[5rem]"
+                    >
+                      <div className="avatar placeholder">
+                        <div className="bg-neutral text-neutral-content border-2 rounded-full w-16 mr-10 mt-2">
+                          <span className="text-xl">
+                            {user.username.slice(0, 1)}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    {user.username}
-                  </option>
-                ))}
-              </select>
+                      {user.username}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
-            <div className="xl:w-9/12 hidden xl:block">
+            <div className="xl:w-screen hidden xl:block ">
+              <div className="flex justify-center shadow-lg lg:border-b-2 lg:border-b-neutral-500/50 ">
+                <div className="flex justify-between items-center text-xl  p-[.89rem] w-6/12 ml-10 rounded-xl">
+                  <div className="">
+                    {selectedUser ? (
+                      <>
+                        {userFilteredOnSelect.map((user) => (
+                          <>
+                            <div className="avatar placeholder">
+                              <div className="bg-neutral text-neutral-content border-2 rounded-full w-16 mr-10 ">
+                                <span className="text-xl">
+                                  {user.username.slice(0, 1)}
+                                </span>
+                              </div>
+                            </div>
+
+                            <span className="text-2xl  bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent ">
+                              {user.username}
+                            </span>
+                          </>
+                        ))}
+                      </>
+                    ) : (
+                      <div className="invisible">
+                        <div className="avatar placeholder">
+                          <div className="bg-neutral text-neutral-content border-2 rounded-full w-16 mr-10 ">
+                            <span className="text-xl">
+                              {user.username.slice(0, 1)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <span className="text-2xl  bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent ">
+                          {user.username}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    {btnvisible ? (
+                      <div className=" ">
+                        <Link
+                          className="btn btn-wide bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black"
+                          to={messageURL}
+                        >
+                          Reply
+                        </Link>
+                      </div>
+                    ) : (
+                      <div className=" ">
+                        <button className="btn btn-secondary btn-wide" disabled>
+                          Reply
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               <div className=" artboard artboard-horizontal bg-base-200 shadow-lg overflow-auto flex flex-col-reverse lg:h-full lg:border-b-2 lg:border-b-neutral-500/50 lg:border-r-2 lg:border-r-neutral-500/50">
                 {/* Messages in chat room box */}
 

@@ -82,7 +82,7 @@ const CreateMessage = () => {
         <div className="flex flex-col items-start max-w-screen xl:w-full  xl:ml-0 xl:bg-base-100 xl:rounded-xl xl:shadow-lg xl:p-5">
           <form onSubmit={handleSendMessage} className="w-full">
             <div className="flex justify-between items-center  xl:hidden pt-2 pb-1 px-6 ml-2">
-              <Link to={`/`} className="">
+              <Link to={`/messageDashboard/${id}`} className="">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
