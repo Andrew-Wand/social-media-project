@@ -4,6 +4,7 @@ import UserService from "../services/user.service";
 import PostService from "../services/post.service";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
+import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegCommentAlt } from "react-icons/fa";
 import moment from "moment";
 
@@ -210,16 +211,16 @@ const UserFeed = () => {
                 )}
               </form>
               {post.userId === user.id ? (
-                <div>
+                <div className="ml-10">
                   <form onSubmit={handleDeletePost}>
                     <button
-                      className="btn"
+                      className="btn rounded-full"
                       value={post.id}
                       onClick={(e, index) =>
                         setPostClick(e.target.value, index)
                       }
                     >
-                      alert(derp)
+                      <HiOutlineTrash className="text-2xl" />
                     </button>
                   </form>
                 </div>

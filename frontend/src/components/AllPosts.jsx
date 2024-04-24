@@ -5,6 +5,7 @@ import PostService from "../services/post.service";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 import { FaRegCommentAlt } from "react-icons/fa";
+import { HiOutlineTrash } from "react-icons/hi";
 import moment from "moment";
 
 const AllPosts = () => {
@@ -19,6 +20,7 @@ const AllPosts = () => {
   const [message, setMessage] = useState("");
   const [keyIndex, setKeyIndex] = useState();
   const [isLoading, setIsLoading] = useState(null);
+  const [postClick, setPostClick] = useState();
 
   const navigate = useNavigate();
   const userIdParam = window.location.pathname.slice(-1);
@@ -109,6 +111,35 @@ const AllPosts = () => {
   //   setKeyIndex(id);
   // };
 
+  const handleDeletePost = async (e) => {
+    e.preventDefault();
+    const postId = Number(postClick);
+
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      PostService.deletePost(postId).then(
+        (response) => {
+          setMessage(response.data.message);
+          setSuccessful(true);
+          setIsLoading(false);
+          // console.log(response.config.data.slice(-2, -1));
+          fetchAllPosts(userIdParam);
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          setMessage(resMessage);
+          setSuccessful(false);
+          setIsLoading(false);
+        }
+      );
+    }
+  };
+
   const getIndex = (e, index) => {
     setKeyIndex(e.target.value, index);
   };
@@ -171,6 +202,23 @@ const AllPosts = () => {
                   </button>
                 )}
               </form>
+              {post.userId === user.id ? (
+                <div className="ml-10">
+                  <form onSubmit={handleDeletePost}>
+                    <button
+                      className="btn rounded-full"
+                      value={post.id}
+                      onClick={(e, index) =>
+                        setPostClick(e.target.value, index)
+                      }
+                    >
+                      <HiOutlineTrash className="text-2xl" />
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </li>
           <hr className="border-b-solid border-b-[.0625rem] border-[#242c2e] xl:my-2" />
