@@ -232,6 +232,9 @@ const UserFeed = () => {
           <hr className="border-b-solid border-b-[.0625rem] border-[#242c2e] xl:my-2" />
         </>
       ))}
+      {allPosts?.length === 0
+        ? "Click create post to add a new post! Or follow someone to see their posts here!"
+        : ""}
     </ul>
   );
 };

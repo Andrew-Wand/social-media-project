@@ -230,11 +230,9 @@ const Home = () => {
                           </div>
                         </div>
 
-                        {/* <div className="btn text-black btn-wide xl:btn-sm xl:h-[2.5rem] xl:w-[18rem] w-[20rem] rounded-full bg-gradient-to-t from-[#FFD9A0] to-[#FFF5F1]"></div> */}
-
-                        <div className="xl:h-[2.5rem] xl:w-[18rem] w-[20rem]  rounded-full bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] p-[.2rem] ">
-                          <div className="flex h-full w-full items-center justify-center bg-base-300 back rounded-full hover:bg-transparent transition duration-500 ">
-                            <button className="text-[#C0E8FF]/90 text-sm  hover:text-black w-full h-full">
+                        <div className="xl:h-[2.5rem] xl:w-[18rem] w-[20rem] h-[3rem] rounded-full bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] p-[.2rem] ">
+                          <div className="flex h-full w-full items-center justify-center bg-base-300 back rounded-full hover:bg-transparent transition duration-500  ">
+                            <button className="text-[#C0E8FF]/90 text-sm  hover:text-black w-full h-full font-bold">
                               Example User Sign In
                             </button>
                           </div>
