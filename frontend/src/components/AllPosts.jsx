@@ -113,6 +113,8 @@ const AllPosts = () => {
     setKeyIndex(e.target.value, index);
   };
 
+  console.log(allPosts);
+
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
   return (
@@ -131,7 +133,7 @@ const AllPosts = () => {
               <p className="">{`${moment(post.createdAt).format("L")}`}</p>
             </div>
 
-            <div className="text-lg ml-6 my-5">
+            <div className="text-lg ml-6 my-5 p-1">
               <Link
                 to={`/post/${post.id}`}
                 // onClick={() => fetchPostById(post.id)}
@@ -139,7 +141,7 @@ const AllPosts = () => {
               >
                 {post.Title}
               </Link>
-              <p>{post.Text}</p>
+              <p className="break-words">{post.Text}</p>
             </div>
             <div className="flex justify-start mr-10 mb-5">
               <p className="btn rounded-3xl mx-5">

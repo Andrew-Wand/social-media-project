@@ -19,6 +19,7 @@ const UserFeed = () => {
   const [message, setMessage] = useState("");
   const [keyIndex, setKeyIndex] = useState();
   const [isLoading, setIsLoading] = useState(null);
+  const [postClick, setPostClick] = useState();
 
   const navigate = useNavigate();
   const userIdParam = window.location.pathname.slice(-1);
@@ -86,7 +87,7 @@ const UserFeed = () => {
     const fart = Number(keyIndex);
     const like = likeCount + 1;
     setIsLoading(true);
-    console.log(fart);
+    // console.log(fart);
 
     PostService.createLike(like, fart, userId).then(
       (response) => {
@@ -111,6 +112,35 @@ const UserFeed = () => {
     );
   };
 
+  const handleDeletePost = async (e) => {
+    e.preventDefault();
+    const postId = Number(postClick);
+
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      PostService.deletePost(postId).then(
+        (response) => {
+          setMessage(response.data.message);
+          setSuccessful(true);
+          setIsLoading(false);
+          // console.log(response.config.data.slice(-2, -1));
+          fetchAllPosts(userIdParam);
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          setMessage(resMessage);
+          setSuccessful(false);
+          setIsLoading(false);
+        }
+      );
+    }
+  };
+
   // const getKey = (index) => {
   //   let id = index;
   //   setKeyIndex(id);
@@ -120,7 +150,8 @@ const UserFeed = () => {
     setKeyIndex(e.target.value, index);
   };
 
-  console.log(allPosts);
+  // console.log(allPosts);
+  // console.log(postClick);
 
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
@@ -140,7 +171,7 @@ const UserFeed = () => {
               <p className="">{`${moment(post.createdAt).format("L")}`}</p>
             </div>
 
-            <div className="text-lg ml-6 my-5">
+            <div className="text-lg ml-6 my-5 p-1">
               <Link
                 to={`/post/${post.id}`}
                 // onClick={() => fetchPostById(post.id)}
@@ -148,7 +179,7 @@ const UserFeed = () => {
               >
                 {post.Title}
               </Link>
-              <p>{post.Text}</p>
+              <p className="break-words p-r">{post.Text}</p>
             </div>
             <div className="flex justify-start mr-10 mb-5">
               <p className="btn rounded-3xl mx-5">
@@ -178,6 +209,23 @@ const UserFeed = () => {
                   </button>
                 )}
               </form>
+              {post.userId === user.id ? (
+                <div>
+                  <form onSubmit={handleDeletePost}>
+                    <button
+                      className="btn"
+                      value={post.id}
+                      onClick={(e, index) =>
+                        setPostClick(e.target.value, index)
+                      }
+                    >
+                      alert(derp)
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </li>
           <hr className="border-b-solid border-b-[.0625rem] border-[#242c2e] xl:my-2" />

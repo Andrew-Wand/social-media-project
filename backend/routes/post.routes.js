@@ -18,5 +18,6 @@ module.exports = function (app) {
   app.get("/test/getAllPosts/:userId", controller.getAllPosts);
   app.get("/test/post/:postId", controller.findPostById);
   app.post("/test/create-like", controller.createLike);
+  app.delete("/test/delete-post", controller.deletePost);
   // app.get("/test/getLikes", controller.getAllLikes);
 };

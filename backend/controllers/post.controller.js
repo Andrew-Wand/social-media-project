@@ -6,7 +6,7 @@ const Comment = db.comments;
 const Follower = db.followers;
 
 const { Op } = require("sequelize");
-exports.createPost = (req, res) => {
+exports.createPost = async (req, res) => {
   return Post.create({
     Title: req.body.Title,
     Text: req.body.Text,
@@ -21,6 +21,31 @@ exports.createPost = (req, res) => {
     .catch((err) => {
       console.log("Error while creating post: ", err);
     });
+};
+
+exports.deletePost = async (req, res) => {
+  try {
+    await Post.destroy({
+      where: {
+        id: req.body.postId,
+      },
+    });
+
+    res.status(200).send("Successfuly deleted post");
+    // const id = req.body.postId;
+    // const toBeDeleted = await Post.findAll({
+    //   where: {
+    //     id: id,
+    //   },
+    // });
+    // console.log(toBeDeleted);
+    // res.status(200).send(toBeDeleted);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      error: "There was an error deleting this post",
+    });
+  }
 };
 
 // exports.findPostById = (postId) => {

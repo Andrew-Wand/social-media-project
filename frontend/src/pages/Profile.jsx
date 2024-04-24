@@ -111,7 +111,7 @@ const Profile = () => {
                 ""
               )}
             </form>
-            <button className="btn text-2xl rounded-full ml-5 btn-info">
+            <button className="btn text-2xl rounded-full ml-5  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black">
               <AiOutlineMessage />
             </button>
           </div>

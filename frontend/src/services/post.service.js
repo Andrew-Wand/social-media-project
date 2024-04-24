@@ -20,6 +20,14 @@ const postCreatePost = (Title, Text, userId, owner) => {
     });
 };
 
+const deletePost = (postId) => {
+  return axios.delete(API_URL + "delete-post", {
+    data: {
+      postId,
+    },
+  });
+};
+
 const getMyHomeFeed = (userId) => {
   return axios.get(API_URL + `getMyHomeFeed/${userId}`);
 };
@@ -65,6 +73,7 @@ const PostService = {
   createLike,
   getAllLikes,
   getAllPosts,
+  deletePost,
 };
 
 export default PostService;
