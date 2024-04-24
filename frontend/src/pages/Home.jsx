@@ -1,68 +1,60 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import UserService from "../services/user.service";
 import PostService from "../services/post.service";
-import { Link, useNavigate } from "react-router-dom";
 import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 import UserFeed from "../components/UserFeed";
 import AllPosts from "../components/AllPosts";
 import Pic from "../assets/undraw_blog_post_re_fy5x.svg";
 import SignInModal from "../components/SignInModal";
 import RegisterModal from "../components/RegisterModal";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+
+const required = (value) => {
+  if (!value) {
+    return (
+      <div className="label">
+        <span className="label-text text-[#bd5664]">
+          Please fill out this field
+        </span>
+      </div>
+    );
+  }
+};
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
-  const [allPosts, setAllPosts] = useState();
   const [allUsers, setAllUsers] = useState([]);
-  const [allLikes, setAllLikes] = useState();
-  const [singlePost, setSinglePost] = useState([]);
   const [likeCount, setLikeCount] = useState(0);
-  const [totalLikes, setTotalLikes] = useState();
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
   const [keyIndex, setKeyIndex] = useState();
   const [isLoading, setIsLoading] = useState(null);
   const [homeFeed, setHomeFeed] = useState("myFeed");
 
-  let auth = { token: true };
+  const checkBtn = useRef();
 
-  // console.log(auth);
-  const userIdParam = window.location.pathname.slice(-1);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const form = useRef();
+
   const navigate = useNavigate();
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
     }
+
+    setUsername("Example User");
+    setPassword("123456");
   }, []);
 
   const user = AuthService.getCurrentUser();
-  // console.log(currentUser);
-  // const fetchAllPosts = async (id) => {
-  //   try {
-  //     const allPostList = await PostService.getMyHomeFeed(id);
-
-  //     setAllPosts(allPostList.data);
-  //     if (userIdParam !== user.id) {
-  //       navigate(`/main/${user.id}`);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   // const fetchAllLikes = async () => {
-  //   //   try {
-  //   //     const allLikesList = await PostService.getAllLikes();
-  //   //     setAllLikes(allLikesList.data);
-  //   //   } catch (error) {
-  //   //     console.log(error);
-  //   //   }
-  //   // };
-  //   // fetchAllLikes();
-  //   fetchAllPosts(userIdParam);
-  // }, []);
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -77,66 +69,52 @@ const Home = () => {
     fetchAllUsers();
   }, []);
 
-  // const fetchPostById = async (id) => {
-  //   try {
-  //     const postById = await PostService.getSinglePost(id);
-  //     setSinglePost(postById.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const handleCreateLike = async (e) => {
+  const handleGuestLogin = (e) => {
     e.preventDefault();
 
-    const user = AuthService.getCurrentUser();
-    // setKeyIndex(e.target.getAttribute("key"));
-    // console.log(e.target.entry, index);
-    const userId = user.id;
-    let fart = Number(keyIndex) + 1;
-    const like = likeCount + 1;
-    setIsLoading(true);
+    setMessage("");
+    setLoading(true);
 
-    PostService.createLike(like, fart, userId).then(
-      (response) => {
-        setMessage(response.data.message);
-        setSuccessful(true);
-        setIsLoading(false);
-        fetchAllPosts(response.config.data.slice(-2, -1));
-      },
-      (error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+    // form.current.validateAll();
 
-        setMessage(resMessage);
-        setSuccessful(false);
-        setIsLoading(false);
-      }
-    );
+    if (checkBtn.current.context._errors.length === 0) {
+      AuthService.login(username, password).then(
+        (response) => {
+          setMessage(response.data);
+
+          setSuccessful(true);
+          if (response) {
+            setLoading(true);
+
+            navigate(`/main/${response}`);
+            window.location.reload();
+          }
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+          setLoading(false);
+          setMessage(resMessage);
+        }
+      );
+    } else {
+      setLoading(false);
+    }
+    // navigate(`/main/${currentUser.id}`);
+    // window.location.reload();
   };
-
-  // const getKey = (index) => {
-  //   let id = index;
-  //   setKeyIndex(id);
-  // };
 
   const getIndex = (e, index) => {
     setKeyIndex(e.target.value, index);
   };
 
-  // const getMyFeed = () => {
-  //     setHomeFeed('myFeed')
-  // }
-
-  // const getAllPosts = () => {
-
-  // }
-
-  // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
+  // const guestUsername = import.meta.env.VITE_GUEST_USERNAME;
+  // const guestPassword = import.meta.env.VITE_GUEST_PASSWORD;
+  // console.log(guestUsername);
 
   return (
     <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full   ">
@@ -189,100 +167,10 @@ const Home = () => {
                 </Link>
               </div>
             </div>
-
-            {/* <div className="flex justify-evenly mt-10">
-              <button
-                className={homeFeed === "myFeed" ? "btn" : "btn btn-outline"}
-                onClick={() => setHomeFeed("myFeed")}
-              >
-                My Feed
-              </button>
-              <button
-                className={homeFeed === "allPosts" ? "btn" : "btn btn-outline"}
-                onClick={() => setHomeFeed("allPosts")}
-              >
-                All
-              </button>
-            </div> */}
           </div>
           <div className="">
             <div className="divider h-0 mb-0 "></div>
             {homeFeed === "myFeed" ? <UserFeed /> : <AllPosts />}
-
-            {/* <ul>
-              {allPosts?.map((post, i) => (
-                <li
-                  className="bg-slate-500 text-black my-10 p-10 m-5 rounded-lg shadow-lg"
-                  key={i}
-                >
-                  <Link
-                    to={`/post/${post.id}`}
-                    onClick={() => fetchPostById(post.id)}
-                    className="underline mb-5"
-                  >
-                    {post.Title}
-                  </Link>
-                  <p>{post.Text}</p>
-
-                  <p>Likes: {post.likes.length}</p>
-                  <p>Comments: {post.comments.length}</p>
-
-                  <form key={i} value={i} onSubmit={handleCreateLike}>
-                    <button
-                      className={post.likes.length === 0 ? "btn" : "btn-lg"}
-                    >
-                      Like
-                    </button>
-                    {post.likes.length > 0 ? (
-                      <button
-                        key={i}
-                        value={i}
-                        onClick={(e) => getIndex(e, i)}
-                        className=""
-                      >
-                        <HiMiniHeart className="pointer-events-none text-2xl" />
-                      </button>
-                    ) : (
-                      <button
-                        key={i}
-                        value={i}
-                        onClick={(e) => getIndex(e, i)}
-                        className=" "
-                      >
-                        <HiOutlineHeart className="pointer-events-none text-2xl " />
-                      </button>
-                    )}
-
-                    {post.likes?.map((like) => (
-                      <div>
-                        <button
-                          className="btn"
-                          onClick={() => console.log(post.likes)}
-                        >
-                          length
-                        </button>
-                        {post.likes?.length ? "yes" : "no"}
-                        <button
-                          key={post.id}
-                          value={post.id}
-                          onClick={() => setKeyIndex(post.id)}
-                          className="btn"
-                        >
-                          Like
-                        </button>
-                      </div>
-                    ))}
-                  </form>
-
-                  <p>
-                    Posted By:
-                    <Link to={`/profile/${post.userId}`} className="btn">
-                      {post.owner}
-                    </Link>
-                  </p>
-                </li>
-              ))}
-            </ul> */}
           </div>
         </div>
       ) : (
@@ -313,23 +201,55 @@ const Home = () => {
                     <p className="text-2xl mb-5">Blog today.</p>
                     <li className="">
                       <SignInModal />
-
-                      {/* <Link
-                        to={"/sign-in"}
-                        className="btn btn-wide xl:btn-sm xl:h-[2.5rem] xl:w-[18rem] w-[20rem] rounded-full  btn-info"
-                      >
-                        Login
-                      </Link> */}
                     </li>
                     <div className="divider">or</div>
                     <li className="">
                       <RegisterModal />
-                      {/* <Link
-                        to={"/register"}
-                        className="btn btn-wide xl:btn-sm xl:w-[18rem] xl:h-[2.5rem] w-[20rem]  btn-neutral rounded-full"
-                      >
-                        Sign Up
-                      </Link> */}
+                    </li>
+                    <li className="mt-4">
+                      <Form onSubmit={handleGuestLogin} ref={form} className="">
+                        <div className="hidden">
+                          <div>
+                            <Input
+                              type="text"
+                              name="username"
+                              value={username}
+                              // validations={[required]}
+                              autoComplete="off"
+                              className="input input-bordered shadow-lg mt-2 w-full"
+                            />
+                          </div>
+                          <div className="mt-3">
+                            <Input
+                              type="password"
+                              name="password"
+                              value={password}
+                              // validations={[required]}
+                              className="input input-bordered shadow-lg mt-2 w-full "
+                            />
+                          </div>
+                        </div>
+
+                        {/* <div className="btn text-black btn-wide xl:btn-sm xl:h-[2.5rem] xl:w-[18rem] w-[20rem] rounded-full bg-gradient-to-t from-[#FFD9A0] to-[#FFF5F1]"></div> */}
+
+                        <div className="xl:h-[2.5rem] xl:w-[18rem] w-[20rem]  rounded-full bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] p-[.2rem] ">
+                          <div className="flex h-full w-full items-center justify-center bg-base-300 back rounded-full hover:bg-transparent transition duration-500 ">
+                            <button className="text-[#C0E8FF]/90 text-sm  hover:text-black w-full h-full">
+                              Example User Sign In
+                            </button>
+                          </div>
+                        </div>
+
+                        <CheckButton
+                          ref={checkBtn}
+                          style={{ display: "none" }}
+                        />
+                      </Form>
+                      {/* <form onSubmit={handleGuestLogin}>
+                        <button className="btn text-black btn-wide xl:btn-sm xl:h-[2.5rem] xl:w-[18rem] w-[20rem] rounded-full bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF]">
+                          Example User Sign In
+                        </button>
+                      </form> */}
                     </li>
                   </ul>
                 </div>
@@ -387,40 +307,6 @@ const Home = () => {
             </aside>
           </footer> */}
         </div>
-
-        // <div className=" xl:min-w-full xl:flex xl:min-h-full xl:mb-[20rem] ">
-        //   <div className="xl:w-[25rem] xl:top-[30%]">
-        //     <img className="xl:mt-20" src={Pic} alt="" />
-        //   </div>
-        //   <div className="flex flex-col items-start  ml-8 text-white xl:p-[3rem] xl:items-end xl:ml-18  ">
-        //     <header className="mt-14 mb-14 xl:ml-[6.5rem] xl:text-right">
-        //       <h1 className="text-4xl xl:text-[3rem]">Welcome to MyBlog!</h1>
-        //     </header>
-
-        //     <div>
-        //       <ul>
-        //         <p className="text-2xl mb-5">Blog today.</p>
-        //         <li className="">
-        //           <Link
-        //             to={"/sign-in"}
-        //             className="btn btn-wide rounded-full w-[18rem] btn-info"
-        //           >
-        //             Login
-        //           </Link>
-        //         </li>
-        //         <div className="divider ">or</div>
-        //         <li className="">
-        //           <Link
-        //             to={"/register"}
-        //             className="btn btn-wide w-[18rem] btn-neutral rounded-full"
-        //           >
-        //             Sign Up
-        //           </Link>
-        //         </li>
-        //       </ul>
-        //     </div>
-        //   </div>
-        // </div>
       )}
     </div>
   );

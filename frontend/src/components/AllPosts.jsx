@@ -172,7 +172,7 @@ const AllPosts = () => {
               >
                 {post.Title}
               </Link>
-              <p className="break-words">{post.Text}</p>
+              <p className="break-words pr-5">{post.Text}</p>
             </div>
             <div className="flex justify-start mr-10 mb-5">
               <p className="btn rounded-3xl mx-5">

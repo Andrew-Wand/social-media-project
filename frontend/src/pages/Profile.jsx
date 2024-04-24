@@ -67,6 +67,10 @@ const Profile = () => {
     );
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const userFollowersFiltered = userProfileData.userFollowers?.filter(
     (follower) => follower.id === currentUser.id
   );
@@ -152,7 +156,7 @@ const Profile = () => {
                     >
                       {post.Title}
                     </Link>
-                    <p>{post.Text}</p>
+                    <p className="break-words">{post.Text}</p>
                   </div>
                   <div className="flex justify-start mr-10 mb-5">
                     <p className="btn rounded-3xl mx-5">
