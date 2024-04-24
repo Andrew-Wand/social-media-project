@@ -16,4 +16,5 @@ module.exports = function (app) {
 
   app.get("/test/findAllUsers", controller.findAllUsers);
   app.get("/test/findProfileDataById/:profileId", controller.findUserById);
+  app.post("/test/findMyFollowers", controller.findMyFollowers);
 };

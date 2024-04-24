@@ -88,3 +88,31 @@ exports.findAllUsers = async (req, res) => {
     console.log(error);
   }
 };
+exports.findMyFollowers = async (req, res) => {
+  // return Post.findAll({ include: ["comments"] }).then((post) => {
+  //   return post;
+  // });
+
+  try {
+    const response = await User.findAll({
+      include: [
+        {
+          model: User,
+          as: "userFollowers",
+          where: {
+            id: req.body.id,
+          },
+          // attributes: ["followerId"],
+          // through: {
+          //   attributes: ["followerId"],
+          // },
+        },
+      ],
+    });
+
+    res.status(200).send(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

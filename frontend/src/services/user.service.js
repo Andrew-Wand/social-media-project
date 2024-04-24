@@ -17,11 +17,17 @@ const getAllUsers = () => {
 const getUserById = (profileId) => {
   return axios.get(API_URL + `findProfileDataById/${profileId}`);
 };
+const findMyFollowers = (id) => {
+  return axios.post(API_URL + `findMyFollowers`, {
+    id,
+  });
+};
 
 const UserService = {
   getPublicContent,
   getAllUsers,
   getUserById,
+  findMyFollowers,
 };
 
 export default UserService;

@@ -14,6 +14,8 @@ const Chat = () => {
   const [drawerVisible, setDrawerVisibile] = useState(false);
   const [messageId, setMessageId] = useState("");
 
+  const [myFollowers, setMyFollowers] = useState([]);
+  const userIdParam = window.location.pathname.slice(-1);
   const user = AuthService.getCurrentUser();
   useEffect(() => {
     if (user) {
@@ -32,6 +34,19 @@ const Chat = () => {
     };
 
     fetchAllUsers();
+  }, []);
+
+  const fetchMyFollowers = async (id) => {
+    try {
+      const myFollowList = await UserService.findMyFollowers(id);
+      setMyFollowers(myFollowList.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMyFollowers(Number(userIdParam));
   }, []);
 
   // Fetch all messages from DB
@@ -55,7 +70,7 @@ const Chat = () => {
       currentUser.id === message.owner
   );
 
-  const userListFiltered = allUserList.filter((j) => j.id === user.id);
+  const userListFiltered = allUserList.filter((j) => j.id !== user.id);
   const followers = userListFiltered.flatMap((follower) => {
     return follower.userFollowers;
   });
@@ -72,6 +87,10 @@ const Chat = () => {
     setDrawerVisibile(false);
   };
   const messageURL = "/message/" + selectedUser;
+
+  const filteredFollowerList = myFollowers.filter(
+    (j) => j.id === Number(selectedUser)
+  );
 
   return (
     <div className="min-h-screen bg-base-300 ">
@@ -91,7 +110,7 @@ const Chat = () => {
                   id=""
                   onChange={onChangeSelect}
                 >
-                  {followers.map((user, i) => (
+                  {myFollowers.map((user, i) => (
                     <option
                       value={user.id}
                       key={i}
@@ -179,7 +198,7 @@ const Chat = () => {
                     <div key={i}>
                       {message.receiver !== selectedUser ? (
                         <div className="chat chat-start">
-                          {followers.map((user, i) => (
+                          {filteredFollowerList.map((user, i) => (
                             <div key={i} className="chat-header">
                               {user.username}
                             </div>
@@ -281,7 +300,7 @@ const Chat = () => {
                     id=""
                     onChange={onChangeSelect}
                   >
-                    {followers.map((user, i) => (
+                    {myFollowers.map((user, i) => (
                       <>
                         <option
                           className="text-2xl border-solid border-y-[1px] border-slate-500 bg-base-300 text-[#C0E8FF] h-[5rem]"
@@ -313,7 +332,7 @@ const Chat = () => {
                   id=""
                   onChange={onChangeSelect}
                 >
-                  {followers.map((user, i) => (
+                  {myFollowers.map((user, i) => (
                     <option
                       value={user.id}
                       key={i}
@@ -339,7 +358,7 @@ const Chat = () => {
                       <div key={i}>
                         {message.receiver !== selectedUser ? (
                           <div className="chat chat-start">
-                            {followers.map((user, i) => (
+                            {filteredFollowerList.map((user, i) => (
                               <div key={i} className="chat-header">
                                 {user.username}
                               </div>
