@@ -42,7 +42,8 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
 
   const form = useRef();
-
+  const guestUsername = import.meta.env.VITE_GUEST_USERNAME;
+  const guestPassword = import.meta.env.VITE_GUEST_PASSWORD;
   const navigate = useNavigate();
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -50,8 +51,8 @@ const Home = () => {
       setCurrentUser(user);
     }
 
-    setUsername("Example User");
-    setPassword("123456");
+    setUsername(guestUsername);
+    setPassword(guestPassword);
   }, []);
 
   const user = AuthService.getCurrentUser();
@@ -112,8 +113,6 @@ const Home = () => {
     setKeyIndex(e.target.value, index);
   };
 
-  // const guestUsername = import.meta.env.VITE_GUEST_USERNAME;
-  // const guestPassword = import.meta.env.VITE_GUEST_PASSWORD;
   // console.log(guestUsername);
 
   return (

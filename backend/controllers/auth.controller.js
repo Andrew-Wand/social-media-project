@@ -45,7 +45,7 @@ exports.signin = (req, res) => {
         });
       }
 
-      const token = jwt.sign({ id: user.id }, "mysupersecretpassword", {
+      const token = jwt.sign({ id: user.id }, process.env.VITE_MY_SECRET, {
         algorithm: "HS256",
         allowInsecureKeySizes: true,
         expiresIn: 86400, // 24 hours

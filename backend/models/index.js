@@ -1,9 +1,8 @@
 require("dotenv").config();
 const Sequelize = require("sequelize");
 
-const dbName = "socialmediaproject";
 const sequelize = new Sequelize(
-  dbName,
+  process.env.VITE_DATABASE_NAME,
   process.env.VITE_DATABASE_USER,
   process.env.VITE_DATABASE_PASSWORD,
   {
