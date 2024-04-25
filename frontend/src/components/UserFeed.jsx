@@ -151,6 +151,8 @@ const UserFeed = () => {
     setKeyIndex(e.target.value, index);
   };
 
+  const handleNavigatePost = (url) => navigate(url);
+
   // console.log(allPosts);
   // console.log(postClick);
 
@@ -163,6 +165,7 @@ const UserFeed = () => {
           <li
             className="bg-transparent text-white  w-full first:mt-3 xl:hover:bg-base-100 xl:py-2 xl:rounded-xl xl:cursor-pointer"
             key={i}
+            onClick={() => handleNavigatePost(`/post/${post.id}`)}
           >
             <div className="flex ml-6 mt-3 text-sm">
               <Link to={`/profile/${post.userId}`} className="link">

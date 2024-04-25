@@ -10,6 +10,7 @@ const SinglePost = () => {
   const [successful, setSuccessful] = useState(false);
   // console.log(window.location.pathname.slice(-1));
   const postIdParam = window.location.pathname.slice(-1);
+  const postIdParamTwoDigit = window.location.pathname.slice(-2);
 
   const fetchPostById = async (id) => {
     try {
@@ -21,10 +22,12 @@ const SinglePost = () => {
     }
   };
   useEffect(() => {
-    fetchPostById(postIdParam);
+    if (Number(postIdParam)) {
+      fetchPostById(postIdParam);
+    } else {
+      fetchPostById(postIdParamTwoDigit);
+    }
   }, []);
-
-  console.log(singlePost);
 
   useEffect(() => {
     window.scrollTo(0, 0);
