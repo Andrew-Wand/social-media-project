@@ -13,6 +13,7 @@ const Chat = () => {
   const [btnvisible, setBtnVisible] = useState(false);
   const [drawerVisible, setDrawerVisibile] = useState(false);
   const [messageId, setMessageId] = useState("");
+  const [userInfo, setUserInfo] = useState([]);
 
   const [myFollowers, setMyFollowers] = useState([]);
   const userIdParam = window.location.pathname.slice(-1);
@@ -34,6 +35,18 @@ const Chat = () => {
     };
 
     fetchAllUsers();
+  }, []);
+
+  const fetchUserById = async (id) => {
+    try {
+      const currentUserInfo = await UserService.getUserById(id);
+      setUserInfo(currentUserInfo.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchUserById(userIdParam);
   }, []);
 
   const fetchMyFollowers = async (id) => {
@@ -62,12 +75,24 @@ const Chat = () => {
     fetchMessages();
   }, []);
 
-  const filteredMessageList = allMessageList.filter(
-    (message) =>
-      selectedUser === message.owner ||
-      selectedUser === message.receiver ||
-      currentUser.id === message.receiver ||
-      currentUser.id === message.owner
+  // const filteredMessageList = allMessageList.filter(
+  //   (message) =>
+  //     selectedUser !== message.owner ||
+  //     selectedUser !== message.receiver ||
+  //     currentUser.id !== message.receiver ||
+  //     currentUser.id !== message.owner
+  // );
+
+  const filters = {
+    owner: [selectedUser, user.id.toString()],
+    receiver: [selectedUser, user.id.toString()],
+  };
+
+  const filteredMessageList = allMessageList?.filter((obj) =>
+    Object.entries(filters).every(
+      ([key, filterArr]) =>
+        filterArr.length === 0 || filterArr.includes(obj[key])
+    )
   );
 
   const userListFiltered = allUserList.filter((j) => j.id !== user.id);
@@ -76,7 +101,7 @@ const Chat = () => {
   });
 
   const userFilteredOnSelect = allUserList.filter(
-    (user) => user.id == selectedUser
+    (user) => user.id === selectedUser
   );
 
   const onChangeSelect = (e) => {
@@ -88,7 +113,36 @@ const Chat = () => {
   };
   const messageURL = "/message/" + selectedUser;
 
-  const filteredFollowerList = myFollowers.filter(
+  //
+  const myFollowersIdArr = userInfo.userFollowers?.map((user) => {
+    return user;
+  });
+
+  const myFollowsIdArr = myFollowers.map((user) => {
+    return user;
+  });
+
+  const newArr = myFollowersIdArr?.concat(myFollowsIdArr);
+  const userInfoArr = newArr?.map((j) => {
+    let id = j.id;
+    let username = j.username;
+    let info = [
+      {
+        id: id,
+        username: username,
+      },
+    ];
+    return info;
+  });
+
+  const flatUserInfoArr = userInfoArr?.flatMap((j) => {
+    return j;
+  });
+  const jsonObject = flatUserInfoArr?.map(JSON.stringify);
+  const uniqueSet = new Set(jsonObject);
+  const uniqueChatArr = Array.from(uniqueSet).map(JSON.parse);
+  // Get clicked follower id
+  const filteredFollowerList = uniqueChatArr?.filter(
     (j) => j.id === Number(selectedUser)
   );
 
@@ -110,7 +164,7 @@ const Chat = () => {
                   id=""
                   onChange={onChangeSelect}
                 >
-                  {myFollowers.map((user, i) => (
+                  {uniqueChatArr?.map((user, i) => (
                     <option
                       value={user.id}
                       key={i}
@@ -300,7 +354,7 @@ const Chat = () => {
                     id=""
                     onChange={onChangeSelect}
                   >
-                    {myFollowers.map((user, i) => (
+                    {uniqueChatArr.map((user, i) => (
                       <>
                         <option
                           className="text-2xl border-solid border-y-[1px] border-slate-500 bg-base-300 text-[#C0E8FF] h-[5rem]"
@@ -332,7 +386,7 @@ const Chat = () => {
                   id=""
                   onChange={onChangeSelect}
                 >
-                  {myFollowers.map((user, i) => (
+                  {uniqueChatArr?.map((user, i) => (
                     <option
                       value={user.id}
                       key={i}

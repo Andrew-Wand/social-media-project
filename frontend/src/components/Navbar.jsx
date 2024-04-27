@@ -349,7 +349,7 @@ const Navbar = ({ loggedIn }) => {
           <li className="">
             {user ? (
               <Link
-                to={`/main/${user.id}`}
+                to={`/main/${user?.id}`}
                 onClick={closeMobileMenu}
                 className="bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
               >
@@ -380,7 +380,7 @@ const Navbar = ({ loggedIn }) => {
 
           <li className="">
             <Link
-              to={`/profile/${user.id}`}
+              to={`/profile/${user?.id}`}
               className="bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
               onClick={closeMobileMenu}
             >

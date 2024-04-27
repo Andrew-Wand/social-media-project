@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 
-
 @media only screen and (min-width: 1200px) {
     body:has(.requires-no-scroll) {
         overflow: hidden;
@@ -26,5 +25,7 @@ body:has(.requires-no-scroll) {
     }
   }
 
+
+  
 
   
