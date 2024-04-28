@@ -91,7 +91,12 @@ const Profile = () => {
               {userFollowersFiltered?.map((follower, i) => (
                 <div key={i}>
                   {follower.id === currentUser.id ? (
-                    <button className="btn">Unfollow</button>
+                    <>
+                      <button className="btn">Unfollow</button>
+                      <button className="btn text-2xl rounded-full ml-5  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black">
+                        <AiOutlineMessage />
+                      </button>
+                    </>
                   ) : (
                     ""
                     // <button>Follow</button>
@@ -115,9 +120,6 @@ const Profile = () => {
                 ""
               )}
             </form>
-            <button className="btn text-2xl rounded-full ml-5  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black">
-              <AiOutlineMessage />
-            </button>
           </div>
         </div>
         <div className="divider"></div>

@@ -102,7 +102,7 @@ const Chat = () => {
   });
 
   const userFilteredOnSelect = allUserList.filter(
-    (user) => user.id === selectedUser
+    (user) => user.id.toString() === selectedUser
   );
 
   const onChangeSelect = (e) => {
@@ -146,7 +146,7 @@ const Chat = () => {
     (j) => j.id === Number(selectedUser)
   );
 
-  console.log(filteredMessageList);
+  console.log(userFilteredOnSelect);
 
   return (
     <div className="min-h-screen bg-base-300 ">
@@ -191,37 +191,31 @@ const Chat = () => {
                 <div className="flex justify-between items-center text-xl  p-[.89rem] w-6/12 ml-10 rounded-xl">
                   <div className="">
                     {selectedUser ? (
-                      <>
+                      <div>
                         {userFilteredOnSelect.map((user) => (
-                          <>
-                            <div className="avatar placeholder">
-                              <div className="bg-neutral text-neutral-content border-2 rounded-full w-16 mr-10 ">
-                                <span className="text-xl">
-                                  {user.username.slice(0, 1)}
-                                </span>
-                              </div>
-                            </div>
-
-                            <span className="text-2xl  bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent ">
-                              {user.username}
-                            </span>
-                          </>
+                          <Link
+                            to={`/profile/${user.id}`}
+                            className="text-2xl  bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent "
+                          >
+                            {user.username}
+                          </Link>
                         ))}
-                      </>
-                    ) : (
-                      <div className="invisible">
-                        <div className="avatar placeholder">
-                          <div className="bg-neutral text-neutral-content border-2 rounded-full w-16 mr-10 ">
-                            <span className="text-xl">
-                              {user.username.slice(0, 1)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <span className="text-2xl  bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent ">
-                          {user.username}
-                        </span>
                       </div>
+                    ) : (
+                      ""
+                      // <div className="invisible">
+                      //   <div className="avatar placeholder">
+                      //     <div className="bg-neutral text-neutral-content border-2 rounded-full w-16 mr-10 ">
+                      //       <span className="text-xl">
+                      //         {user.username.slice(0, 1)}
+                      //       </span>
+                      //     </div>
+                      //   </div>
+
+                      //   <span className="text-2xl  bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent ">
+                      //     {user.username}
+                      //   </span>
+                      // </div>
                     )}
                   </div>
 

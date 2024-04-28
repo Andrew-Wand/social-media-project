@@ -306,7 +306,7 @@ const Navbar = ({ loggedIn }) => {
                 </li>
                 <li className="nav-item bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent ">
                   <Link
-                    to={`/messageDashboard/${userIdParam}`}
+                    to={`/messageDashboard/${user.id}`}
                     className="nav-link  "
                   >
                     Messages
