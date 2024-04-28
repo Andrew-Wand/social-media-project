@@ -27,7 +27,7 @@ const SinglePost = () => {
     } else {
       fetchPostById(postIdParamTwoDigit);
     }
-  }, []);
+  }, [successful]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -97,18 +97,31 @@ const SinglePost = () => {
             Create comment
           </Link>
         </div>
-
+        <div className="divider"></div>
         <div>
           <p className="ml-5">Comments:</p>
+
           <ul className="p-5">
             {singlePost?.comments &&
               singlePost?.comments.map((comment, i) => (
-                <li key={i}>
-                  <p>{comment.comment_text}</p>
-                  <span>- </span>
-                  <Link to={`/profile/${comment.userId}`} className="mt-2 link">
-                    {comment.owner}
-                  </Link>
+                <li key={i} className="mb-5">
+                  <div className="flex items-center text-[.75rem] mb-1 ">
+                    <Link
+                      to={`/profile/${comment.userId}`}
+                      className="font-bold link"
+                    >
+                      {comment.owner}
+                    </Link>
+                    <p className="mx-2">•</p>
+                    <span className=" ">
+                      {`${moment(comment.createdAt).format("l")} ` +
+                        `${moment(comment.createdAt).format("LT")}`}
+                    </span>
+                  </div>
+
+                  <div className="text-[.875rem]">
+                    <p>{comment.comment_text}</p>
+                  </div>
                 </li>
               ))}
           </ul>
