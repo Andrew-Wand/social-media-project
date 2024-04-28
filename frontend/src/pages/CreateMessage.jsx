@@ -45,6 +45,7 @@ const CreateMessage = () => {
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
+        navigate(`/messageDashboard/${id}`);
       },
       (error) => {
         const resMessage =

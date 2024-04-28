@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import UserService from "../services/user.service";
 import MessageService from "../services/message.service";
+import moment from "moment";
 
 const Chat = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [allMessageList, setAllMessageList] = useState([]);
   const [allUserList, setAllUserList] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
-  const [btnvisible, setBtnVisible] = useState(false);
+  const [btnvisible, setBtnVisible] = useState(true);
   const [drawerVisible, setDrawerVisibile] = useState(false);
   const [messageId, setMessageId] = useState("");
   const [userInfo, setUserInfo] = useState([]);
@@ -107,7 +108,6 @@ const Chat = () => {
   const onChangeSelect = (e) => {
     const selection = e.target.value;
     setSelectedUser(selection);
-    setBtnVisible(true);
     setMessageId(selection);
     setDrawerVisibile(false);
   };
@@ -146,14 +146,16 @@ const Chat = () => {
     (j) => j.id === Number(selectedUser)
   );
 
+  console.log(filteredMessageList);
+
   return (
     <div className="min-h-screen bg-base-300 ">
       {user ? (
         <>
-          <div className="flex h-full ">
+          <div className="flex ">
             <div className="xl:h-[75vh] xl:w-fit  ">
               <div className="flex justify-center text-xl lg:border-b-2 lg:border-b-neutral-500/50 lg:border-r-2 lg:border-r-neutral-500/50 ">
-                <p className="my-8 ">Followers List</p>
+                <p className="my-[1.53rem] ">Followers List</p>
               </div>
 
               <div className="h-full">
@@ -166,8 +168,8 @@ const Chat = () => {
                 >
                   {uniqueChatArr?.map((user, i) => (
                     <option
-                      value={user.id}
                       key={i}
+                      value={user.id}
                       className="text-2xl border-solid border-b-[1px] border-slate-500 bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent h-[5rem]"
                     >
                       <div className="avatar placeholder">
@@ -247,15 +249,23 @@ const Chat = () => {
               <div className=" artboard artboard-horizontal bg-base-200 shadow-lg overflow-auto flex flex-col-reverse lg:h-full lg:border-b-2 lg:border-b-neutral-500/50 lg:border-r-2 lg:border-r-neutral-500/50">
                 {/* Messages in chat room box */}
 
-                <ul>
+                <ul className="">
                   {filteredMessageList.map((message, i) => (
                     <div key={i}>
                       {message.receiver !== selectedUser ? (
                         <div className="chat chat-start">
                           {filteredFollowerList.map((user, i) => (
-                            <div key={i} className="chat-header">
-                              {user.username}
-                            </div>
+                            <>
+                              <div key={i} className="chat-header ml-1">
+                                {user.username}
+                              </div>
+                              <div className="chat-footer">
+                                <span className=" text-[10px]">
+                                  {`${moment(message.createdAt).format("l")} ` +
+                                    `${moment(message.createdAt).format("LT")}`}
+                                </span>
+                              </div>
+                            </>
                           ))}
 
                           <div className="chat-bubble before:hidden static text-black bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF]">
@@ -264,11 +274,17 @@ const Chat = () => {
                         </div>
                       ) : (
                         <div className="chat chat-end">
-                          <div className="chat-header">
+                          <div className="chat-header mr-1">
                             {currentUser.username}
                           </div>
                           <div className="chat-bubble  text-black before:hidden   bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] static">
                             {message.text}
+                          </div>
+                          <div className="chat-footer">
+                            <span className=" text-[10px]">
+                              {`${moment(message.createdAt).format("l")} ` +
+                                `${moment(message.createdAt).format("LT")}`}
+                            </span>
                           </div>
                         </div>
                       )}
@@ -354,7 +370,7 @@ const Chat = () => {
                     id=""
                     onChange={onChangeSelect}
                   >
-                    {uniqueChatArr.map((user, i) => (
+                    {uniqueChatArr?.map((user, i) => (
                       <>
                         <option
                           className="text-2xl border-solid border-y-[1px] border-slate-500 bg-base-300 text-[#C0E8FF] h-[5rem]"
@@ -391,6 +407,7 @@ const Chat = () => {
                       value={user.id}
                       key={i}
                       className="text-2xl border-solid border-b-[1px] border-slate-500 bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent h-[5rem]"
+                      selected
                     >
                       <div className="avatar placeholder">
                         <div className="bg-neutral text-neutral-content border-2 rounded-full w-16 mr-10 mt-2">
@@ -413,9 +430,21 @@ const Chat = () => {
                         {message.receiver !== selectedUser ? (
                           <div className="chat chat-start">
                             {filteredFollowerList.map((user, i) => (
-                              <div key={i} className="chat-header">
-                                {user.username}
-                              </div>
+                              <>
+                                <div key={i} className="chat-header ml-1">
+                                  {user.username}
+                                </div>
+                                <div className="chat-footer">
+                                  <span className=" text-[10px]">
+                                    {`${moment(message.createdAt).format(
+                                      "l"
+                                    )} ` +
+                                      `${moment(message.createdAt).format(
+                                        "LT"
+                                      )}`}
+                                  </span>
+                                </div>
+                              </>
                             ))}
 
                             <div className="chat-bubble before:hidden static text-black bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF]">
@@ -424,11 +453,17 @@ const Chat = () => {
                           </div>
                         ) : (
                           <div className="chat chat-end">
-                            <div className="chat-header">
+                            <div className="chat-header mr-1">
                               {currentUser.username}
                             </div>
                             <div className="chat-bubble  text-black before:hidden   bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] static">
                               {message.text}
+                            </div>
+                            <div className="chat-footer">
+                              <span className=" text-[10px]">
+                                {`${moment(message.createdAt).format("l")} ` +
+                                  `${moment(message.createdAt).format("LT")}`}
+                              </span>
                             </div>
                           </div>
                         )}
@@ -444,13 +479,13 @@ const Chat = () => {
                     className="btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black"
                     to={messageURL}
                   >
-                    Send Message
+                    Reply
                   </Link>
                 </div>
               ) : (
                 <div className="xl:flex xl:mr-10 xl:mt-10 xl:justify-end mt-10 ml-5 ">
                   <button className="btn btn-secondary" disabled>
-                    Send Message
+                    Reply
                   </button>
                 </div>
               )}
