@@ -158,7 +158,11 @@ const AllPosts = () => {
             onClick={() => handleNavigatePost(`/post/${post.id}`)}
           >
             <div className="flex ml-6 mt-3 text-sm">
-              <Link to={`/profile/${post.userId}`} className="link">
+              <Link
+                to={`/profile/${post.userId}`}
+                className="link"
+                onClick={(e) => e.stopPropagation()}
+              >
                 {post.owner}
               </Link>
               <p className="mx-2">•</p>
@@ -185,7 +189,11 @@ const AllPosts = () => {
                   <button
                     key={i}
                     value={post.id}
-                    onClick={(e) => getIndex(e, i)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+
+                      getIndex(e, i);
+                    }}
                     className="btn rounded-full"
                   >
                     <HiMiniHeart className="pointer-events-none text-2xl" />
@@ -195,7 +203,11 @@ const AllPosts = () => {
                   <button
                     key={i}
                     value={post.id}
-                    onClick={(e) => getIndex(e, i)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+
+                      getIndex(e, i);
+                    }}
                     className="btn rounded-full"
                   >
                     <HiOutlineHeart className="pointer-events-none text-2xl " />
@@ -209,9 +221,10 @@ const AllPosts = () => {
                     <button
                       className="btn rounded-full"
                       value={post.id}
-                      onClick={(e, index) =>
-                        setPostClick(e.target.value, index)
-                      }
+                      onClick={(e, index) => {
+                        e.stopPropagation();
+                        setPostClick(e.target.value, index);
+                      }}
                     >
                       <HiOutlineTrash className="text-2xl" />
                     </button>

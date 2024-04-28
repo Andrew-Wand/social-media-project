@@ -151,7 +151,9 @@ const UserFeed = () => {
     setKeyIndex(e.target.value, index);
   };
 
-  const handleNavigatePost = (url) => navigate(url);
+  const handleNavigatePost = (url) => {
+    navigate(url);
+  };
 
   // console.log(allPosts);
   // console.log(postClick);
@@ -165,10 +167,16 @@ const UserFeed = () => {
           <li
             className="bg-transparent text-white  w-full first:mt-3 xl:hover:bg-base-100 xl:py-2 xl:rounded-xl xl:cursor-pointer"
             key={i}
-            onClick={() => handleNavigatePost(`/post/${post.id}`)}
+            onClick={() => {
+              handleNavigatePost(`/post/${post.id}`);
+            }}
           >
             <div className="flex ml-6 mt-3 text-sm">
-              <Link to={`/profile/${post.userId}`} className="link">
+              <Link
+                to={`/profile/${post.userId}`}
+                className="link"
+                onClick={(e) => e.stopPropagation()}
+              >
                 {post.owner}
               </Link>
               <p className="mx-2">•</p>
@@ -176,11 +184,7 @@ const UserFeed = () => {
             </div>
 
             <div className="text-lg ml-6 my-5 p-1">
-              <Link
-                to={`/post/${post.id}`}
-                // onClick={() => fetchPostById(post.id)}
-                className="underline mb-5"
-              >
+              <Link to={`/post/${post.id}`} className="underline mb-5">
                 {post.Title}
               </Link>
               <p className="break-words pr-5">{post.Text}</p>
@@ -195,7 +199,11 @@ const UserFeed = () => {
                   <button
                     key={i}
                     value={post.id}
-                    onClick={(e) => getIndex(e, i)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+
+                      getIndex(e, i);
+                    }}
                     className="btn rounded-full"
                   >
                     <HiMiniHeart className="pointer-events-none text-2xl" />
@@ -205,7 +213,10 @@ const UserFeed = () => {
                   <button
                     key={i}
                     value={post.id}
-                    onClick={(e) => getIndex(e, i)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      getIndex(e, i);
+                    }}
                     className="btn rounded-full"
                   >
                     <HiOutlineHeart className="pointer-events-none text-2xl " />
@@ -219,9 +230,10 @@ const UserFeed = () => {
                     <button
                       className="btn rounded-full"
                       value={post.id}
-                      onClick={(e, index) =>
-                        setPostClick(e.target.value, index)
-                      }
+                      onClick={(e, index) => {
+                        e.stopPropagation();
+                        setPostClick(e.target.value, index);
+                      }}
                     >
                       <HiOutlineTrash className="text-2xl" />
                     </button>
