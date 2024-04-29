@@ -91,7 +91,7 @@ const SinglePost = () => {
 
         <div className="flex justify-center mb-10 ">
           <Link
-            className="btn btn-wide w-11/12 rounded-full btn-outline xl:w-5/12"
+            className="btn btn-wide w-11/12 rounded-full btn-outline xl:w-5/12 bg-base-300 back rounded-full hover:bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] transition duration-300  "
             to={`/create-comment/${postIdParam}`}
           >
             Create comment

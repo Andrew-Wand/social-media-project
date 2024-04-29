@@ -5,10 +5,13 @@ import { TbHome } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 import { MdLogout } from "react-icons/md";
 import { TbMessage } from "react-icons/tb";
+import { HiUserGroup } from "react-icons/hi2";
+import { BsPersonAdd } from "react-icons/bs";
 
 const Navbar = ({ loggedIn }) => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const user = AuthService.getCurrentUser();
   let navigate = useNavigate();
   const userIdParam = window.location.pathname.slice(-1);
@@ -23,12 +26,25 @@ const Navbar = ({ loggedIn }) => {
     AuthService.logout();
   };
 
+  const closeMobileSubMenu = () => {
+    setIsSubMenuOpen(false);
+  };
+
   const openMobileMenu = () => {
     setIsOpen(!isOpen);
   };
 
   const closeMobileMenu = () => {
+    if (isSubMenuOpen) {
+      setIsSubMenuOpen(true);
+    } else {
+      setIsSubMenuOpen(false);
+    }
     setIsOpen(false);
+  };
+  const openMobileSubMenu = (e) => {
+    e.preventDefault();
+    setIsSubMenuOpen(!isSubMenuOpen);
   };
 
   return (
@@ -340,9 +356,11 @@ const Navbar = ({ loggedIn }) => {
       {/* MOBILE */}
       <div
         className={
-          !isOpen
-            ? "text-center h-0 overflow-hidden transition-[height] ease duration-[400ms] lg:hidden  bg-base-200 w-full z-0 shadow-md"
-            : "text-center h-[12rem] overflow-hidden transition-[height] ease duration-[400ms] lg:hidden  bg-base-200 w-full z-0 text-[#b8c5c9]"
+          isOpen && !isSubMenuOpen
+            ? "text-center h-[12rem] overflow-hidden transition-[height] ease duration-[350ms] lg:hidden  bg-base-200 w-full z-0 text-[#b8c5c9]"
+            : isSubMenuOpen && isOpen
+            ? "text-center h-[17.5rem] overflow-hidden transition-[height] ease duration-[350ms] lg:hidden  bg-base-200 w-full z-0 text-[#b8c5c9]"
+            : "text-center h-0 overflow-hidden transition-[height] ease duration-[350ms] lg:hidden  bg-base-200 w-full z-0 shadow-md"
         }
       >
         <ul className="menu text-lg ">
@@ -413,19 +431,50 @@ const Navbar = ({ loggedIn }) => {
             </Link>
           </li>
           <li>
-            <Link
-              onClick={closeMobileMenu}
-              to={`/messageDashboard/${userIdParam}`}
-              className="bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
-            >
-              <span className="mr-2">
-                <TbMessage
-                  className="text-2xl"
-                  fill="url(#paint0_linear_235_990)"
-                />
-              </span>
-              Messages
-            </Link>
+            <details onClick={openMobileSubMenu} open={isSubMenuOpen}>
+              <summary className=" text-[#ACAAFF] ">
+                <span className="mr-2">
+                  <HiUserGroup
+                    className="text-2xl"
+                    fill="url(#paint0_linear_235_990)"
+                  />
+                </span>
+                Social
+              </summary>
+              <ul>
+                <li>
+                  <Link
+                    onClick={closeMobileMenu}
+                    to={`/messageDashboard/${userIdParam}`}
+                    className="bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
+                  >
+                    <span className="mr-2">
+                      <TbMessage
+                        className="text-2xl"
+                        fill="url(#paint0_linear_235_990)"
+                      />
+                    </span>
+                    Messages
+                  </Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link
+                    onClick={closeMobileMenu}
+                    to={`/messageDashboard/${userIdParam}`}
+                    className="bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
+                  >
+                    <span className="mr-2">
+                      <BsPersonAdd
+                        className="text-2xl"
+                        fill="url(#paint0_linear_235_990)"
+                      />
+                    </span>
+                    Find Friends
+                  </Link>
+                </li>
+              </ul>
+            </details>
           </li>
           <li className="">
             <a
