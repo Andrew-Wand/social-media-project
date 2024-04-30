@@ -11,6 +11,7 @@ import CreateComment from "./pages/CreateComment";
 import SignInModal from "./components/SignInModal";
 import MessageDashboard from "./pages/MessageDashboard";
 import CreateMessage from "./pages/CreateMessage";
+import FindUsers from "./pages/FindUsers";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -41,6 +42,7 @@ function App() {
         <Route path="/create-comment/:id" element={<CreateComment />} />
         <Route path="/messageDashboard/:id" element={<MessageDashboard />} />
         <Route path="/message/:id" element={<CreateMessage />} />
+        <Route path="/find-users/:id" element={<FindUsers />} />
       </Routes>
     </div>
   );

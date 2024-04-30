@@ -64,7 +64,7 @@ const SignInModal = ({ onLogin }) => {
             setLoading(true);
 
             navigate(`/main/${response}`);
-            window.location.reload();
+            // window.location.reload();
           }
         },
         (error) => {

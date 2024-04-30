@@ -123,7 +123,7 @@ const Home = () => {
         <div className="min-h-screen pb-5 xl:mx-[32rem] xl:border-x-2 xl:border-x-neutral-500/50">
           <div className="px-5 pt-16">
             <h1 className="ml-2 mb-5 text-3xl text-white xl:pt-5 bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
-              {currentUser?.username}'s Feed
+              {user?.username}'s Feed
             </h1>
 
             <div className="flex justify-between">

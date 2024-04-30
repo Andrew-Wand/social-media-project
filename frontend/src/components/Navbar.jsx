@@ -461,7 +461,7 @@ const Navbar = ({ loggedIn }) => {
                   {" "}
                   <Link
                     onClick={closeMobileMenu}
-                    to={`/messageDashboard/${userIdParam}`}
+                    to={`/find-users/${user?.id}`}
                     className="bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
                   >
                     <span className="mr-2">
@@ -470,7 +470,7 @@ const Navbar = ({ loggedIn }) => {
                         fill="url(#paint0_linear_235_990)"
                       />
                     </span>
-                    Find Friends
+                    Find Users
                   </Link>
                 </li>
               </ul>
