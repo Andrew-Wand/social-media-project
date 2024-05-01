@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PostService from "../services/post.service";
 import AuthService from "../services/auth.service";
@@ -38,7 +38,7 @@ const AddCommentInput = () => {
       }
     );
 
-    navigate(`/post/${postId}`);
+    // navigate(`/post/${postId}`);
   };
 
   const commentInputOnChange = (e) => {

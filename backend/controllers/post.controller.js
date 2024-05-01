@@ -59,9 +59,46 @@ exports.deletePost = async (req, res) => {
 // };
 exports.findPostById = async (req, res) => {
   const post = await Post.findByPk(req.params.postId, {
-    include: ["comments", "likes"],
+    include: ["likes"],
   });
   return res.send(post);
+};
+
+const getPagination = (page, size) => {
+  const limit = size ? +size : 5;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: comments } = data;
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  return { totalItems, comments, totalPages, currentPage };
+};
+exports.getPostComments = (req, res) => {
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
+
+  Comment.findAndCountAll({
+    where: {
+      postId: req.params.postId,
+    },
+    limit,
+    offset,
+  })
+    .then((data) => {
+      const response = getPagingData(data, page, limit);
+      res.send(response);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occured while retreiving tutorials.",
+      });
+    });
 };
 
 exports.getAllPosts = async (req, res) => {

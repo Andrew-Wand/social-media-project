@@ -1,16 +1,38 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PostService from "../services/post.service";
+import AuthService from "../services/auth.service";
 import moment from "moment";
 import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 import { FaRegCommentAlt } from "react-icons/fa";
+import Pagination from "@mui/material/Pagination";
 
 const SinglePost = () => {
+  const [currentUser, setCurrentUser] = useState(undefined);
   const [singlePost, setSinglePost] = useState([]);
+  const [postComments, setPostComments] = useState([]);
   const [successful, setSuccessful] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [totalLikes, setTotalLikes] = useState();
+  const [message, setMessage] = useState("");
+  const [keyIndex, setKeyIndex] = useState();
+  const [isLoading, setIsLoading] = useState(null);
+
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
   // console.log(window.location.pathname.slice(-1));
   const postIdParam = window.location.pathname.slice(-1);
   const postIdParamTwoDigit = window.location.pathname.slice(-2);
+
+  const user = AuthService.getCurrentUser();
+
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    }
+  }, []);
 
   const fetchPostById = async (id) => {
     try {
@@ -22,16 +44,113 @@ const SinglePost = () => {
     }
   };
   useEffect(() => {
-    if (Number(postIdParam)) {
-      fetchPostById(postIdParam);
-    } else {
-      fetchPostById(postIdParamTwoDigit);
+    // if (Number(postIdParam)) {
+    //   fetchPostById(postIdParam);
+    // } else {
+    //   fetchPostById(postIdParamTwoDigit);
+
+    // }
+
+    fetchPostById(postIdParam);
+  }, []);
+
+  const fetchPostComments = async () => {
+    const params = getRequestParams(page, pageSize);
+    try {
+      const commentsByPostId = await PostService.getPostComments(
+        postIdParam,
+        params
+      );
+      const { comments, totalPages } = commentsByPostId.data;
+
+      setPostComments(comments);
+      setCount(totalPages);
+
+      // setPostComments(commentsByPostId.data);
+      setSuccessful(true);
+    } catch (error) {
+      console.log(error);
     }
-  }, [successful]);
+  };
+  useEffect(() => {
+    // if (Number(postIdParam)) {
+    //   fetchPostById(postIdParam);
+    // } else {
+    //   fetchPostById(postIdParamTwoDigit);
+
+    // }
+
+    fetchPostComments();
+  }, [page]);
+
+  // Pagination handling
+  const handlePageChange = (e, value) => {
+    setPage(value);
+
+    // fetchPostComments();
+  };
+  const handlePageSizeChange = (e) => {
+    setPageSize(e.target.value);
+    setPage(1);
+    () => fetchPostComments();
+  };
+
+  // CREATE LIKE FUNCTION
+  const handleCreateLike = async (e) => {
+    e.preventDefault();
+
+    // setKeyIndex(e.target.getAttribute("key"));
+    // console.log(e.target.entry, index);
+    const userId = user.id;
+    const fart = Number(keyIndex);
+    const like = likeCount + 1;
+    setIsLoading(true);
+    // console.log(fart);
+
+    PostService.createLike(like, fart, userId).then(
+      (response) => {
+        setMessage(response.data.message);
+        setSuccessful(true);
+        setIsLoading(false);
+        // console.log(response.config.data.slice(-2, -1));
+        fetchPostById(response.config.data.slice(-2, -1));
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setMessage(resMessage);
+        setSuccessful(false);
+        setIsLoading(false);
+      }
+    );
+  };
+
+  const getIndex = (e) => {
+    setKeyIndex(e.target.value);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const getRequestParams = (page, pageSize) => {
+    let params = {};
+
+    if (page) {
+      params["page"] = page - 1;
+    }
+
+    if (pageSize) {
+      params["size"] = pageSize;
+    }
+
+    return params;
+  };
 
   return (
     <div className="bg-base-300 min-h-screen ">
@@ -62,22 +181,26 @@ const SinglePost = () => {
                 <FaRegCommentAlt className="text-lg" />
                 {singlePost?.comments?.length}
               </p>
-              <form>
+              <form onSubmit={handleCreateLike}>
                 {singlePost?.likes?.length > 0 ? (
                   <button
-                    // key={i}
-                    // value={i}
-                    // onClick={(e) => getIndex(e, i)}
+                    value={singlePost?.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      getIndex(e);
+                    }}
                     className="btn rounded-full"
                   >
-                    <HiMiniHeart className="pointer-events-none text-2xl " />
+                    <HiMiniHeart className="pointer-events-none text-2xl text-[#de2a43]" />
                     <p className="">{singlePost?.likes?.length}</p>
                   </button>
                 ) : (
                   <button
-                    // key={i}
-                    // value={i}
-                    // onClick={(e) => getIndex(e, i)}
+                    value={singlePost?.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      getIndex(e);
+                    }}
                     className="btn rounded-full"
                   >
                     <HiOutlineHeart className="pointer-events-none text-2xl text-slate-300 " />
@@ -102,8 +225,8 @@ const SinglePost = () => {
           <p className="ml-5">Comments:</p>
 
           <ul className="p-5">
-            {singlePost?.comments &&
-              singlePost?.comments.map((comment, i) => (
+            {postComments &&
+              postComments?.map((comment, i) => (
                 <li key={i} className="mb-5">
                   <div className="flex items-center text-[.75rem] mb-1 ">
                     <Link
@@ -125,6 +248,17 @@ const SinglePost = () => {
                 </li>
               ))}
           </ul>
+
+          <Pagination
+            count={count}
+            page={page}
+            siblingCount={1}
+            boundaryCount={1}
+            variant="outlined"
+            // shape="rounded"
+            color="primary"
+            onChange={handlePageChange}
+          />
         </div>
       </div>
     </div>

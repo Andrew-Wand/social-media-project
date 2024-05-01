@@ -65,6 +65,10 @@ const postCreateComment = (comment_text, postId, userId, owner) => {
     });
 };
 
+const getPostComments = (postId, params) => {
+  return axios.get(API_URL + `getPostComments/${postId}`, { params });
+};
+
 const PostService = {
   postCreatePost,
   getMyHomeFeed,
@@ -74,6 +78,7 @@ const PostService = {
   getAllLikes,
   getAllPosts,
   deletePost,
+  getPostComments,
 };
 
 export default PostService;
