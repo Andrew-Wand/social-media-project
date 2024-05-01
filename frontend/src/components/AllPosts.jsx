@@ -80,7 +80,7 @@ const AllPosts = () => {
     // setKeyIndex(e.target.getAttribute("key"));
     // console.log(e.target.entry, index);
     const userId = user.id;
-    let fart = Number(keyIndex) + 1;
+    const fart = Number(keyIndex);
     const like = likeCount + 1;
     setIsLoading(true);
 
@@ -144,7 +144,6 @@ const AllPosts = () => {
     setKeyIndex(e.target.value, index);
   };
 
-  console.log(allPosts);
   const handleNavigatePost = (url) => navigate(url);
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
@@ -196,7 +195,7 @@ const AllPosts = () => {
                     }}
                     className="btn rounded-full"
                   >
-                    <HiMiniHeart className="pointer-events-none text-2xl" />
+                    <HiMiniHeart className="pointer-events-none text-2xl text-[#de2a43]" />
                     <p className="">{post.likes.length}</p>
                   </button>
                 ) : (
@@ -210,7 +209,7 @@ const AllPosts = () => {
                     }}
                     className="btn rounded-full"
                   >
-                    <HiOutlineHeart className="pointer-events-none text-2xl " />
+                    <HiOutlineHeart className="pointer-events-none text-2xl  " />
                     <p className="">{post.likes.length}</p>
                   </button>
                 )}

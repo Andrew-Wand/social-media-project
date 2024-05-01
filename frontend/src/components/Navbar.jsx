@@ -310,7 +310,7 @@ const Navbar = ({ loggedIn }) => {
           </label>
         </div>
         {/* DESKTOP */}
-        <div className="xl:navbar-end hidden xl:flex xl:mr-[27rem] ">
+        <div className="xl:navbar-center xl:item hidden xl:flex xl:mr-[27rem] ">
           <ul className="menu menu-horizontal px-1 xl:text-[1.1rem]">
             {user ? (
               // User is logged in
@@ -326,6 +326,15 @@ const Navbar = ({ loggedIn }) => {
                     className="nav-link  "
                   >
                     Messages
+                  </Link>
+                </li>
+                <li className="nav-item  bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
+                  <Link
+                    onClick={closeMobileMenu}
+                    to={`/find-users/${user?.id}`}
+                    className=" nav-link "
+                  >
+                    Find Users
                   </Link>
                 </li>
                 <li className="nav-item bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">

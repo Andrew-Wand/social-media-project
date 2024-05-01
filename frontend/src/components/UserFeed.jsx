@@ -206,7 +206,7 @@ const UserFeed = () => {
                     }}
                     className="btn rounded-full"
                   >
-                    <HiMiniHeart className="pointer-events-none text-2xl" />
+                    <HiMiniHeart className="pointer-events-none text-2xl text-[#de2a43]" />
                     <p className="">{post.likes.length}</p>
                   </button>
                 ) : (
@@ -219,7 +219,7 @@ const UserFeed = () => {
                     }}
                     className="btn rounded-full"
                   >
-                    <HiOutlineHeart className="pointer-events-none text-2xl " />
+                    <HiOutlineHeart className="pointer-events-none text-2xl  " />
                     <p className="">{post.likes.length}</p>
                   </button>
                 )}

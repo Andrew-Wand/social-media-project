@@ -65,7 +65,7 @@ const FindUsers = () => {
         <h2 className="text-3xl text-center pt-5">Find Users</h2>
       </div>
 
-      <div className="flex">
+      <div className="flex xl:justify-center">
         {findFollowerList.map((user) => (
           <div className="card w-96 mx-2 bg-base-100 shadow-xl my-5">
             <div className="card-body">
