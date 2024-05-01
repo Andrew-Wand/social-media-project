@@ -25,7 +25,13 @@ body:has(.requires-no-scroll) {
     }
   }
 
-
+  
+  .MuiPagination-root {
+    button {
+      color: white !important;
+      border-color: gray;
+   }
+  }
   
 
   

@@ -38,7 +38,7 @@ const AddCommentInput = () => {
       }
     );
 
-    // navigate(`/post/${postId}`);
+    navigate(`/post/${postId}`);
   };
 
   const commentInputOnChange = (e) => {

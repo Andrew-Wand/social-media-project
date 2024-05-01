@@ -21,6 +21,7 @@ const SinglePost = () => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [pageSize, setPageSize] = useState(5);
+  const [totalComments, setTotalComments] = useState();
   // console.log(window.location.pathname.slice(-1));
   const postIdParam = window.location.pathname.slice(-1);
   const postIdParamTwoDigit = window.location.pathname.slice(-2);
@@ -65,8 +66,8 @@ const SinglePost = () => {
 
       setPostComments(comments);
       setCount(totalPages);
+      setTotalComments(commentsByPostId.data.totalItems);
 
-      // setPostComments(commentsByPostId.data);
       setSuccessful(true);
     } catch (error) {
       console.log(error);
@@ -179,7 +180,7 @@ const SinglePost = () => {
             <div className="flex ">
               <p className="btn rounded-3xl mr-5">
                 <FaRegCommentAlt className="text-lg" />
-                {singlePost?.comments?.length}
+                {totalComments}
               </p>
               <form onSubmit={handleCreateLike}>
                 {singlePost?.likes?.length > 0 ? (
@@ -248,18 +249,17 @@ const SinglePost = () => {
                 </li>
               ))}
           </ul>
-
-          <Pagination
-            count={count}
-            page={page}
-            siblingCount={1}
-            boundaryCount={1}
-            variant="outlined"
-            // shape="rounded"
-            color="primary"
-            onChange={handlePageChange}
-          />
         </div>
+        <Pagination
+          className="flex justify-center"
+          count={count}
+          page={page}
+          siblingCount={1}
+          boundaryCount={1}
+          variant="outlined"
+          color="primary"
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );
