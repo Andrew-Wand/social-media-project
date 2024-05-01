@@ -2,6 +2,7 @@ const db = require("../models");
 const User = db.users;
 const Follower = db.followers;
 const Post = db.posts;
+const { Op } = require("sequelize");
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
