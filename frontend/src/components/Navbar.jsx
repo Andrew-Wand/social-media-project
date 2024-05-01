@@ -311,7 +311,7 @@ const Navbar = ({ loggedIn }) => {
         </div>
         {/* DESKTOP */}
         <div className="xl:navbar-center xl:item hidden xl:flex xl:mr-[27rem] ">
-          <ul className="menu menu-horizontal px-1 xl:text-[1.1rem]">
+          <ul className="menu menu-horizontal px-1 xl:text-[1.1rem] dropdown-content">
             {user ? (
               // User is logged in
               <>
@@ -320,23 +320,37 @@ const Navbar = ({ loggedIn }) => {
                     Profile
                   </Link>
                 </li>
-                <li className="nav-item bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent ">
-                  <Link
-                    to={`/messageDashboard/${user.id}`}
-                    className="nav-link  "
+
+                <li>
+                  <details
+                    onClick={openMobileSubMenu}
+                    open={isSubMenuOpen}
+                    className="bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
                   >
-                    Messages
-                  </Link>
+                    <summary className="after:text-[#C0E8FF]">Social</summary>
+                    <ul className="w-[9rem]">
+                      <li className="nav-item bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent ">
+                        <Link
+                          to={`/messageDashboard/${user.id}`}
+                          className="nav-link "
+                          onClick={closeMobileMenu}
+                        >
+                          Messages
+                        </Link>
+                      </li>
+                      <li className="nav-item bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
+                        <Link
+                          onClick={closeMobileMenu}
+                          to={`/find-users/${user?.id}`}
+                          className=" nav-link "
+                        >
+                          Find Users
+                        </Link>
+                      </li>
+                    </ul>
+                  </details>
                 </li>
-                <li className="nav-item  bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
-                  <Link
-                    onClick={closeMobileMenu}
-                    to={`/find-users/${user?.id}`}
-                    className=" nav-link "
-                  >
-                    Find Users
-                  </Link>
-                </li>
+
                 <li className="nav-item bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
                   <a href="/" className="nav-link" onClick={logOut}>
                     Log Out
