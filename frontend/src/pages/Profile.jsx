@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import UserService from "../services/user.service";
 import AuthService from "../services/auth.service";
+import PostService from "../services/post.service";
 import FollowService from "../services/follow.service";
 import { AiOutlineMessage } from "react-icons/ai";
 import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
@@ -13,7 +14,11 @@ const Profile = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+  const [keyIndex, setKeyIndex] = useState();
+  const [isLoading, setIsLoading] = useState(null);
+  const [likeCount, setLikeCount] = useState(0);
 
+  const user = AuthService.getCurrentUser();
   const profileIdParams = window.location.pathname.slice(-1);
   const location = useLocation();
   console.log(location);
@@ -77,6 +82,45 @@ const Profile = () => {
     (follower) => follower.id === currentUser.id
   );
 
+  const handleCreateLike = async (e) => {
+    e.preventDefault();
+
+    // setKeyIndex(e.target.getAttribute("key"));
+    // console.log(e.target.entry, index);
+    const userId = user.id;
+    const fart = Number(keyIndex);
+    const like = likeCount + 1;
+    setIsLoading(true);
+    // console.log(fart);
+
+    PostService.createLike(like, fart, userId).then(
+      (response) => {
+        setMessage(response.data.message);
+        setSuccessful(true);
+        setIsLoading(false);
+        // console.log(response.config.data.slice(-2, -1));
+        fetchUserById(profileIdParams);
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setMessage(resMessage);
+        setSuccessful(false);
+        setIsLoading(false);
+      }
+    );
+  };
+
+  const getIndex = (e, index) => {
+    setKeyIndex(e.target.value, index);
+  };
+
+  console.log(userProfileData);
   return (
     <div className="bg-base-300 xl:pr-20">
       <div className="min-h-screen xl:mx-[30rem] xl:border-x-2 xl:border-x-neutral-500/50">
@@ -173,27 +217,29 @@ const Profile = () => {
                       {post.comments?.length}
                     </p>
 
-                    {post.likeCounts.length > 0 ? (
-                      <button
-                        key={i}
-                        value={post.id}
-                        // onClick={(e) => getIndex(e, i)}
-                        className="btn rounded-full"
-                      >
-                        <HiMiniHeart className="pointer-events-none text-2xl" />
-                        <p className="">{post.likeCounts}</p>
-                      </button>
-                    ) : (
-                      <button
-                        key={i}
-                        value={post.id}
-                        // onClick={(e) => getIndex(e, i)}
-                        className="btn rounded-full"
-                      >
-                        <HiOutlineHeart className="pointer-events-none text-2xl " />
-                        <p className="">{post.likeCounts}</p>
-                      </button>
-                    )}
+                    <form key={i} value={i} onSubmit={handleCreateLike}>
+                      {post.likeCounts > 0 ? (
+                        <button
+                          key={i}
+                          value={post.id}
+                          onClick={(e) => getIndex(e, i)}
+                          className="btn rounded-full"
+                        >
+                          <HiMiniHeart className="pointer-events-none text-2xl text-[#de2a43]" />
+                          <p className="">{post.likeCounts}</p>
+                        </button>
+                      ) : (
+                        <button
+                          key={i}
+                          value={post.id}
+                          onClick={(e) => getIndex(e, i)}
+                          className="btn rounded-full"
+                        >
+                          <HiOutlineHeart className="pointer-events-none text-2xl " />
+                          <p className="">{post.likeCounts}</p>
+                        </button>
+                      )}
+                    </form>
                   </div>
                 </li>
                 <hr className="border-b-solid border-b-[.0625rem] border-[#242c2e] xl:my-2" />
