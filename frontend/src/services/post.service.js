@@ -28,11 +28,11 @@ const deletePost = (postId) => {
   });
 };
 
-const getMyHomeFeed = (userId) => {
-  return axios.get(API_URL + `getMyHomeFeed/${userId}`);
+const getMyHomeFeed = (userId, params) => {
+  return axios.get(API_URL + `getMyHomeFeed/${userId}`, { params });
 };
-const getAllPosts = (userId) => {
-  return axios.get(API_URL + `getAllPosts/${userId}`);
+const getAllPosts = (userId, params) => {
+  return axios.get(API_URL + `getAllPosts/${userId}`, { params });
 };
 
 const getSinglePost = (postId) => {

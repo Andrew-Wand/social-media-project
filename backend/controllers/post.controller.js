@@ -101,38 +101,53 @@ exports.getPostComments = (req, res) => {
     });
 };
 
+const getHomeFeedPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: posts } = data;
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  return { totalItems, posts, totalPages, currentPage };
+};
+
 exports.getAllPosts = async (req, res) => {
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
   try {
-    const response = await Promise.all([
-      await Post.findAll({
-        include: [
-          { model: Comment, as: "comments" },
-          // limit the likes based on the logged in user
-          {
-            model: Like,
-            as: "likes",
-            required: false,
-            where: { userId: req.params.userId },
-          },
-        ],
-        order: [["createdAt", "ASC"]],
-      }),
-    ]);
+    const response = await Post.findAndCountAll({
+      include: [
+        { model: Comment, as: "comments" },
+        // limit the likes based on the logged in user
+        {
+          model: Like,
+          as: "likes",
+          required: false,
+          where: { userId: req.params.userId },
+        },
+      ],
+      distinct: true,
+      limit,
+      offset,
+      order: [["createdAt", "ASC"]],
+    });
 
-    const newArr = await response.flatMap((x) => x);
+    // const newArr = await response.flatMap((x) => x);
 
-    res.status(200).send(newArr);
+    const allPostData = getHomeFeedPagingData(response, page, limit);
+
+    res.status(200).send(allPostData);
     // console.log(post);
     // return followed;
   } catch (error) {
     console.log(error);
   }
 };
+
 exports.getMyHomeFeed = async (req, res) => {
   // return Post.findAll({ include: ["comments"] }).then((post) => {
   //   return post;
   // });
-
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
   try {
     const response = await Promise.all([
       // await Post.findAll({
@@ -168,7 +183,7 @@ exports.getMyHomeFeed = async (req, res) => {
 
     const result = newArr.map((x) => x.followerId);
 
-    const findPost = await Post.findAll({
+    const findPost = await Post.findAndCountAll({
       include: [
         {
           model: User,
@@ -185,16 +200,19 @@ exports.getMyHomeFeed = async (req, res) => {
           where: { userId: req.params.userId },
         },
       ],
+      distinct: true,
       // include: ["comments", "likes"],
       order: [["createdAt", "ASC"]],
+      limit,
+      offset,
       where: {
         [Op.or]: [{ userId: result }, { userId: req.params.userId }],
       },
     });
 
-    res.status(200).send(findPost);
-    // console.log(post);
-    // return followed;
+    const feedData = getHomeFeedPagingData(findPost, page, limit);
+    // console.log(findPost.count);
+    res.status(200).send(feedData);
   } catch (error) {
     console.log(error);
   }

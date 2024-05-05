@@ -7,6 +7,7 @@ import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegCommentAlt } from "react-icons/fa";
 import moment from "moment";
+import Pagination from "@mui/material/Pagination";
 
 const UserFeed = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -22,6 +23,11 @@ const UserFeed = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [postClick, setPostClick] = useState();
 
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
+  const [totalPosts, setTotalPosts] = useState();
+
   const navigate = useNavigate();
   const userIdParam = window.location.pathname.slice(-1);
   const user = AuthService.getCurrentUser();
@@ -34,11 +40,15 @@ const UserFeed = () => {
   }, []);
 
   // console.log(currentUser);
-  const fetchAllPosts = async (id) => {
+  const fetchAllPosts = async () => {
+    const params = getRequestParams(page, pageSize);
     try {
-      const allPostList = await PostService.getMyHomeFeed(id);
-
-      setAllPosts(allPostList.data);
+      const allPostList = await PostService.getMyHomeFeed(userIdParam, params);
+      const { posts, totalPages } = allPostList.data;
+      // console.log(allPostList);
+      setAllPosts(posts);
+      setCount(totalPages);
+      setTotalPosts(allPostList.data.totalItems);
       if (
         userIdParam !== user.id ||
         window.location.pathname === "http://localhost:5173"
@@ -64,7 +74,7 @@ const UserFeed = () => {
 
   useEffect(() => {
     fetchAllPosts(userIdParam);
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -160,6 +170,26 @@ const UserFeed = () => {
 
   // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
+  const getRequestParams = (page, pageSize) => {
+    let params = {};
+
+    if (page) {
+      params["page"] = page - 1;
+    }
+
+    if (pageSize) {
+      params["size"] = pageSize;
+    }
+
+    return params;
+  };
+
+  // Pagination handling
+  const handlePageChange = (e, value) => {
+    setPage(value);
+
+    // fetchPostComments();
+  };
   return (
     <ul>
       {allPosts?.map((post, i) => (
@@ -247,6 +277,17 @@ const UserFeed = () => {
           <hr className="border-b-solid border-b-[.0625rem] border-[#242c2e] xl:my-2" />
         </>
       ))}
+      <Pagination
+        className="flex justify-center "
+        count={count}
+        page={page}
+        siblingCount={1}
+        boundaryCount={1}
+        variant="outlined"
+        shape="rounded"
+        color="primary"
+        onChange={handlePageChange}
+      />
       {allPosts?.length === 0
         ? "Click create post to add a new post! Or follow someone to see their posts here!"
         : ""}

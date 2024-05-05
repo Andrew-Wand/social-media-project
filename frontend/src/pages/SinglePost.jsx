@@ -23,8 +23,11 @@ const SinglePost = () => {
   const [pageSize, setPageSize] = useState(5);
   const [totalComments, setTotalComments] = useState();
   // console.log(window.location.pathname.slice(-1));
-  const postIdParam = window.location.pathname.slice(-1);
-  const postIdParamTwoDigit = window.location.pathname.slice(-2);
+  // const postIdParam = window.location.pathname.slice(-1);
+  // const postIdParamTwoDigit = window.location.pathname.slice(-2);
+
+  const postIdParam = window.location.pathname.split("/").pop();
+  // console.log(last);
 
   const user = AuthService.getCurrentUser();
 
@@ -45,13 +48,12 @@ const SinglePost = () => {
     }
   };
   useEffect(() => {
-    if (Number(postIdParam)) {
-      fetchPostById(postIdParam);
-    } else {
-      fetchPostById(postIdParamTwoDigit);
-    }
-
-    // fetchPostById(postIdParam);
+    // if (Number(postIdParam) < 10) {
+    //   fetchPostById(postIdParam);
+    // } else if (Number(postIdParamTwoDigit) < 10) {
+    //   fetchPostById(postIdParamTwoDigit);
+    // }
+    fetchPostById(postIdParam);
   }, []);
 
   const fetchPostComments = async () => {
@@ -80,7 +82,7 @@ const SinglePost = () => {
 
     // }
 
-    fetchPostComments();
+    fetchPostById(postIdParam);
   }, [page]);
 
   // Pagination handling
