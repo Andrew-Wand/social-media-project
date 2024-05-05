@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import UserService from "../services/user.service";
 import AuthService from "../services/auth.service";
 import PostService from "../services/post.service";
@@ -21,6 +21,7 @@ const Profile = () => {
   const user = AuthService.getCurrentUser();
   const profileIdParams = window.location.pathname.slice(-1);
   const location = useLocation();
+  const navigate = useNavigate();
   console.log(location);
   const fetchUserById = async (id) => {
     try {
@@ -120,6 +121,8 @@ const Profile = () => {
     setKeyIndex(e.target.value, index);
   };
 
+  const handleNavigatePost = (url) => navigate(url);
+
   console.log(userProfileData);
   return (
     <div className="bg-base-300 xl:pr-20">
@@ -190,6 +193,7 @@ const Profile = () => {
                 <li
                   className="bg-transparent text-white  w-full first:mt-3 xl:hover:bg-base-100 xl:py-2 xl:rounded-xl xl:cursor-pointer"
                   key={i}
+                  onClick={() => handleNavigatePost(`/post/${post.id}`)}
                 >
                   <div className="flex ml-6 mt-3 text-sm">
                     <Link to={`/profile/${post.userId}`} className="link">
@@ -222,7 +226,10 @@ const Profile = () => {
                         <button
                           key={i}
                           value={post.id}
-                          onClick={(e) => getIndex(e, i)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            getIndex(e, i);
+                          }}
                           className="btn rounded-full"
                         >
                           <HiMiniHeart className="pointer-events-none text-2xl text-[#de2a43]" />
@@ -232,7 +239,10 @@ const Profile = () => {
                         <button
                           key={i}
                           value={post.id}
-                          onClick={(e) => getIndex(e, i)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            getIndex(e, i);
+                          }}
                           className="btn rounded-full"
                         >
                           <HiOutlineHeart className="pointer-events-none text-2xl " />

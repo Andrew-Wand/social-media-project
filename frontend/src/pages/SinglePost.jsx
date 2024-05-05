@@ -45,14 +45,13 @@ const SinglePost = () => {
     }
   };
   useEffect(() => {
-    // if (Number(postIdParam)) {
-    //   fetchPostById(postIdParam);
-    // } else {
-    //   fetchPostById(postIdParamTwoDigit);
+    if (Number(postIdParam)) {
+      fetchPostById(postIdParam);
+    } else {
+      fetchPostById(postIdParamTwoDigit);
+    }
 
-    // }
-
-    fetchPostById(postIdParam);
+    // fetchPostById(postIdParam);
   }, []);
 
   const fetchPostComments = async () => {
@@ -114,7 +113,11 @@ const SinglePost = () => {
         setSuccessful(true);
         setIsLoading(false);
         // console.log(response.config.data.slice(-2, -1));
-        fetchPostById(response.config.data.slice(-2, -1));
+        if (Number(postIdParam)) {
+          fetchPostById(postIdParam);
+        } else {
+          fetchPostById(postIdParamTwoDigit);
+        }
       },
       (error) => {
         const resMessage =
