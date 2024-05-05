@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import UserService from "../services/user.service";
 import AuthService from "../services/auth.service";
 import FollowService from "../services/follow.service";
@@ -15,6 +15,8 @@ const Profile = () => {
   const [message, setMessage] = useState("");
 
   const profileIdParams = window.location.pathname.slice(-1);
+  const location = useLocation();
+  console.log(location);
   const fetchUserById = async (id) => {
     try {
       const currentUserProfile = await UserService.getUserById(id);
@@ -25,7 +27,7 @@ const Profile = () => {
   };
   useEffect(() => {
     fetchUserById(profileIdParams);
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -34,7 +36,7 @@ const Profile = () => {
     }
   }, []);
 
-  console.log(userProfileData);
+  // console.log(userProfileData);
 
   const handleFollowSubmit = async (e) => {
     e.preventDefault();
@@ -89,13 +91,18 @@ const Profile = () => {
           <div className="flex items-center mt-2">
             <form onSubmit={handleFollowSubmit}>
               {userFollowersFiltered?.map((follower, i) => (
-                <div key={i}>
+                <div key={i} className="flex">
                   {follower.id === currentUser.id ? (
                     <>
-                      <button className="btn">Unfollow</button>
-                      <button className="btn text-2xl rounded-full ml-5  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black">
-                        <AiOutlineMessage />
+                      <button className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF]  text-black">
+                        Unfollow
                       </button>
+                      <Link
+                        to={`/messageDashboard/${currentUser.id}`}
+                        className="btn text-2xl rounded-full ml-5  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black"
+                      >
+                        <AiOutlineMessage />
+                      </Link>
                     </>
                   ) : (
                     ""
@@ -111,7 +118,7 @@ const Profile = () => {
                   className={
                     currentUser?.id === Number(profileIdParams)
                       ? "hidden"
-                      : "btn"
+                      : "btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black"
                   }
                 >
                   Follow

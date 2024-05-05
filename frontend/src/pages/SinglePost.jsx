@@ -213,7 +213,7 @@ const SinglePost = () => {
           </div>
         </div>
 
-        <div className="flex justify-center mb-10 ">
+        <div className="flex justify-center mb-7 ">
           <Link
             className="btn btn-wide w-11/12 rounded-full btn-outline xl:w-5/12 bg-base-300 back rounded-full hover:bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] transition duration-300  "
             to={`/create-comment/${postIdParam}`}
@@ -229,7 +229,7 @@ const SinglePost = () => {
             {postComments &&
               postComments?.map((comment, i) => (
                 <li key={i} className="mb-5">
-                  <div className="flex items-center text-[.75rem] mb-1 ">
+                  <div className="flex items-center text-[.8rem] mb-1 ">
                     <Link
                       to={`/profile/${comment.userId}`}
                       className="font-bold link"
@@ -243,20 +243,22 @@ const SinglePost = () => {
                     </span>
                   </div>
 
-                  <div className="text-[.875rem]">
+                  <div className="text-[.9rem]">
                     <p>{comment.comment_text}</p>
                   </div>
                 </li>
               ))}
           </ul>
         </div>
+        <div className="divider"></div>
         <Pagination
-          className="flex justify-center"
+          className="flex justify-center "
           count={count}
           page={page}
           siblingCount={1}
           boundaryCount={1}
           variant="outlined"
+          shape="rounded"
           color="primary"
           onChange={handlePageChange}
         />

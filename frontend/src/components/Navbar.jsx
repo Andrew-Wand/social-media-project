@@ -94,43 +94,6 @@ const Navbar = ({ loggedIn }) => {
                     </clipPath>{" "}
                   </defs>{" "}
                 </svg>
-                {/* <svg
-                  width="30"
-                  height="50"
-                  viewBox="0 0 200 200"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {" "}
-                  <g clipPath="url(#clip0_231_793)">
-                    {" "}
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M50 0H200V50V150L150 200L150 50H0L50 0ZM0 165.067V100L65.067 100L0 165.067ZM100 200H35.7777L100 135.778L100 200Z"
-                      fill="url(#paint0_linear_231_793)"
-                    />{" "}
-                  </g>{" "}
-                  <defs>
-                    {" "}
-                    <linearGradient
-                      id="paint0_linear_231_793"
-                      x1="177"
-                      y1="-9.23648e-06"
-                      x2="39.5"
-                      y2="152.5"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      {" "}
-                      <stop stopColor="#B0B9FF" />{" "}
-                      <stop offset="2" stopColor="#E7E9FF" />{" "}
-                    </linearGradient>{" "}
-                    <clipPath id="clip0_231_793">
-                      {" "}
-                      <rect width="200" height="200" fill="white" />{" "}
-                    </clipPath>{" "}
-                  </defs>{" "}
-                </svg> */}
               </span>
               <div>
                 <span className=" bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
@@ -177,43 +140,6 @@ const Navbar = ({ loggedIn }) => {
                     </clipPath>{" "}
                   </defs>{" "}
                 </svg>
-                {/* <svg
-                  width="30"
-                  height="50"
-                  viewBox="0 0 200 200"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {" "}
-                  <g clipPath="url(#clip0_231_793)">
-                    {" "}
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M50 0H200V50V150L150 200L150 50H0L50 0ZM0 165.067V100L65.067 100L0 165.067ZM100 200H35.7777L100 135.778L100 200Z"
-                      fill="url(#paint0_linear_231_793)"
-                    />{" "}
-                  </g>{" "}
-                  <defs>
-                    {" "}
-                    <linearGradient
-                      id="paint0_linear_231_793"
-                      x1="177"
-                      y1="-9.23648e-06"
-                      x2="39.5"
-                      y2="152.5"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      {" "}
-                      <stop stopColor="#B0B9FF" />{" "}
-                      <stop offset="2" stopColor="#E7E9FF" />{" "}
-                    </linearGradient>{" "}
-                    <clipPath id="clip0_231_793">
-                      {" "}
-                      <rect width="200" height="200" fill="white" />{" "}
-                    </clipPath>{" "}
-                  </defs>{" "}
-                </svg> */}
               </span>
               <div>
                 <span className=" bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
@@ -221,13 +147,6 @@ const Navbar = ({ loggedIn }) => {
                 </span>
               </div>
             </Link>
-
-            // <Link
-            //   to={`/`}
-            //   className="btn btn-ghost text-xl xl:text-3xl xl:hidden bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent"
-            // >
-            //   MyBlog
-            // </Link>
           )}
         </div>
         <div className="navbar-end">
@@ -315,6 +234,15 @@ const Navbar = ({ loggedIn }) => {
             {user ? (
               // User is logged in
               <>
+                <li className="bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
+                  <Link
+                    to={`/main/${user?.id}`}
+                    onClick={closeMobileMenu}
+                    className="nav-item "
+                  >
+                    Home
+                  </Link>
+                </li>
                 <li className="nav-item bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
                   <Link to={`/profile/${user.id}`} className="nav-link ">
                     Profile
@@ -518,96 +446,6 @@ const Navbar = ({ loggedIn }) => {
       </div>
     </nav>
   );
-  // return (
-  //   <nav>
-  //     <div className="navbar bg-slate-500 xl:shadow-lg">
-  //       {/* MOBILE */}
-  //       <div className="navbar-start">
-  //         <div className={user ? "dropdown" : "hidden"}>
-  //           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-  //             <svg
-  //               xmlns="http://www.w3.org/2000/svg"
-  //               className="h-5 w-5"
-  //               fill="none"
-  //               viewBox="0 0 24 24"
-  //               stroke="currentColor"
-  //             >
-  //               <path
-  //                 strokeLinecap="round"
-  //                 strokeLinejoin="round"
-  //                 strokeWidth="2"
-  //                 d="M4 6h16M4 12h8m-8 6h16"
-  //               />
-  //             </svg>
-  //           </div>
-  //           <ul
-  //             tabIndex={0}
-  //             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-  //           >
-  //             {/* User is loggedin */}
-  //             <div className="navbar-nav ">
-  //               <li className="nav-item">
-  //                 <Link to={`/profile/${userIdParam}`} className="nav-link">
-  //                   Profile
-  //                 </Link>
-  //               </li>
-  //               <li className="nav-item">
-  //                 <a href="/" className="nav-link" onClick={logOut}>
-  //                   Log Out
-  //                 </a>
-  //               </li>
-  //             </div>
-  //           </ul>
-  //         </div>
-  //         {user ? (
-  //           <Link to={`/main/${user.id}`} className="btn btn-ghost text-xl">
-  //             Chat Room
-  //           </Link>
-  //         ) : (
-  //           <Link to={`/`} className="btn btn-ghost text-xl">
-  //             Chat Room
-  //           </Link>
-  //         )}
-  //       </div>
-
-  //       {/* DESKTOP */}
-  //       <div className="navbar-end hidden xl:flex">
-  //         <ul className="menu menu-horizontal px-1">
-  //           {currentUser ? (
-  //             // User is logged in
-  //             <>
-  //               <li className="nav-item">
-  //                 <Link to={`/profile/${userIdParam}`} className="nav-link">
-  //                   Profile
-  //                 </Link>
-  //               </li>
-  //               <li className="nav-item">
-  //                 <a className="nav-link" onClick={logOut}>
-  //                   Log Out
-  //                 </a>
-  //               </li>
-  //             </>
-  //           ) : (
-  //             // No user logged in
-  //             <>
-  //               <li className="nav-item">
-  //                 <Link to={"/sign-in"} className="nav-link">
-  //                   Login
-  //                 </Link>
-  //               </li>
-
-  //               <li className="nav-item">
-  //                 <Link to={"/register"} className="nav-link">
-  //                   Sign Up
-  //                 </Link>
-  //               </li>
-  //             </>
-  //           )}
-  //         </ul>
-  //       </div>
-  //     </div>
-  //   </nav>
-  // );
 };
 
 export default Navbar;
