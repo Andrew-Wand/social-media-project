@@ -127,7 +127,7 @@ exports.getAllPosts = async (req, res) => {
       distinct: true,
       limit,
       offset,
-      order: [["createdAt", "ASC"]],
+      order: [["createdAt", "DESC"]],
     });
 
     // const newArr = await response.flatMap((x) => x);
@@ -202,7 +202,7 @@ exports.getMyHomeFeed = async (req, res) => {
       ],
       distinct: true,
       // include: ["comments", "likes"],
-      order: [["createdAt", "ASC"]],
+      order: [["createdAt", "DESC"]],
       limit,
       offset,
       where: {

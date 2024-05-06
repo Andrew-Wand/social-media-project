@@ -205,7 +205,9 @@ const UserFeed = () => {
             <div className="flex ml-6 mt-3 text-sm">
               <Link
                 to={`/profile/${post.userId}`}
-                className="link"
+                className={
+                  post.owner === user.username ? "link text-[#ACAAFF]" : "link"
+                }
                 onClick={(e) => e.stopPropagation()}
               >
                 {post.owner}
@@ -281,7 +283,7 @@ const UserFeed = () => {
       ))}
       <Pagination
         className={
-          allPosts ? "flex justify-center" : "flex justify-center hidden"
+          allPosts ? "flex justify-center mt-2" : "flex justify-center hidden"
         }
         count={count}
         page={page}
