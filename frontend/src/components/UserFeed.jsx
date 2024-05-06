@@ -160,7 +160,6 @@ const UserFeed = () => {
   const getIndex = (e, index) => {
     setKeyIndex(e.target.value, index);
   };
-
   const handleNavigatePost = (url) => {
     navigate(url);
   };
@@ -190,6 +189,8 @@ const UserFeed = () => {
 
     // fetchPostComments();
   };
+
+  console.log(postClick);
   return (
     <ul>
       {allPosts?.map((post, i) => (
@@ -256,16 +257,17 @@ const UserFeed = () => {
               </form>
               {post.userId === user.id ? (
                 <div className="ml-10">
-                  <form onSubmit={handleDeletePost}>
+                  <form key={i} value={post.id} onSubmit={handleDeletePost}>
                     <button
                       className="btn rounded-full"
                       value={post.id}
                       onClick={(e, index) => {
                         e.stopPropagation();
-                        setPostClick(e.target.value, index);
+
+                        setPostClick(e.currentTarget.value, index);
                       }}
                     >
-                      <HiOutlineTrash className="text-2xl" />
+                      <HiOutlineTrash className="text-2xl " />
                     </button>
                   </form>
                 </div>
@@ -278,7 +280,9 @@ const UserFeed = () => {
         </>
       ))}
       <Pagination
-        className="flex justify-center "
+        className={
+          allPosts ? "flex justify-center" : "flex justify-center hidden"
+        }
         count={count}
         page={page}
         siblingCount={1}

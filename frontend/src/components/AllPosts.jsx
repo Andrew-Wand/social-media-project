@@ -253,7 +253,7 @@ const AllPosts = () => {
                       value={post.id}
                       onClick={(e, index) => {
                         e.stopPropagation();
-                        setPostClick(e.target.value, index);
+                        setPostClick(e.currentTarget.value, index);
                       }}
                     >
                       <HiOutlineTrash className="text-2xl" />
@@ -270,7 +270,9 @@ const AllPosts = () => {
         </>
       ))}
       <Pagination
-        className="flex justify-center "
+        className={
+          allPosts ? "flex justify-center" : "flex justify-center hidden"
+        }
         count={count}
         page={page}
         siblingCount={1}

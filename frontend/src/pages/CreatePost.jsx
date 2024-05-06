@@ -51,7 +51,7 @@ const CreatePost = () => {
         setMessage(response.data.message);
         setSuccessful(true);
         if (response) {
-          navigate(`/main/${response.data.userId}`);
+          navigate(`/post/${response.data.id}`);
         }
       },
       (error) => {
