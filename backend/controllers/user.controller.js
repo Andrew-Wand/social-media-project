@@ -117,3 +117,27 @@ exports.findMyFollowers = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.updateProfile = async (req, res) => {
+  const id = req.params.id;
+
+  User.update(req.body, {
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Tutorial update successful!",
+        });
+      } else {
+        res.send({
+          message: `Cannot update Tutorial`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: `Error updating!`,
+      });
+    });
+};

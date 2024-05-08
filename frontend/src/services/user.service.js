@@ -23,11 +23,18 @@ const findMyFollowers = (id) => {
   });
 };
 
+const editProfile = (username) => {
+  return axios.put(API_URL + `updateProfile/${id}`, {
+    username,
+  });
+};
+
 const UserService = {
   getPublicContent,
   getAllUsers,
   getUserById,
   findMyFollowers,
+  editProfile,
 };
 
 export default UserService;
