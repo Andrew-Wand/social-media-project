@@ -3,6 +3,7 @@ const User = db.users;
 const Follower = db.followers;
 const Post = db.posts;
 const { Op } = require("sequelize");
+const uploadFile = require("../middleware/upload/cloudinary");
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -121,23 +122,48 @@ exports.findMyFollowers = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   const id = req.params.id;
 
-  User.update(req.body, {
-    where: { id: id },
-  })
-    .then((num) => {
-      if (num == 1) {
-        res.send({
-          message: "Tutorial update successful!",
-        });
-      } else {
-        res.send({
-          message: `Cannot update Tutorial`,
-        });
+  try {
+    const upload = await uploadFile(req.file.path, "MyBlogPics");
+    const result = await User.update(
+      {
+        // email: req.body.email,
+        image_url: upload.secure_url,
+      },
+      {
+        where: { id: id },
       }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error updating!`,
-      });
-    });
+    );
+
+    if (result == 1) {
+      res.send({ message: "update successfull" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "error uploading" });
+  }
+
+  // User.update(
+  //   {
+  //     email: req.body.email,
+  //     image_url: upload.secure_url,
+  //   },
+  //   {
+  //     where: { id: id },
+  //   }
+  // )
+  //   .then((num) => {
+  //     if (num == 1) {
+  //       res.send({
+  //         message: "Tutorial update successful!",
+  //       });
+  //     } else {
+  //       res.send({
+  //         message: `Cannot update Tutorial`,
+  //       });
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).send({
+  //       message: `Error updating!`,
+  //     });
+  //   });
 };

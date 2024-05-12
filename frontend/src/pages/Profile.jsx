@@ -18,13 +18,14 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [likeCount, setLikeCount] = useState(0);
   const [newEmail, setNewEmail] = useState("");
+  const [newImgUrl, setNewImgUrl] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
   const user = AuthService.getCurrentUser();
   const profileIdParams = window.location.pathname.slice(-1);
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
+
   const fetchUserById = async (id) => {
     try {
       const currentUserProfile = await UserService.getUserById(id);
@@ -129,21 +130,27 @@ const Profile = () => {
     const email = e.target.value;
     setNewEmail(email);
   };
+  const onChangeImgUrlValue = (e) => {
+    const img_url = e.target.files[0];
+    setNewImgUrl(img_url);
+  };
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
     let existingUser = currentUser;
     const newUpdatedUser = {
       ...existingUser,
-      email: newEmail,
+      // email: newEmail,
+      image_url: newImgUrl,
     };
 
     localStorage.setItem("user", JSON.stringify(newUpdatedUser));
 
-    UserService.editProfile(newEmail).then(
+    UserService.editProfile(newImgUrl).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
+        fetchUserById(profileIdParams);
       },
       (error) => {
         const resMessage =
@@ -162,15 +169,19 @@ const Profile = () => {
 
     // window.location.reload();
   };
-
+  console.log(newImgUrl);
   return (
     <div className="bg-base-300 xl:pr-20">
       {isEditing ? (
         <div className="bg-base-300 h-screen xl:mx-[35%]  p-7 ">
           <div className="flex-column">
             <h2 className="text-2xl text-center mb-5">Edit Profile</h2>
-            <form onSubmit={handleEditSubmit}>
-              <div>
+            <form
+              onSubmit={handleEditSubmit}
+              encType="multipart/form-data"
+              method="post"
+            >
+              {/* <div>
                 <label
                   className="input input-bordered flex items-center gap-2 shadow-lg"
                   htmlFor=""
@@ -183,6 +194,23 @@ const Profile = () => {
                     defaultValue={userProfileData.email}
                     onChange={onChangeEmailValue}
                     className="grow"
+                  />
+                </label>
+              </div> */}
+              <div>
+                <label
+                  className="input input-bordered flex items-center gap-2 shadow-lg"
+                  htmlFor=""
+                >
+                  <span className="btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black ml-[-1rem]">
+                    Profile Picture:
+                  </span>
+                  <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/png, image/jpeg"
+                    onChange={onChangeImgUrlValue}
                   />
                 </label>
               </div>
@@ -203,8 +231,14 @@ const Profile = () => {
           </div>
         </div>
       ) : (
+        // THIS IS SHOWN WHEN NOT EDITING
         <div className="min-h-screen xl:mx-[30rem] xl:border-x-2 xl:border-x-neutral-500/50">
           <div className="flex justify-between items-center mx-6 py-8 ">
+            <div className="avatar">
+              <div className="w-24 rounded-full">
+                <img src={userProfileData.image_url} />
+              </div>
+            </div>
             <div>
               <h2 className="text-3xl text-center">
                 {userProfileData.username}

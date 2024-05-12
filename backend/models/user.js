@@ -12,6 +12,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    image_url: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
   });
 
   return User;

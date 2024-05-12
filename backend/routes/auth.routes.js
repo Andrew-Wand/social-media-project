@@ -1,5 +1,6 @@
 const { verifySignUp } = require("../middleware");
 const controller = require("../controllers/auth.controller");
+const upload = require("../middleware/upload/multer.middleware");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -14,6 +15,7 @@ module.exports = function (app) {
 
   app.post(
     "/auth/signup",
+    upload.single("image"),
     [verifySignUp.checkDuplicateUsernameOrEmail],
     controller.signup
   );
