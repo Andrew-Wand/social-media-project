@@ -123,6 +123,12 @@ exports.getAllPosts = async (req, res) => {
           required: false,
           where: { userId: req.params.userId },
         },
+        {
+          model: User,
+          as: "user",
+          attributes: ["username", "image_url"],
+          include: "userFollowers",
+        },
       ],
       distinct: true,
       limit,
@@ -188,7 +194,7 @@ exports.getMyHomeFeed = async (req, res) => {
         {
           model: User,
           as: "user",
-          attributes: ["username"],
+          attributes: ["username", "image_url"],
           include: "userFollowers",
         },
         { model: Comment, as: "comments" },

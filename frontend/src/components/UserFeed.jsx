@@ -189,8 +189,7 @@ const UserFeed = () => {
 
     // fetchPostComments();
   };
-
-  console.log(postClick);
+  console.log(allPosts);
   return (
     <ul>
       {allPosts?.map((post, i) => (
@@ -203,6 +202,11 @@ const UserFeed = () => {
             }}
           >
             <div className="flex ml-6 mt-3 text-sm">
+              <div className="avatar mr-3 ml-1">
+                <div className="w-10 rounded-full">
+                  <img src={post.user.image_url} />
+                </div>
+              </div>
               <Link
                 to={`/profile/${post.userId}`}
                 className={
