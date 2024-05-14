@@ -23,10 +23,10 @@ const findMyFollowers = (id) => {
   });
 };
 
-const editProfile = (image_url) => {
+const editProfile = (email, image_url) => {
   const data = new FormData();
   data.append("_method", "put");
-  // data.append("email", email);
+  data.append("email", email);
   data.append("file", image_url);
   return axios.post(API_URL + `updateProfile/${id}`, data, {
     headers: { "Content-Type": "multipart/form-data" },

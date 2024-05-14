@@ -126,7 +126,7 @@ exports.updateProfile = async (req, res) => {
     const upload = await uploadFile(req.file.path, "MyBlogPics");
     const result = await User.update(
       {
-        // email: req.body.email,
+        email: req.body.email,
         image_url: upload.secure_url,
       },
       {

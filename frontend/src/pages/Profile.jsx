@@ -140,13 +140,13 @@ const Profile = () => {
     let existingUser = currentUser;
     const newUpdatedUser = {
       ...existingUser,
-      // email: newEmail,
+      email: newEmail,
       image_url: newImgUrl,
     };
 
     localStorage.setItem("user", JSON.stringify(newUpdatedUser));
 
-    UserService.editProfile(newImgUrl).then(
+    UserService.editProfile(newEmail, newImgUrl).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
@@ -181,7 +181,7 @@ const Profile = () => {
               encType="multipart/form-data"
               method="post"
             >
-              {/* <div>
+              <div>
                 <label
                   className="input input-bordered flex items-center gap-2 shadow-lg"
                   htmlFor=""
@@ -196,7 +196,7 @@ const Profile = () => {
                     className="grow"
                   />
                 </label>
-              </div> */}
+              </div>
               <div>
                 <label
                   className="input input-bordered flex items-center gap-2 shadow-lg"
