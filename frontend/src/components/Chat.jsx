@@ -190,13 +190,18 @@ const Chat = () => {
                 <div className="flex justify-between items-center text-xl  p-[.89rem] w-6/12 ml-10 rounded-xl">
                   <div className="">
                     {selectedUser ? (
-                      <div>
+                      <div className="">
                         {userFilteredOnSelect.map((user) => (
                           <Link
                             to={`/profile/${user.id}`}
-                            className="text-2xl  bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent "
+                            className="text-2xl  bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent item flex"
                           >
-                            {user.username}
+                            <div className="avatar mr-3 items-center">
+                              <div className="w-10 rounded-full">
+                                <img src={user.image_url} />
+                              </div>
+                            </div>
+                            <span>{user.username}</span>
                           </Link>
                         ))}
                       </div>
@@ -298,8 +303,17 @@ const Chat = () => {
                     key={i}
                     className="text-2xl mt-7 ml-5 bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent "
                   >
-                    Chatting with
-                    <span className="  "> {user.username}</span>
+                    <Link
+                      to={`/profile/${user.id}`}
+                      className="text-2xl  bg-base-300  bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent item flex"
+                    >
+                      <div className="avatar mr-3 items-center">
+                        <div className="w-10 rounded-full">
+                          <img src={user.image_url} />
+                        </div>
+                      </div>
+                      <span>{user.username}</span>
+                    </Link>
                   </h1>
                 ))}
 
