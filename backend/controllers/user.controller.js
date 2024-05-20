@@ -9,24 +9,13 @@ exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
 };
 
-// exports.findAllUsers = (userId) => {
-//   return User.findByPk(userId)
-//     .then((post) => {
-//       return post;
-//     })
-//     .catch((err) => {
-//       console.log(">> Error while finding user: ", err);
-//     });
-// };
-
 exports.findUserById = async (req, res) => {
   const user = await User.findByPk(req.params.profileId, {
     include: [
-      // "posts",
       {
         model: User,
         as: "userFollowers",
-        // attributes: ["followerId"],
+
         through: {
           attributes: [],
         },
@@ -41,42 +30,14 @@ exports.findUserById = async (req, res) => {
   return res.send(user);
 };
 
-// exports.findUserById = (id) => {
-//   return User.findByPk(id, {
-//     include: [
-//       {
-//         model: Follower,
-//         as: "followers",
-//         attributes: ["id", "name"],
-//         through: {
-//           attributes: [],
-//         },
-//         // through: {
-//         //   attributes: ["tag_id", "tutorial_id"],
-//         // },
-//       },
-//     ],
-//   })
-//     .then((user) => {
-//       return user;
-//     })
-//     .catch((err) => {
-//       console.log(">> Error while finding user: ", err);
-//     });
-// };
-
 exports.findAllUsers = async (req, res) => {
-  // return Post.findAll({ include: ["comments"] }).then((post) => {
-  //   return post;
-  // });
-
   try {
     const response = await User.findAll({
       include: [
         {
           model: User,
           as: "userFollowers",
-          // attributes: ["followerId"],
+
           through: {
             attributes: [],
           },
@@ -91,10 +52,6 @@ exports.findAllUsers = async (req, res) => {
   }
 };
 exports.findMyFollowers = async (req, res) => {
-  // return Post.findAll({ include: ["comments"] }).then((post) => {
-  //   return post;
-  // });
-
   try {
     const response = await User.findAll({
       include: [
@@ -104,10 +61,6 @@ exports.findMyFollowers = async (req, res) => {
           where: {
             id: req.body.id,
           },
-          // attributes: ["followerId"],
-          // through: {
-          //   attributes: ["followerId"],
-          // },
         },
       ],
     });
@@ -140,30 +93,4 @@ exports.updateProfile = async (req, res) => {
   } catch (error) {
     res.status(500).send({ message: "error uploading" });
   }
-
-  // User.update(
-  //   {
-  //     email: req.body.email,
-  //     image_url: upload.secure_url,
-  //   },
-  //   {
-  //     where: { id: id },
-  //   }
-  // )
-  //   .then((num) => {
-  //     if (num == 1) {
-  //       res.send({
-  //         message: "Tutorial update successful!",
-  //       });
-  //     } else {
-  //       res.send({
-  //         message: `Cannot update Tutorial`,
-  //       });
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).send({
-  //       message: `Error updating!`,
-  //     });
-  //   });
 };

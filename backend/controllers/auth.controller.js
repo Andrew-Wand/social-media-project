@@ -2,7 +2,6 @@ require("dotenv").config();
 const db = require("../models");
 const User = db.users;
 const uploadFile = require("../middleware/upload/cloudinary");
-const Op = db.Sequelize.Op;
 
 let jwt = require("jsonwebtoken");
 let bcrypt = require("bcryptjs");
@@ -12,7 +11,6 @@ exports.signup = async (req, res) => {
     "/Users/andrew-wand/Documents/NodeJS-Odin-Project/social-media-project/backend/public/images/Default_pfp.jpg",
     "MyBlogPics"
   );
-  // const { secure_url: image_url } = upload;
 
   // Save user to database
   const newPassword = await bcrypt.hashSync(req.body.password, 8);

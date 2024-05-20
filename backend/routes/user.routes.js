@@ -13,8 +13,6 @@ module.exports = function (app) {
     next();
   });
 
-  // app.get("/test/all", controller.allAccess);
-
   app.get("/test/findAllUsers", controller.findAllUsers);
   app.get("/test/findProfileDataById/:profileId", controller.findUserById);
   app.post("/test/findMyFollowers", controller.findMyFollowers);

@@ -32,14 +32,6 @@ exports.deletePost = async (req, res) => {
     });
 
     res.status(200).send("Successfuly deleted post");
-    // const id = req.body.postId;
-    // const toBeDeleted = await Post.findAll({
-    //   where: {
-    //     id: id,
-    //   },
-    // });
-    // console.log(toBeDeleted);
-    // res.status(200).send(toBeDeleted);
   } catch (err) {
     console.log(err);
     res.status(500).send({
@@ -48,15 +40,6 @@ exports.deletePost = async (req, res) => {
   }
 };
 
-// exports.findPostById = (postId) => {
-//   return Post.findByPk(postId, { include: ["comments", "likes"] })
-//     .then((comment) => {
-//       return comment;
-//     })
-//     .catch((err) => {
-//       console.log(">> Error while finding tutorial: ", err);
-//     });
-// };
 exports.findPostById = async (req, res) => {
   const post = await Post.findByPk(req.params.postId, {
     include: ["likes"],
@@ -149,34 +132,10 @@ exports.getAllPosts = async (req, res) => {
 };
 
 exports.getMyHomeFeed = async (req, res) => {
-  // return Post.findAll({ include: ["comments"] }).then((post) => {
-  //   return post;
-  // });
   const { page, size } = req.query;
   const { limit, offset } = getPagination(page, size);
   try {
     const response = await Promise.all([
-      // await Post.findAll({
-      //   include: [
-      //     {
-      //       model: User,
-      //       as: "user",
-      //       attributes: ["username"],
-      //       include: "userFollowers",
-      //     },
-      //     { model: Comment, as: "comments" },
-      //     // limit the likes based on the logged in user
-      //     {
-      //       model: Like,
-      //       as: "likes",
-      //       required: false,
-      //       where: { userId: req.params.userId },
-      //     },
-      //   ],
-      //   // include: ["comments", "likes"],
-      //   order: [["createdAt", "ASC"]],
-      // }),
-
       await Follower.findAll({
         attributes: ["followerId"],
         where: {
@@ -207,7 +166,7 @@ exports.getMyHomeFeed = async (req, res) => {
         },
       ],
       distinct: true,
-      // include: ["comments", "likes"],
+
       order: [["createdAt", "DESC"]],
       limit,
       offset,
@@ -217,40 +176,12 @@ exports.getMyHomeFeed = async (req, res) => {
     });
 
     const feedData = getHomeFeedPagingData(findPost, page, limit);
-    // console.log(findPost.count);
+
     res.status(200).send(feedData);
   } catch (error) {
     console.log(error);
   }
 };
-// exports.getMyFeed = async (req, res) => {
-//   try {
-//     const [user] = await Promise.all([
-//       Follower.findAll(),
-//       // Post.findAll({
-//       //   include: [
-//       //     { model: User, as: "user", attributes: ["username", "userFollowers"] },
-//       //     { model: Comment, as: "comments" },
-//       //     // limit the likes based on the logged in user
-//       //     {
-//       //       model: Like,
-//       //       as: "likes",
-//       //       required: false,
-//       //       where: { userId: req.params.userId },
-//       //     },
-//       //   ],
-//       //   // include: ["comments", "likes"],
-//       //   order: [["createdAt", "ASC"]],
-//       //   where: {},
-//       // }),
-//     ]);
-
-//     res.status(200).send(user);
-//     return user;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 exports.createLike = async (req, res) => {
   // fetch created and post at the same time

@@ -35,16 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-const run = async (req, res) => {
-  // const derp = userController.findAllUsers("1");
-  // console.log(derp);
-  const derp = messageController.createMessage("1", "1", "Hello there buddy!");
-  console.log(derp);
-};
-
-db.sequelize.sync().then(() => {
-  // run();
-});
+db.sequelize.sync().then(() => {});
 
 // set port, listen for requests
 const PORT = process.env.VITE_PORT || 8080;
