@@ -58,15 +58,6 @@ const AllPosts = () => {
   };
 
   useEffect(() => {
-    // const fetchAllLikes = async () => {
-    //   try {
-    //     const allLikesList = await PostService.getAllLikes();
-    //     setAllLikes(allLikesList.data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-    // fetchAllLikes();
     fetchAllPosts(userIdParam);
   }, [page]);
 
@@ -87,8 +78,7 @@ const AllPosts = () => {
     e.preventDefault();
 
     const user = AuthService.getCurrentUser();
-    // setKeyIndex(e.target.getAttribute("key"));
-    // console.log(e.target.entry, index);
+
     const userId = user.id;
     const fart = Number(keyIndex);
     const like = likeCount + 1;
@@ -116,11 +106,6 @@ const AllPosts = () => {
     );
   };
 
-  // const getKey = (index) => {
-  //   let id = index;
-  //   setKeyIndex(id);
-  // };
-
   const handleDeletePost = async (e) => {
     e.preventDefault();
     const postId = Number(postClick);
@@ -131,7 +116,7 @@ const AllPosts = () => {
           setMessage(response.data.message);
           setSuccessful(true);
           setIsLoading(false);
-          // console.log(response.config.data.slice(-2, -1));
+
           fetchAllPosts(userIdParam);
         },
         (error) => {
@@ -155,7 +140,6 @@ const AllPosts = () => {
   };
 
   const handleNavigatePost = (url) => navigate(url);
-  // console.log(compareTwoArrayOfObjects(usernameId, postUserId));
 
   const getRequestParams = (page, pageSize) => {
     let params = {};
@@ -174,8 +158,6 @@ const AllPosts = () => {
   // Pagination handling
   const handlePageChange = (e, value) => {
     setPage(value);
-
-    // fetchPostComments();
   };
 
   return (

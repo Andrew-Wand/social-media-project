@@ -75,14 +75,6 @@ const Chat = () => {
     fetchMessages();
   }, []);
 
-  // const filteredMessageList = allMessageList.filter(
-  //   (message) =>
-  //     selectedUser !== message.owner ||
-  //     selectedUser !== message.receiver ||
-  //     currentUser.id !== message.receiver ||
-  //     currentUser.id !== message.owner
-  // );
-
   const filters = {
     owner: [selectedUser, user.id.toString()],
     receiver: [selectedUser, user.id.toString()],

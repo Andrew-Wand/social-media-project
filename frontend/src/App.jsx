@@ -16,14 +16,6 @@ import FindUsers from "./pages/FindUsers";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const onLogin = useCallback(() => {
-    setLoggedIn(true);
-  }, [loggedIn]);
-
-  const onLogout = useCallback(() => {
-    setLoggedIn(false);
-  }, [loggedIn]);
-
   return (
     <div>
       <Navbar />

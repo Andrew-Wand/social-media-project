@@ -96,9 +96,7 @@ const AddCommentInput = () => {
                   ></textarea>
                 </div>
                 <div className="divider"></div>
-                {/* <div className="flex justify-center">
-              <button className=" btn mt-5 btn-secondary">Send</button>
-            </div> */}
+
                 <div className="justify-end hidden xl:flex">
                   <Link to={`/post/${postId}`} className="">
                     <button className="btn rounded-full btn-neutral mr-5">
@@ -113,19 +111,6 @@ const AddCommentInput = () => {
             </div>
           </div>
         </div>
-
-        // <div className="p-10 ">
-        //   <form onSubmit={handleAddComment} className="flex flex-col">
-        //     <label htmlFor="">Add comment</label>
-        //     <textarea
-        //       value={commentInput}
-        //       onChange={commentInputOnChange}
-        //       type="text"
-        //     />
-
-        //     <button className="btn">Submit</button>
-        //   </form>
-        // </div>
       )}
     </>
   );
