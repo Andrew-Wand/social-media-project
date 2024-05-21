@@ -69,6 +69,11 @@ const FindUsers = () => {
         {findFollowerList.map((user) => (
           <div className="card w-96 mx-2 bg-base-100 shadow-xl my-5">
             <div className="card-body">
+              <div className="avatar justify-center">
+                <div className="w-24 rounded-full">
+                  <img src={user.image_url} />
+                </div>
+              </div>
               <h2 className="card-title justify-center mb-3">
                 {user.username}
               </h2>

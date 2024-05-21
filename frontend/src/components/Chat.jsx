@@ -10,7 +10,7 @@ const Chat = () => {
   const [allMessageList, setAllMessageList] = useState([]);
   const [allUserList, setAllUserList] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
-  const [btnvisible, setBtnVisible] = useState(true);
+  const [btnvisible, setBtnVisible] = useState(false);
   const [drawerVisible, setDrawerVisibile] = useState(false);
   const [messageId, setMessageId] = useState("");
   const [userInfo, setUserInfo] = useState([]);
@@ -101,6 +101,7 @@ const Chat = () => {
     setSelectedUser(selection);
     setMessageId(selection);
     setDrawerVisibile(false);
+    setBtnVisible(true);
   };
   const messageURL = "/message/" + selectedUser;
 
