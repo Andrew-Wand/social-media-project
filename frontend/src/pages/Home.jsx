@@ -76,8 +76,6 @@ const Home = () => {
     setMessage("");
     setLoading(true);
 
-    // form.current.validateAll();
-
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         (response) => {
@@ -105,24 +103,85 @@ const Home = () => {
     } else {
       setLoading(false);
     }
-    // navigate(`/main/${currentUser.id}`);
-    // window.location.reload();
   };
 
-  const getIndex = (e, index) => {
-    setKeyIndex(e.target.value, index);
+  // Follow list stuff
+  const [myFollowers, setMyFollowers] = useState([]);
+  const fetchMyFollowers = async (id) => {
+    try {
+      const myFollowList = await UserService.findMyFollowers(id);
+      setMyFollowers(myFollowList.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // console.log(guestUsername);
+  useEffect(() => {
+    if (user) {
+      fetchMyFollowers(user.id);
+    }
+  }, []);
+
+  console.log(myFollowers);
 
   return (
-    <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full   ">
+    <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full  ">
       {user ? (
         // HOME PAGE if user is logged in
 
         <div className="min-h-screen pb-5 xl:mx-[32rem] xl:border-x-2 xl:border-x-neutral-500/50">
-          <div className="px-5 pt-16">
-            <h1 className="ml-2 mb-5 text-3xl text-white xl:pt-5 bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
+          <div className="hidden xl:block absolute left-[6.5rem] bg-black/25 w-[334px] h-[364px] mt-14 rounded-md overflow-auto ">
+            <div>
+              <p className="text-xl font-bold p-5 border-b-[1px] border-neutral-500/50">
+                Follow List
+              </p>
+            </div>
+            <div className="mt-2 ">
+              {myFollowers?.map((user) => (
+                <div className="flex justify-between mb-2 px-3 py-2 items-center hover:bg-base-300 rounded-md  ">
+                  <div className="flex items-center">
+                    <img
+                      className="avatar rounded-full w-10"
+                      src={user.image_url}
+                      alt="Profile Picture"
+                    />
+                    <Link
+                      className="ml-2 text-white truncate"
+                      to={`/profile/${user.id}`}
+                    >
+                      {user.username}
+                    </Link>
+                  </div>
+
+                  <div>
+                    <Link
+                      to={`/profile/${user.id}`}
+                      className=" bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent hover:border-b-[1px]"
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      to={`/messageDashboard/${currentUser?.id}`}
+                      className="mr-1 ml-2 bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent hover:border-b-[1px]"
+                    >
+                      Message
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="px-5 pt-8">
+            <div>
+              <div>
+                <img
+                  className="w-20 rounded-full"
+                  src={user.image_url}
+                  alt=""
+                />
+              </div>
+            </div>
+            <h1 className="ml-2 mb-5 text-3xl text-white xl:pt-1 bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
               {user?.username}'s Feed
             </h1>
 
@@ -242,67 +301,12 @@ const Home = () => {
                           style={{ display: "none" }}
                         />
                       </Form>
-                      {/* <form onSubmit={handleGuestLogin}>
-                        <button className="btn text-black btn-wide xl:btn-sm xl:h-[2.5rem] xl:w-[18rem] w-[20rem] rounded-full bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF]">
-                          Example User Sign In
-                        </button>
-                      </form> */}
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
-          {/* <footer className="footer footer-center p-10 bg-base-300 text-base-content rounded xl:mt-5 fixed bottom-0 left-0 hidden xl:flex xl:justify-end">
-            <nav className="grid grid-flow-col gap-4">
-              <a className="link link-hover">About us</a>
-              <a className="link link-hover">Contact</a>
-              <a className="link link-hover">Jobs</a>
-              <a className="link link-hover">Press kit</a>
-            </nav>
-            <nav>
-              <div className="grid grid-flow-col gap-4">
-                <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    className="fill-current"
-                  >
-                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-                  </svg>
-                </a>
-                <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    className="fill-current"
-                  >
-                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-                  </svg>
-                </a>
-                <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    className="fill-current"
-                  >
-                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-                  </svg>
-                </a>
-              </div>
-            </nav>
-            <aside>
-              <p>
-                Copyright © 2024 - All right reserved by ACME Industries Ltd
-              </p>
-            </aside>
-          </footer> */}
         </div>
       )}
     </div>
