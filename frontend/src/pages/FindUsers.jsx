@@ -60,14 +60,14 @@ const FindUsers = () => {
   console.log(findFollowerList);
 
   return (
-    <div className="bg-base-300 h-screen">
+    <div className="bg-base-300 min-h-screen ">
       <div>
         <h2 className="text-3xl text-center pt-5">Find Users</h2>
       </div>
 
-      <div className="flex xl:justify-center">
+      <div className="flex xl:justify-center xl:flex-row flex-col items-center ">
         {findFollowerList.map((user) => (
-          <div className="card w-96 mx-2 bg-base-100 shadow-xl my-5">
+          <div className="card w-80 mx-2 bg-base-100 shadow-xl my-5 ">
             <div className="card-body">
               <div className="avatar justify-center">
                 <div className="w-24 rounded-full">
