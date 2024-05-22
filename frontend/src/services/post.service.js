@@ -34,9 +34,10 @@ const getSinglePost = (postId) => {
   return axios.get(API_URL + `post/${postId}`);
 };
 
-const createLike = (total, postId, userId) => {
+const createLike = (total, username, postId, userId) => {
   return axios.post(API_URL + "create-like", {
     total,
+    username,
     postId,
     userId,
   });

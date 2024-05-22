@@ -104,7 +104,7 @@ exports.getAllPosts = async (req, res) => {
           model: Like,
           as: "likes",
           required: false,
-          where: { userId: req.params.userId },
+          // where: { userId: req.params.userId },
         },
         {
           model: User,
@@ -162,7 +162,7 @@ exports.getMyHomeFeed = async (req, res) => {
           model: Like,
           as: "likes",
           required: false,
-          where: { userId: req.params.userId },
+          // where: { userId: req.params.userId },
         },
       ],
       distinct: true,
@@ -218,6 +218,7 @@ exports.createLike = async (req, res) => {
         Like.create(
           {
             total: req.body.total,
+            username: req.body.username,
             userId: req.body.userId,
             postId: req.body.postId,
           },

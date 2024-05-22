@@ -157,7 +157,7 @@ const SinglePost = () => {
 
     return params;
   };
-
+  console.log(singlePost);
   return (
     <div className="bg-base-300 min-h-screen ">
       <div className="xl:mx-[30rem] xl:border-x-2 xl:border-x-neutral-500/50 xl:h-screen ">

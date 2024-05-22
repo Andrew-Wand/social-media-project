@@ -3,6 +3,10 @@ module.exports = (sequelize, Sequelize) => {
     total: {
       type: Sequelize.INTEGER,
     },
+    username: {
+      type: Sequelize.STRING,
+      primaryKey: true,
+    },
     userId: {
       type: Sequelize.INTEGER,
       primaryKey: true,

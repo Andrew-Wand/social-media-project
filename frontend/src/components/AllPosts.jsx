@@ -78,13 +78,13 @@ const AllPosts = () => {
     e.preventDefault();
 
     const user = AuthService.getCurrentUser();
-
+    const username = user.username;
     const userId = user.id;
     const fart = Number(keyIndex);
     const like = likeCount + 1;
     setIsLoading(true);
 
-    PostService.createLike(like, fart, userId).then(
+    PostService.createLike(like, username, fart, userId).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
@@ -160,6 +160,14 @@ const AllPosts = () => {
     setPage(value);
   };
 
+  const postLikesArr = allPosts?.map((post) => post.likes);
+  const flatPostLikesArr = postLikesArr?.flatMap((likes) => likes);
+  const postUserLiked = flatPostLikesArr?.find(
+    (element) => element.userId === user.id
+  );
+
+  console.log(allPosts);
+
   return (
     <ul>
       {allPosts?.map((post, i) => (
@@ -203,8 +211,9 @@ const AllPosts = () => {
                 <FaRegCommentAlt className="text-lg" />
                 {post.comments.length}
               </p>
+
               <form key={i} value={i} onSubmit={handleCreateLike}>
-                {post.likes.length > 0 ? (
+                {post.likes.length > 0 && postUserLiked !== undefined ? (
                   <button
                     key={i}
                     value={post.id}
@@ -234,25 +243,25 @@ const AllPosts = () => {
                   </button>
                 )}
               </form>
-              {post.userId === user.id ? (
-                <div className="ml-10">
-                  <form onSubmit={handleDeletePost}>
-                    <button
-                      className="btn rounded-full"
-                      value={post.id}
-                      onClick={(e, index) => {
-                        e.stopPropagation();
-                        setPostClick(e.currentTarget.value, index);
-                      }}
-                    >
-                      <HiOutlineTrash className="text-2xl" />
-                    </button>
-                  </form>
-                </div>
-              ) : (
-                ""
-              )}
             </div>
+            {post.userId === user.id ? (
+              <div className="ml-10">
+                <form onSubmit={handleDeletePost}>
+                  <button
+                    className="btn rounded-full"
+                    value={post.id}
+                    onClick={(e, index) => {
+                      e.stopPropagation();
+                      setPostClick(e.currentTarget.value, index);
+                    }}
+                  >
+                    <HiOutlineTrash className="text-2xl" />
+                  </button>
+                </form>
+              </div>
+            ) : (
+              ""
+            )}
           </li>
 
           <hr className="border-b-solid border-b-[.0625rem] border-[#242c2e] xl:my-2" />
