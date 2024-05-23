@@ -12,6 +12,7 @@ import RegisterModal from "../components/RegisterModal";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const required = (value) => {
   if (!value) {
@@ -34,6 +35,7 @@ const Home = () => {
   const [keyIndex, setKeyIndex] = useState();
   const [isLoading, setIsLoading] = useState(null);
   const [homeFeed, setHomeFeed] = useState("myFeed");
+  const [isOpen, setIsOpen] = useState(false);
 
   const checkBtn = useRef();
 
@@ -124,53 +126,75 @@ const Home = () => {
 
   console.log(myFollowers);
 
+  const handleFollowListMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
-    <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full  ">
+    <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full     ">
+      <button
+        onClick={handleFollowListMenu}
+        className={
+          isOpen
+            ? "hidden xl:block  text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[29rem]  "
+            : "hidden xl:block  text-3xl absolute top-[6.5rem] l transition ease duration-500  translate-x-[0rem]   "
+        }
+      >
+        <IoIosArrowForward />
+      </button>
+      <div
+        className={
+          !isOpen
+            ? "hidden xl:block absolute translate-x-[-27rem] bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll transition ease  opacity-0 duration-500   "
+            : "hidden xl:block absolute translate-x-16 bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll  transition ease  opacity-1 duration-500   "
+        }
+      >
+        <div>
+          <p className="text-xl font-bold p-5 border-b-[1px] border-neutral-500/50">
+            Follow List
+          </p>
+        </div>
+        <div className="mt-2">
+          {myFollowers?.map((user, i) => (
+            <div
+              key={i}
+              className="flex justify-between mb-2 px-3 py-2 items-center hover:bg-base-300 rounded-md  "
+            >
+              <div className="flex items-center">
+                <img
+                  className="avatar rounded-full w-10"
+                  src={user.image_url}
+                  alt="Profile Picture"
+                />
+                <Link
+                  className="ml-2 text-white truncate"
+                  to={`/profile/${user.id}`}
+                >
+                  {user.username}
+                </Link>
+              </div>
+
+              <div>
+                <Link
+                  to={`/profile/${user.id}`}
+                  className=" bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent hover:border-b-[1px]"
+                >
+                  Profile
+                </Link>
+                <Link
+                  to={`/messageDashboard/${currentUser?.id}`}
+                  className="mr-1 ml-2 bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent hover:border-b-[1px]"
+                >
+                  Message
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
       {user ? (
         // HOME PAGE if user is logged in
 
-        <div className="min-h-screen pb-5 xl:mx-[32rem] xl:border-x-2 xl:border-x-neutral-500/50">
-          <div className="hidden xl:block absolute left-[6.5rem] bg-black/25 w-[334px] h-[364px] mt-14 rounded-md overflow-auto ">
-            <div>
-              <p className="text-xl font-bold p-5 border-b-[1px] border-neutral-500/50">
-                Follow List
-              </p>
-            </div>
-            <div className="mt-2 ">
-              {myFollowers?.map((user) => (
-                <div className="flex justify-between mb-2 px-3 py-2 items-center hover:bg-base-300 rounded-md  ">
-                  <div className="flex items-center">
-                    <img
-                      className="avatar rounded-full w-10"
-                      src={user.image_url}
-                      alt="Profile Picture"
-                    />
-                    <Link
-                      className="ml-2 text-white truncate"
-                      to={`/profile/${user.id}`}
-                    >
-                      {user.username}
-                    </Link>
-                  </div>
-
-                  <div>
-                    <Link
-                      to={`/profile/${user.id}`}
-                      className=" bg-gradient-to-l from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent hover:border-b-[1px]"
-                    >
-                      Profile
-                    </Link>
-                    <Link
-                      to={`/messageDashboard/${currentUser?.id}`}
-                      className="mr-1 ml-2 bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent hover:border-b-[1px]"
-                    >
-                      Message
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="min-h-screen pb-5 xl:mx-[32rem] xl:border-x-2 xl:border-x-neutral-500/50    ">
           <div className="px-5 pt-8">
             <div>
               <div>
@@ -226,7 +250,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="">
+          <div className="relative z-[99]">
             <div className="divider h-0 mb-0 "></div>
             {homeFeed === "myFeed" ? <UserFeed /> : <AllPosts />}
           </div>
