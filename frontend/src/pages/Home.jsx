@@ -135,8 +135,8 @@ const Home = () => {
         onClick={handleFollowListMenu}
         className={
           isOpen
-            ? "hidden xl:block  text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[29rem]  "
-            : "hidden xl:block  text-3xl absolute top-[6.5rem] l transition ease duration-500  translate-x-[0rem]   "
+            ? "hidden xl:block  text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[28.5rem] border-l-2 h-[364px]  "
+            : "hidden xl:block  text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[0rem] border-l-4 border-neutral-600 h-[364px]   "
         }
       >
         <IoIosArrowForward />
@@ -145,7 +145,7 @@ const Home = () => {
         className={
           !isOpen
             ? "hidden xl:block absolute translate-x-[-27rem] bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll transition ease  opacity-0 duration-500   "
-            : "hidden xl:block absolute translate-x-16 bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll  transition ease  opacity-1 duration-500   "
+            : "hidden xl:block absolute translate-x-14 bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll  transition ease  opacity-1 duration-500   "
         }
       >
         <div>
