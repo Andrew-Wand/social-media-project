@@ -47,14 +47,17 @@ const SinglePost = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
-    // if (Number(postIdParam) < 10) {
+    // if (Number(postIdParam)) {
     //   fetchPostById(postIdParam);
-    // } else if (Number(postIdParamTwoDigit) < 10) {
+    // } else {
     //   fetchPostById(postIdParamTwoDigit);
+
     // }
+
     fetchPostById(postIdParam);
-  }, []);
+  }, [page]);
 
   const fetchPostComments = async () => {
     const params = getRequestParams(page, pageSize);
@@ -74,16 +77,10 @@ const SinglePost = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
-    // if (Number(postIdParam)) {
-    //   fetchPostById(postIdParam);
-    // } else {
-    //   fetchPostById(postIdParamTwoDigit);
-
-    // }
-
-    fetchPostById(postIdParam);
-  }, [page]);
+    fetchPostComments();
+  }, []);
 
   // Pagination handling
   const handlePageChange = (e, value) => {
@@ -158,7 +155,7 @@ const SinglePost = () => {
 
     return params;
   };
-  console.log(singlePost);
+  console.log(postComments);
   return (
     <div className="bg-base-300 min-h-screen ">
       <div className="xl:mx-[30rem] xl:border-x-2 xl:border-x-neutral-500/50 xl:h-screen ">
@@ -230,9 +227,10 @@ const SinglePost = () => {
         <div className="divider"></div>
         <div>
           <p className="ml-5">Comments:</p>
+          {/* {postComments?.length === 0 && <p>There are no comments yet!</p>} */}
 
           <ul className="p-5">
-            {postComments &&
+            {postComments?.length > 0 &&
               postComments?.map((comment, i) => (
                 <li key={i} className="mb-5">
                   <div className="flex items-center text-[.8rem] mb-1 ">
@@ -257,17 +255,21 @@ const SinglePost = () => {
           </ul>
         </div>
         <div className="divider"></div>
-        <Pagination
-          className="flex justify-center "
-          count={count}
-          page={page}
-          siblingCount={1}
-          boundaryCount={1}
-          variant="outlined"
-          shape="rounded"
-          color="primary"
-          onChange={handlePageChange}
-        />
+        {postComments?.length > 0 ? (
+          <Pagination
+            className="flex justify-center mt-2"
+            count={count}
+            page={page}
+            siblingCount={1}
+            boundaryCount={1}
+            variant="outlined"
+            shape="rounded"
+            color="primary"
+            onChange={handlePageChange}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
