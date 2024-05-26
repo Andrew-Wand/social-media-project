@@ -234,7 +234,7 @@ const UserFeed = () => {
                 {post.Title}
               </Link>
               <p className="break-words pr-5 text-neutral-400 mt-1 line-clamp-3">
-                {post.Text.slice(0, 300)}...
+                {post.Text}
               </p>
             </div>
             <div className="flex justify-start mr-10 mb-5">
