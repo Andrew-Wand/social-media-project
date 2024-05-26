@@ -144,7 +144,7 @@ const Profile = () => {
       image_url: newImgUrl,
     };
 
-    localStorage.setItem("user", JSON.stringify(newUpdatedUser));
+    localStorage.setItem("SMuser", JSON.stringify(newUpdatedUser));
 
     UserService.editProfile(newEmail, newImgUrl).then(
       (response) => {

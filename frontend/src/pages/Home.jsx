@@ -125,8 +125,8 @@ const Home = () => {
     }
   }, []);
 
-  console.log(myFollowers);
-
+  const newUserArr = allUsers?.filter((user) => user.id === currentUser?.id);
+  console.log(newUserArr);
   const handleFollowListMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -202,15 +202,12 @@ const Home = () => {
 
         <div className="min-h-screen pb-5 xl:mx-[32rem] xl:border-x-2 xl:border-x-neutral-500/50    ">
           <div className="px-5 pt-8">
-            <div>
-              <div>
-                <img
-                  className="w-20 rounded-full"
-                  src={user.image_url}
-                  alt=""
-                />
+            <div className="avatar mr-2">
+              <div className="w-20 rounded-full">
+                <img src={newUserArr.map((user) => user.image_url)} />
               </div>
             </div>
+
             <h1 className="ml-2 mb-5 text-3xl text-white xl:pt-1 bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
               {user?.username}'s Feed
             </h1>

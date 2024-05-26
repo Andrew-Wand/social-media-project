@@ -5,6 +5,7 @@ import AuthService from "../services/auth.service";
 import moment from "moment";
 import { HiMiniHeart, HiOutlineHeart } from "react-icons/hi2";
 import { FaRegCommentAlt } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 import Pagination from "@mui/material/Pagination";
 
 const SinglePost = () => {
@@ -139,9 +140,9 @@ const SinglePost = () => {
     setKeyIndex(e.target.value);
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   const getRequestParams = (page, pageSize) => {
     let params = {};
@@ -185,13 +186,28 @@ const SinglePost = () => {
       );
     }
   };
-  console.log(postComments);
+  console.log(singlePost);
   return (
     <div className="bg-base-300 min-h-screen">
-      <div className="xl:mx-[30rem] xl:border-x-2 xl:border-x-neutral-500/50 xl:h-screen ">
+      <div className="xl:mx-[30rem] xl:border-x-2 xl:border-x-neutral-500/50 xl:min-h-screen ">
         <div className="flex flex-col p-5">
           <div className="flex text-sm mb-2">
-            <Link to={`/profile/${singlePost?.userId}`} className="link">
+            {/* <Link to={`/profile/${singlePost?.userId}`} className="link">
+              {singlePost?.owner}
+            </Link> */}
+            <div className="avatar mr-2">
+              <div className="w-7 rounded-full">
+                <img src={singlePost.user?.image_url} />
+              </div>
+            </div>
+            <Link
+              to={`/profile/${singlePost?.userId}`}
+              className={
+                singlePost?.owner === user.username
+                  ? "link text-[#ACAAFF]"
+                  : "link"
+              }
+            >
               {singlePost?.owner}
             </Link>
             <p className="mx-2">•</p>
@@ -255,18 +271,30 @@ const SinglePost = () => {
           </Link>
         </div>
         <div className="divider"></div>
-        <div>
-          <p className="ml-5">Comments:</p>
+        <div className="">
+          <p className="ml-2 mb-5">Comments:</p>
           {/* {postComments?.length === 0 && <p>There are no comments yet!</p>} */}
 
-          <ul className="p-5">
+          <ul className="ml-2">
             {postComments?.length > 0 &&
               postComments?.map((comment, i) => (
-                <li key={i} className="mb-5">
-                  <div className="flex items-center text-[.8rem] mb-1 ">
+                <li
+                  key={i}
+                  className="mb-5 border-l-[1px] border-neutral-500/50"
+                >
+                  <div className="flex items-center text-[.8rem] mb-1  ml-2">
+                    <div className="avatar mr-2">
+                      <div className="w-7 rounded-full">
+                        <img src={comment.user.image_url} />
+                      </div>
+                    </div>
                     <Link
                       to={`/profile/${comment.userId}`}
-                      className="font-bold link"
+                      className={
+                        comment.owner === user.username
+                          ? "link text-[#ACAAFF]"
+                          : "link"
+                      }
                     >
                       {comment.owner}
                     </Link>
@@ -277,19 +305,18 @@ const SinglePost = () => {
                     </span>
                   </div>
 
-                  <div className="text-[.9rem]">
+                  <div className="text-[.9rem] ml-2 ">
                     <p>{comment.comment_text}</p>
                   </div>
-
                   {comment.userId === user.id ? (
-                    <div className="ml-20">
+                    <div className="ml-2">
                       <form
                         key={i}
                         value={comment.id}
                         onSubmit={handleDeleteComment}
                       >
                         <button
-                          className="btn rounded-full"
+                          className="underline text-xs"
                           value={comment.id}
                           onClick={(e, index) => {
                             e.stopPropagation();

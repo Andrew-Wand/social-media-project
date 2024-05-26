@@ -42,7 +42,14 @@ exports.deletePost = async (req, res) => {
 
 exports.findPostById = async (req, res) => {
   const post = await Post.findByPk(req.params.postId, {
-    include: ["likes"],
+    include: [
+      "likes",
+      {
+        model: User,
+        as: "user",
+        attributes: ["image_url"],
+      },
+    ],
   });
   return res.send(post);
 };
@@ -69,6 +76,13 @@ exports.getPostComments = (req, res) => {
     where: {
       postId: req.params.postId,
     },
+    include: [
+      {
+        model: User,
+        as: "user",
+        attributes: ["image_url"],
+      },
+    ],
     limit,
     offset,
   })
