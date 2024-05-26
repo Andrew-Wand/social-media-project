@@ -196,15 +196,17 @@ const AllPosts = () => {
               <p className="">{`${moment(post.createdAt).format("L")}`}</p>
             </div>
 
-            <div className="text-lg ml-6 my-5 p-1">
+            <div className=" ml-6 my-5 p-1">
               <Link
                 to={`/post/${post.id}`}
                 // onClick={() => fetchPostById(post.id)}
-                className="underline mb-5"
+                className="text-xl font-bold"
               >
                 {post.Title}
               </Link>
-              <p className="break-words pr-5">{post.Text}</p>
+              <p className="break-words pr-5 text-neutral-400 mt-1 line-clamp-3">
+                {post.Text.slice(0, 300)}...
+              </p>
             </div>
             <div className="flex justify-start mr-10 mb-5">
               <p className="btn rounded-3xl mx-5">
@@ -243,25 +245,25 @@ const AllPosts = () => {
                   </button>
                 )}
               </form>
+              {post.userId === user.id ? (
+                <div className="ml-20">
+                  <form onSubmit={handleDeletePost}>
+                    <button
+                      className="btn rounded-full"
+                      value={post.id}
+                      onClick={(e, index) => {
+                        e.stopPropagation();
+                        setPostClick(e.currentTarget.value, index);
+                      }}
+                    >
+                      <HiOutlineTrash className="text-2xl" />
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
-            {post.userId === user.id ? (
-              <div className="ml-10">
-                <form onSubmit={handleDeletePost}>
-                  <button
-                    className="btn rounded-full"
-                    value={post.id}
-                    onClick={(e, index) => {
-                      e.stopPropagation();
-                      setPostClick(e.currentTarget.value, index);
-                    }}
-                  >
-                    <HiOutlineTrash className="text-2xl" />
-                  </button>
-                </form>
-              </div>
-            ) : (
-              ""
-            )}
           </li>
 
           <hr className="border-b-solid border-b-[.0625rem] border-[#242c2e] xl:my-2" />
@@ -269,7 +271,9 @@ const AllPosts = () => {
       ))}
       <Pagination
         className={
-          allPosts ? "flex justify-center mt-2" : "flex justify-center hidden"
+          allPosts?.length > 0
+            ? "flex justify-center mt-2"
+            : "flex justify-center hidden"
         }
         count={count}
         page={page}
@@ -280,6 +284,17 @@ const AllPosts = () => {
         color="primary"
         onChange={handlePageChange}
       />
+
+      {allPosts?.length === 0 ? (
+        <p className="p-5">
+          Click create post to add a new post!
+          <span className="block">
+            Or follow someone to see their posts here!
+          </span>
+        </p>
+      ) : (
+        ""
+      )}
     </ul>
   );
 };

@@ -1,11 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
   const Post = sequelize.define("post", {
     Title: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(300),
       allowNull: false,
     },
     Text: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(40000),
       allowNull: false,
     },
     owner: {

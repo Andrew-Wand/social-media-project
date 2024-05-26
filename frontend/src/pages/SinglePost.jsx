@@ -104,12 +104,13 @@ const SinglePost = () => {
     // setKeyIndex(e.target.getAttribute("key"));
     // console.log(e.target.entry, index);
     const userId = user.id;
+    const username = user.username;
     const fart = Number(keyIndex);
     const like = likeCount + 1;
     setIsLoading(true);
     // console.log(fart);
 
-    PostService.createLike(like, fart, userId).then(
+    PostService.createLike(like, username, fart, userId).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
@@ -173,7 +174,7 @@ const SinglePost = () => {
             <h1 className="font-bold text-white text-xl mb-7">
               {singlePost?.Title}
             </h1>
-            <p className="">{singlePost?.Text}</p>
+            <p className="whitespace-pre-wrap">{singlePost?.Text}</p>
           </div>
 
           {/* {singlePost.map((post, i) => (

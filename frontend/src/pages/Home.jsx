@@ -132,21 +132,25 @@ const Home = () => {
   };
   return (
     <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full     ">
-      <button
-        onClick={handleFollowListMenu}
-        className={
-          isOpen
-            ? "hidden xl:block text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[28.5rem] border-l-8 border-[#ACAAFF] h-[364px]  "
-            : "hidden xl:block text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[0rem] border-l-[10px] border-[#ACAAFF] h-[364px]   "
-        }
-      >
-        <MdKeyboardDoubleArrowRight className="" />
-      </button>
+      {user ? (
+        <button
+          onClick={handleFollowListMenu}
+          className={
+            isOpen
+              ? "hidden xl:block text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[28.5rem] border-l-8 border-[#ACAAFF] h-[364px]  "
+              : "hidden xl:block text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[0rem] border-l-[10px] border-[#ACAAFF] h-[364px]   "
+          }
+        >
+          <MdKeyboardDoubleArrowRight className="" />
+        </button>
+      ) : (
+        ""
+      )}
 
       <div
         className={
           !isOpen
-            ? "hidden xl:block absolute translate-x-[-27rem] bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll transition ease  opacity-0 duration-500   "
+            ? "hidden xl:block absolute translate-x-[-27rem] bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll transition ease  opacity-0 duration-500 "
             : "hidden xl:block absolute translate-x-14 bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll  transition ease  opacity-1 duration-500   "
         }
       >

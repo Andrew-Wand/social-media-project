@@ -169,7 +169,7 @@ const Profile = () => {
 
     // window.location.reload();
   };
-  console.log(newImgUrl);
+
   return (
     <div className="bg-base-300 xl:pr-20">
       {isEditing ? (
@@ -240,7 +240,13 @@ const Profile = () => {
               </div>
             </div>
             <div>
-              <h2 className="text-3xl text-center">
+              <h2
+                className={
+                  userProfileData.username?.length > 10
+                    ? "text-center text-md truncate"
+                    : "text-3xl text-center"
+                }
+              >
                 {userProfileData.username}
               </h2>
               <span className="text-xs font-light">
@@ -263,7 +269,7 @@ const Profile = () => {
                   <div key={i} className="flex">
                     {follower.id === currentUser.id ? (
                       <>
-                        <button className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF]  text-black">
+                        <button className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF]  text-black mb-2">
                           Unfollow
                         </button>
                         <Link
