@@ -60,6 +60,13 @@ const postCreateComment = (comment_text, postId, userId, owner) => {
       return response.data;
     });
 };
+const deleteComment = (commentId) => {
+  return axios.delete(API_URL + "delete-comment", {
+    data: {
+      commentId,
+    },
+  });
+};
 
 const getPostComments = (postId, params) => {
   return axios.get(API_URL + `getPostComments/${postId}`, { params });
@@ -75,6 +82,7 @@ const PostService = {
   getAllPosts,
   deletePost,
   getPostComments,
+  deleteComment,
 };
 
 export default PostService;

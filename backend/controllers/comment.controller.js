@@ -17,3 +17,20 @@ exports.createComment = (req, res) => {
       console.log("Error while creating post: ", err);
     });
 };
+
+exports.deleteComment = async (req, res) => {
+  try {
+    await Comment.destroy({
+      where: {
+        id: req.body.commentId,
+      },
+    });
+
+    res.status(200).send("Successfuly deleted post");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      error: "There was an error deleting this post",
+    });
+  }
+};

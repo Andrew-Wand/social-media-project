@@ -12,4 +12,5 @@ module.exports = function (app) {
   });
 
   app.post("/test/create-comment", controller.createComment);
+  app.delete("/test/delete-comment", controller.deleteComment);
 };

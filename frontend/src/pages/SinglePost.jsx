@@ -17,6 +17,7 @@ const SinglePost = () => {
   const [message, setMessage] = useState("");
   const [keyIndex, setKeyIndex] = useState();
   const [isLoading, setIsLoading] = useState(null);
+  const [postClick, setPostClick] = useState();
 
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
@@ -155,9 +156,38 @@ const SinglePost = () => {
 
     return params;
   };
+
+  const handleDeleteComment = async (e) => {
+    e.preventDefault();
+    const commentId = Number(postClick);
+
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      PostService.deleteComment(commentId).then(
+        (response) => {
+          setMessage(response.data.message);
+          setSuccessful(true);
+          setIsLoading(false);
+          // console.log(response.config.data.slice(-2, -1));
+          fetchPostComments(postIdParam);
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          setMessage(resMessage);
+          setSuccessful(false);
+          setIsLoading(false);
+        }
+      );
+    }
+  };
   console.log(postComments);
   return (
-    <div className="bg-base-300 min-h-screen ">
+    <div className="bg-base-300 min-h-screen">
       <div className="xl:mx-[30rem] xl:border-x-2 xl:border-x-neutral-500/50 xl:h-screen ">
         <div className="flex flex-col p-5">
           <div className="flex text-sm mb-2">
@@ -250,11 +280,38 @@ const SinglePost = () => {
                   <div className="text-[.9rem]">
                     <p>{comment.comment_text}</p>
                   </div>
+
+                  {comment.userId === user.id ? (
+                    <div className="ml-20">
+                      <form
+                        key={i}
+                        value={comment.id}
+                        onSubmit={handleDeleteComment}
+                      >
+                        <button
+                          className="btn rounded-full"
+                          value={comment.id}
+                          onClick={(e, index) => {
+                            e.stopPropagation();
+
+                            setPostClick(e.currentTarget.value, index);
+                          }}
+                        >
+                          delete
+                        </button>
+                      </form>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </li>
               ))}
+            {postComments?.length === 0 && (
+              <p className="text-sm">There are no comments on this post yet!</p>
+            )}
           </ul>
         </div>
-        <div className="divider"></div>
+        <div className="divider m-0"></div>
         {postComments?.length > 0 ? (
           <Pagination
             className="flex justify-center mt-2"
