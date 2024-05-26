@@ -13,6 +13,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const required = (value) => {
   if (!value) {
@@ -135,12 +136,13 @@ const Home = () => {
         onClick={handleFollowListMenu}
         className={
           isOpen
-            ? "hidden xl:block  text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[28.5rem] border-l-2 h-[364px]  "
-            : "hidden xl:block  text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[0rem] border-l-4 border-neutral-600 h-[364px]   "
+            ? "hidden xl:block text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[28.5rem] border-l-8 border-[#ACAAFF] h-[364px]  "
+            : "hidden xl:block text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[0rem] border-l-[10px] border-[#ACAAFF] h-[364px]   "
         }
       >
-        <IoIosArrowForward />
+        <MdKeyboardDoubleArrowRight className="" />
       </button>
+
       <div
         className={
           !isOpen
@@ -149,7 +151,7 @@ const Home = () => {
         }
       >
         <div>
-          <p className="text-xl font-bold p-5 border-b-[1px] border-neutral-500/50">
+          <p className="text-xl font-bold p-5 border-b-[1px] border-neutral-500/50 bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
             Follow List
           </p>
         </div>
