@@ -210,7 +210,7 @@ const UserFeed = () => {
               handleNavigatePost(`/post/${post.id}`);
             }}
           >
-            <div className="flex ml-6 mt-3 text-sm">
+            <div className="flex items-center ml-6 mt-3 text-sm">
               <div className="avatar mr-3 ml-1">
                 <div className="w-10 rounded-full">
                   <img src={post.user.image_url} />
