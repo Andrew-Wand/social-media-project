@@ -143,8 +143,8 @@ const Home = () => {
               onClick={handleFollowListMenu}
               className={
                 isOpen
-                  ? "hidden xl:opacity-0 text-3xl absolute top-[6.5rem]  transition ease duration-100  translate-x-[28.5rem] border-l-8 border-[#ACAAFF] h-[364px]  "
-                  : "hidden xl:opacity-1 xl:block text-3xl absolute top-[6.5rem]  transition ease duration-100  translate-x-[0rem] border-l-[8px] border-[#ACAAFF] h-[364px] hoverEffect"
+                  ? "hidden xl:opacity-0 text-3xl absolute top-[6.5rem]  transition ease duration-[200ms]  translate-x-[28.5rem] border-l-8 border-[#ACAAFF] h-[364px]  "
+                  : "hidden xl:opacity-1 xl:block text-3xl absolute top-[6.5rem]  transition ease duration-[200ms]  translate-x-[0rem] border-l-[8px] border-[#ACAAFF] h-[364px] hoverEffect"
               }
             >
               <IoIosArrowForward className={isOpen ? "hidden" : "block"} />
