@@ -233,18 +233,18 @@ const Profile = () => {
       ) : (
         // THIS IS SHOWN WHEN NOT EDITING
         <div className="min-h-screen xl:mx-[30rem] xl:border-x-2 xl:border-x-neutral-500/50">
-          <div className="flex justify-between items-center mx-6 py-8 ">
-            <div className="avatar">
+          <div className="flex justify-between items-center mx-6 py-8 xl:justify-start ">
+            <div className="avatar xl:mr-6">
               <div className="w-24 rounded-full">
                 <img src={userProfileData.image_url} />
               </div>
             </div>
-            <div>
+            <div className="xl:mr-10">
               <h2
                 className={
                   userProfileData.username?.length > 10
                     ? "text-center text-md truncate"
-                    : "text-3xl text-center"
+                    : "text-3xl text-center "
                 }
               >
                 {userProfileData.username}
@@ -254,7 +254,7 @@ const Profile = () => {
               </span>
             </div>
 
-            <div className="flex items-center mt-2">
+            <div className="flex items-center mt-2 ">
               {profileIdParams == user.id && (
                 <button
                   className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black shadow-lg"
@@ -269,7 +269,7 @@ const Profile = () => {
                   <div key={i} className="flex">
                     {follower.id === currentUser.id ? (
                       <>
-                        <button className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF]  text-black mb-2">
+                        <button className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF]  text-black">
                           Unfollow
                         </button>
                         <Link
@@ -304,6 +304,29 @@ const Profile = () => {
               </form>
             </div>
           </div>
+          {/* <div className="collapse collapse-arrow  bg-base-200 xl:w-6/12">
+            <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">About Me</div>
+            <div className="collapse-content">
+              <p>hello</p>
+            </div>
+          </div> */}
+          <div className="xl:hidden">
+            <details className="collapse collapse-arrow  bg-base-100 rounded-none ">
+              <summary className="collapse-title text-xl font-medium">
+                About Me
+              </summary>
+              <div className="collapse-content">
+                <p>
+                  This is my about me section on my profile. Here I will tell
+                  you about myself and it will be short and brief. I don't want
+                  it to be too long, but I want you to be able to say something
+                  interesting.
+                </p>
+              </div>
+            </details>
+          </div>
+
           <div className="divider"></div>
           <div className="ml-6 ">
             <p className="text-2xl ">Posts</p>
