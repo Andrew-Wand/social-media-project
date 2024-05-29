@@ -35,6 +35,13 @@ body:has(.requires-no-scroll) {
   }
   
 
+/* Follow list desktop animations */
+
+.hoverEffect:hover {
+  transform: translateX(.5rem);
+}
+
+
   
 
   

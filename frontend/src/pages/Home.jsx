@@ -37,7 +37,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [homeFeed, setHomeFeed] = useState("myFeed");
   const [isOpen, setIsOpen] = useState(false);
-
+  const [mouseHoverActive, setMouseHoverActive] = useState(false);
   const checkBtn = useRef();
 
   const [username, setUsername] = useState("");
@@ -130,19 +130,37 @@ const Home = () => {
   const handleFollowListMenu = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full     ">
       {user ? (
-        <button
-          onClick={handleFollowListMenu}
-          className={
-            isOpen
-              ? "hidden xl:block text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[28.5rem] border-l-8 border-[#ACAAFF] h-[364px]  "
-              : "hidden xl:block text-3xl absolute top-[6.5rem]  transition ease duration-500  translate-x-[0rem] border-l-[10px] border-[#ACAAFF] h-[364px]   "
-          }
-        >
-          <MdKeyboardDoubleArrowRight className="" />
-        </button>
+        <>
+          <div
+            onMouseEnter={() => setMouseHoverActive(true)}
+            onMouseLeave={() => setMouseHoverActive(false)}
+          >
+            <button
+              onClick={handleFollowListMenu}
+              className={
+                isOpen
+                  ? "hidden xl:opacity-0 text-3xl absolute top-[6.5rem]  transition ease duration-100  translate-x-[28.5rem] border-l-8 border-[#ACAAFF] h-[364px]  "
+                  : "hidden xl:opacity-1 xl:block text-3xl absolute top-[6.5rem]  transition ease duration-100  translate-x-[0rem] border-l-[8px] border-[#ACAAFF] h-[364px] hoverEffect"
+              }
+            >
+              <IoIosArrowForward className={isOpen ? "hidden" : "block"} />
+            </button>
+          </div>
+
+          <p
+            className={
+              mouseHoverActive && !isOpen
+                ? "absolute text-[14px] top-[17.1rem] left-6 text-neutral-400 cursor-default rotate-[90deg] opacity-1 transition ease duration-300 delay-150   "
+                : "opacity-0 absolute text-[14px] top-[17.1rem] left-6 rotate-[90deg] cursor-default transition ease duration-300 translate-x-[-1rem] "
+            }
+          >
+            Follow List
+          </p>
+        </>
       ) : (
         ""
       )}
@@ -154,10 +172,30 @@ const Home = () => {
             : "hidden xl:block absolute translate-x-14 bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll  transition ease  opacity-1 duration-500   "
         }
       >
-        <div>
-          <p className="text-xl font-bold p-5 border-b-[1px] border-neutral-500/50 bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
+        <div className="flex justify-between border-b-[1px] border-neutral-500/50">
+          <p className="text-xl font-bold p-5  bg-gradient-to-t from-[#C0E8FF] to-[#ACAAFF] bg-clip-text text-transparent">
             Follow List
           </p>
+          <button
+            className="btn btn-circle mr-5 mt-2 btn-ghost"
+            onClick={() => setIsOpen(false)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          {/* <button className="mr-5">Close</button> */}
         </div>
         <div className="mt-2">
           {myFollowers?.map((user, i) => (
