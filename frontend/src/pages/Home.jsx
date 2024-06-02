@@ -154,8 +154,8 @@ const Home = () => {
           <p
             className={
               mouseHoverActive && !isOpen
-                ? "absolute text-[14px] top-[17.1rem] left-6 text-neutral-400 cursor-default rotate-[90deg] opacity-1 transition ease duration-300 delay-150   "
-                : "opacity-0 absolute text-[14px] top-[17.1rem] left-6 rotate-[90deg] cursor-default transition ease duration-300 translate-x-[-1rem] "
+                ? "absolute text-[14px] top-[17.1rem] left-6 text-neutral-400 cursor-default rotate-[90deg] opacity-1 transition ease duration-300 delay-100   "
+                : "opacity-0 absolute text-[14px] top-[17.1rem] left-6 rotate-[90deg] cursor-default transition ease duration-200 translate-x-[-1rem] "
             }
           >
             Follow List

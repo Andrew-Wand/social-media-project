@@ -263,7 +263,16 @@ const Profile = () => {
                   Edit Profile
                 </button>
               )}
-
+              {/* <div className="xl:block hidden rounded-lg w-[18rem] h-[12rem] bg-black ml-20">
+                <div className="flex flex-col">
+                  <div className="border-b-[1px] border-neutral-500/50 py-2 mx-5">
+                    <p className="text-xl ml-5 ">About Me</p>
+                  </div>
+                  <div className="pl-5 mt-5">
+                    <p className=""> hello</p>
+                  </div>
+                </div>
+              </div> */}
               <form onSubmit={handleFollowSubmit}>
                 {userFollowersFiltered?.map((follower, i) => (
                   <div key={i} className="flex">
@@ -304,14 +313,8 @@ const Profile = () => {
               </form>
             </div>
           </div>
-          {/* <div className="collapse collapse-arrow  bg-base-200 xl:w-6/12">
-            <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium">About Me</div>
-            <div className="collapse-content">
-              <p>hello</p>
-            </div>
-          </div> */}
-          <div className="xl:hidden">
+
+          <div className="">
             <details className="collapse collapse-arrow  bg-base-100 rounded-none ">
               <summary className="collapse-title text-xl font-medium">
                 About Me
