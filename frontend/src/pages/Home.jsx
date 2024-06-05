@@ -144,7 +144,7 @@ const Home = () => {
               className={
                 isOpen
                   ? "hidden xl:opacity-0 text-3xl absolute top-[6.5rem]  transition ease duration-[200ms]  translate-x-[28.5rem] border-l-8 border-[#ACAAFF] h-[364px]  "
-                  : "hidden xl:opacity-1 xl:block text-3xl absolute top-[6.5rem]  transition ease duration-[200ms]  translate-x-[0rem] border-l-[8px] border-[#ACAAFF] h-[364px] hoverEffect"
+                  : "hidden xl:opacity-1 xl:block text-3xl fixed top-[6.5rem]  transition ease duration-[200ms]  translate-x-[0rem] border-l-[8px] border-[#ACAAFF] h-[364px] hoverEffect"
               }
             >
               <IoIosArrowForward className={isOpen ? "hidden" : "block"} />
@@ -154,8 +154,8 @@ const Home = () => {
           <p
             className={
               mouseHoverActive && !isOpen
-                ? "absolute text-[14px] top-[17.1rem] left-6 text-neutral-400 cursor-default rotate-[90deg] opacity-1 transition ease duration-300 delay-100   "
-                : "opacity-0 absolute text-[14px] top-[17.1rem] left-6 rotate-[90deg] cursor-default transition ease duration-200 translate-x-[-1rem] "
+                ? "fixed text-[14px] top-[17.1rem] left-6 text-neutral-400 cursor-default rotate-[90deg] opacity-1 transition ease duration-300 delay-100   "
+                : "opacity-0 fixed text-[14px] top-[17.1rem] left-6 rotate-[90deg] cursor-default transition ease duration-200 translate-x-[-1rem] "
             }
           >
             Follow List
@@ -168,8 +168,8 @@ const Home = () => {
       <div
         className={
           !isOpen
-            ? "hidden xl:block absolute translate-x-[-27rem] bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll transition ease  opacity-0 duration-500 "
-            : "hidden xl:block absolute translate-x-14 bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll  transition ease  opacity-1 duration-500   "
+            ? "hidden xl:block fixed translate-x-[-27rem] bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll transition ease  opacity-0 duration-500 "
+            : "hidden xl:block fixed translate-x-14 bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll  transition ease  opacity-1 duration-500   "
         }
       >
         <div className="flex justify-between border-b-[1px] border-neutral-500/50">
