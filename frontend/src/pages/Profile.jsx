@@ -18,6 +18,7 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [likeCount, setLikeCount] = useState(0);
   const [newEmail, setNewEmail] = useState("");
+  const [newAboutMe, setNewAboutMe] = useState("");
   const [newImgUrl, setNewImgUrl] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
@@ -130,6 +131,10 @@ const Profile = () => {
     const email = e.target.value;
     setNewEmail(email);
   };
+  const onChangeAboutMeValue = (e) => {
+    const about_me = e.target.value;
+    setNewAboutMe(about_me);
+  };
   const onChangeImgUrlValue = (e) => {
     const img_url = e.target.files[0];
     setNewImgUrl(img_url);
@@ -142,11 +147,12 @@ const Profile = () => {
       ...existingUser,
       email: newEmail,
       image_url: newImgUrl,
+      about_me: newAboutMe,
     };
 
     localStorage.setItem("SMuser", JSON.stringify(newUpdatedUser));
 
-    UserService.editProfile(newEmail, newImgUrl).then(
+    UserService.editProfile(newEmail, newImgUrl, newAboutMe).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
@@ -212,6 +218,18 @@ const Profile = () => {
                     accept="image/png, image/jpeg"
                     onChange={onChangeImgUrlValue}
                   />
+                </label>
+              </div>
+
+              <div>
+                <label
+                  className="input input-bordered flex items-center gap-2 shadow-lg"
+                  htmlFor=""
+                >
+                  <span className="btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black ml-[-1rem]">
+                    About Me:
+                  </span>
+                  <textarea onChange={onChangeAboutMeValue}></textarea>
                 </label>
               </div>
 
@@ -320,12 +338,7 @@ const Profile = () => {
                 About Me
               </summary>
               <div className="collapse-content">
-                <p>
-                  This is my about me section on my profile. Here I will tell
-                  you about myself and it will be short and brief. I don't want
-                  it to be too long, but I want you to be able to say something
-                  interesting.
-                </p>
+                <p>{userProfileData.about_me}</p>
               </div>
             </details>
           </div>

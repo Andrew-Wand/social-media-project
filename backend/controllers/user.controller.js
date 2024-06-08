@@ -81,6 +81,7 @@ exports.updateProfile = async (req, res) => {
       {
         email: req.body.email,
         image_url: upload.secure_url,
+        about_me: req.body.about_me,
       },
       {
         where: { id: id },

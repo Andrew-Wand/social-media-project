@@ -12,6 +12,8 @@ exports.signup = async (req, res) => {
     "MyBlogPics"
   );
 
+  const aboutMeDefault = "hey this is me!";
+
   // Save user to database
   const newPassword = await bcrypt.hashSync(req.body.password, 8);
   const user = await User.create({
@@ -19,6 +21,7 @@ exports.signup = async (req, res) => {
     email: req.body.email,
     password: newPassword,
     image_url: upload.secure_url,
+    about_me: aboutMeDefault,
   });
 
   await user.save();
@@ -61,6 +64,7 @@ exports.signin = (req, res) => {
         username: user.username,
         email: user.email,
         image_url: user.image_url,
+        about_me: user.about_me,
         accessToken: token,
       });
     })
