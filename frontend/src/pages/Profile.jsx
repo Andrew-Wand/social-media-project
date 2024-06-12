@@ -140,19 +140,52 @@ const Profile = () => {
     setNewImgUrl(img_url);
   };
 
-  const handleEditSubmit = (e) => {
+  const handleProfileEditSubmit = (e) => {
     e.preventDefault();
     let existingUser = currentUser;
     const newUpdatedUser = {
       ...existingUser,
       email: newEmail,
-      image_url: newImgUrl,
+      // image_url: newImgUrl,
       about_me: newAboutMe,
     };
 
     localStorage.setItem("SMuser", JSON.stringify(newUpdatedUser));
 
-    UserService.editProfile(newEmail, newImgUrl, newAboutMe).then(
+    UserService.editProfile(newEmail, newAboutMe).then(
+      (response) => {
+        setMessage(response.data.message);
+        setSuccessful(true);
+        fetchUserById(profileIdParams);
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setMessage(resMessage);
+        setSuccessful(false);
+      }
+    );
+
+    setIsEditing(false);
+
+    // window.location.reload();
+  };
+  const handleProfilePicEditSubmit = (e) => {
+    e.preventDefault();
+    let existingUser = currentUser;
+    const newUpdatedUser = {
+      ...existingUser,
+      image_url: newImgUrl,
+    };
+
+    localStorage.setItem("SMuser", JSON.stringify(newUpdatedUser));
+
+    UserService.editProfilePic(newImgUrl).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
@@ -176,17 +209,29 @@ const Profile = () => {
     // window.location.reload();
   };
 
+  const openEditPage = () => {
+    setIsEditing(true);
+    setNewEmail(userProfileData.email);
+    setNewAboutMe(userProfileData.about_me);
+    // setNewImgUrl(userProfileData.image_url);
+  };
+
+  console.log(userProfileData);
+
   return (
     <div className="bg-base-300 xl:pr-20">
       {isEditing ? (
         <div className="bg-base-300 h-screen xl:mx-[35%]  p-7 ">
+          <button
+            className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black"
+            onClick={() => setIsEditing(false)}
+          >
+            Back
+          </button>
+          <div className="divider"></div>
           <div className="flex-column">
             <h2 className="text-2xl text-center mb-5">Edit Profile</h2>
-            <form
-              onSubmit={handleEditSubmit}
-              encType="multipart/form-data"
-              method="post"
-            >
+            <form onSubmit={handleProfileEditSubmit} method="post">
               <div>
                 <label
                   className="input input-bordered flex items-center gap-2 shadow-lg"
@@ -203,6 +248,57 @@ const Profile = () => {
                   />
                 </label>
               </div>
+              {/* <div>
+                <label
+                  className="input input-bordered flex items-center gap-2 shadow-lg"
+                  htmlFor=""
+                >
+                  <span className="btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black ml-[-1rem]">
+                    Profile Picture:
+                  </span>
+                  <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/png, image/jpeg"
+                    onChange={onChangeImgUrlValue}
+                    // defaultValue={userProfileData.image_url}
+                  />
+                </label>
+              </div> */}
+
+              <div className="mt-5">
+                <label
+                  className="textarea bg-transparent flex items-center shadow-lg"
+                  htmlFor=""
+                >
+                  <span className="btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black ml-[-1rem]">
+                    About Me:
+                  </span>
+                  <textarea
+                    className="textarea textarea-bordered"
+                    onChange={onChangeAboutMeValue}
+                    defaultValue={userProfileData.about_me}
+                  ></textarea>
+                </label>
+              </div>
+
+              <div className="mt-5">
+                <button className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black mr-5">
+                  Submit Info
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div className="divider"></div>
+          <div className="mt-10">
+            <p className="text-2xl text-center mb-5">Edit Profile Picture</p>
+            <form
+              onSubmit={handleProfilePicEditSubmit}
+              encType="multipart/form-data"
+              method="post"
+            >
               <div>
                 <label
                   className="input input-bordered flex items-center gap-2 shadow-lg"
@@ -217,33 +313,22 @@ const Profile = () => {
                     name="image"
                     accept="image/png, image/jpeg"
                     onChange={onChangeImgUrlValue}
+                    // defaultValue={userProfileData.image_url}
                   />
                 </label>
               </div>
 
-              <div>
-                <label
-                  className="input input-bordered flex items-center gap-2 shadow-lg"
-                  htmlFor=""
-                >
-                  <span className="btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black ml-[-1rem]">
-                    About Me:
-                  </span>
-                  <textarea onChange={onChangeAboutMeValue}></textarea>
-                </label>
-              </div>
-
               <div className="mt-5">
-                <button className="btn bg-gradient-to-r from-[#C0E8FF] to-[#ACAAFF] text-black mr-5">
-                  Submit
+                <button className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black mr-5">
+                  Change Profile Picture
                 </button>
 
-                <button
+                {/* <button
                   className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black"
                   onClick={() => setIsEditing(false)}
                 >
                   Cancel
-                </button>
+                </button> */}
               </div>
             </form>
           </div>
@@ -276,7 +361,7 @@ const Profile = () => {
               {profileIdParams == user.id && (
                 <button
                   className="btn bg-gradient-to-r from-[#A7B5FF] to-[#F3ACFF] text-black shadow-lg"
-                  onClick={() => setIsEditing(true)}
+                  onClick={openEditPage}
                 >
                   Edit Profile
                 </button>

@@ -76,12 +76,32 @@ exports.updateProfile = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const upload = await uploadFile(req.file.path, "MyBlogPics");
     const result = await User.update(
       {
         email: req.body.email,
-        image_url: upload.secure_url,
         about_me: req.body.about_me,
+      },
+      {
+        where: { id: id },
+      }
+    );
+
+    if (result == 1) {
+      res.send({ message: "update successfull" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "error uploading" });
+  }
+};
+
+exports.updateProfilePic = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const upload = await uploadFile(req.file.path, "MyBlogPics");
+    const result = await User.update(
+      {
+        image_url: upload.secure_url,
       },
       {
         where: { id: id },

@@ -16,9 +16,14 @@ module.exports = function (app) {
   app.get("/test/findAllUsers", controller.findAllUsers);
   app.get("/test/findProfileDataById/:profileId", controller.findUserById);
   app.post("/test/findMyFollowers", controller.findMyFollowers);
-  app.post(
+  app.put(
     "/test/updateProfile/:id",
-    upload.single("file"),
+
     controller.updateProfile
+  );
+  app.post(
+    "/test/updateProfilePic/:id",
+    upload.single("file"),
+    controller.updateProfilePic
   );
 };

@@ -23,13 +23,18 @@ const findMyFollowers = (id) => {
   });
 };
 
-const editProfile = (email, image_url, about_me) => {
+const editProfile = (email, about_me) => {
+  return axios.put(API_URL + `updateProfile/${id}`, {
+    email,
+    about_me,
+  });
+};
+const editProfilePic = (image_url) => {
   const data = new FormData();
   data.append("_method", "put");
-  data.append("email", email);
   data.append("file", image_url);
-  data.append("about_me", about_me);
-  return axios.post(API_URL + `updateProfile/${id}`, data, {
+
+  return axios.post(API_URL + `updateProfilePic/${id}`, data, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };
@@ -40,6 +45,7 @@ const UserService = {
   getUserById,
   findMyFollowers,
   editProfile,
+  editProfilePic,
 };
 
 export default UserService;

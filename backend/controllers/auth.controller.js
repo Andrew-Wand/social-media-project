@@ -12,7 +12,7 @@ exports.signup = async (req, res) => {
     "MyBlogPics"
   );
 
-  const aboutMeDefault = "hey this is me!";
+  const aboutMeDefault = "";
 
   // Save user to database
   const newPassword = await bcrypt.hashSync(req.body.password, 8);
