@@ -313,12 +313,16 @@ const UserFeed = () => {
         onChange={handlePageChange}
       />
       {allPosts?.length === 0 ? (
-        <p className="p-5">
-          Click create post to add a new post!
-          <span className="block">
-            Or follow someone to see their posts here!
-          </span>
-        </p>
+        <div className="p-5">
+          <p>Click create post to add a new post!</p>
+          <p>
+            Or
+            <Link to={`/find-users/${user?.id}`} className="link link-info">
+              follow
+            </Link>
+            someone to see their posts here!
+          </p>
+        </div>
       ) : (
         ""
       )}
