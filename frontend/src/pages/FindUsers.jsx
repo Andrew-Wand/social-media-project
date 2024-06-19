@@ -7,6 +7,8 @@ const FindUsers = () => {
   const [myFollowers, setMyFollowers] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
   const [allUserList, setAllUserList] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredList, setFilteredList] = useState([]);
 
   const userIdParam = window.location.pathname.slice(-1);
 
@@ -40,8 +42,11 @@ const FindUsers = () => {
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const allUserList = await UserService.getAllUsers();
-        setAllUserList(allUserList.data);
+        const userList = await UserService.getAllUsers();
+        const listData = userList.data;
+        const filteredUserList = listData?.filter((j) => j.id !== user.id);
+        setAllUserList(filteredUserList);
+        setFilteredList(filteredUserList);
       } catch (error) {
         console.log(error);
       }
@@ -50,14 +55,16 @@ const FindUsers = () => {
     fetchAllUsers();
   }, []);
 
-  const filteredUserList = allUserList?.filter((j) => j.id !== user.id);
+  const handleInputChange = (e) => {
+    const searchTerm = e.target.value;
+    setSearchTerm(searchTerm);
 
-  const findFollowerList = filteredUserList?.filter(
-    (item) =>
-      !myFollowers.some((itemToBeRemoved) => itemToBeRemoved.id === item.id)
-  );
+    const filteredItems = allUserList?.filter((user) =>
+      user.username.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-  console.log(findFollowerList);
+    setFilteredList(filteredItems);
+  };
 
   return (
     <div className="bg-base-300 min-h-screen ">
@@ -66,11 +73,16 @@ const FindUsers = () => {
       </div>
 
       <div className="flex justify-center mt-5">
-        <input type="text" placeholder="Search Users" className="input " />
+        <input
+          type="text"
+          placeholder="Search Users"
+          className="input "
+          onChange={handleInputChange}
+        />
       </div>
 
       <div className="flex xl:justify-center xl:flex-row flex-col items-center ">
-        {findFollowerList.map((user) => (
+        {filteredList?.map((user) => (
           <div className="card w-80 mx-2 bg-base-100 shadow-xl my-5 ">
             <div className="card-body">
               <div className="avatar justify-center">

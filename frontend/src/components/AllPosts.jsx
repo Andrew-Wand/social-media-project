@@ -291,7 +291,7 @@ const AllPosts = () => {
           <p>
             Or
             <Link to={`/find-users/${user?.id}`} className="link link-info">
-              follow
+              <span className="mx-1">follow</span>
             </Link>
             someone to see their posts here!
           </p>
