@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import UserService from "../services/user.service";
 import AuthService from "../services/auth.service";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import Box from "@mui/material/Box";
+import styled from "@emotion/styled";
+// import Link from "@mui/material/Link";
 
 const FindUsers = () => {
   const [myFollowers, setMyFollowers] = useState([]);
@@ -66,6 +71,36 @@ const FindUsers = () => {
     setFilteredList(filteredItems);
   };
 
+  const StyledTextField = styled(TextField)({
+    "& label, & label.Mui-focused": {
+      color: "#fff",
+    },
+    "& input, & input.Mui-focused": {
+      color: "#fff",
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+    },
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+    },
+    "& .MuiButtonBase-root": {
+      color: "white",
+    },
+    "& .MuiAutocomplete-listbox": {
+      "& .MuiAutocomplete-option[aria-selected='true']": {
+        bgcolor: "purple",
+        "&.Mui-focused": {
+          bgcolor: "purple",
+        },
+      },
+    },
+    "& .MuiAutocomplete-listbox .MuiAutocomplete-option.Mui-focused": {
+      bgcolor: "red",
+    },
+  });
+
+  console.log(filteredList);
   return (
     <div className="bg-base-300 min-h-screen ">
       <div>
@@ -73,11 +108,49 @@ const FindUsers = () => {
       </div>
 
       <div className="flex justify-center mt-5">
-        <input
+        {/* <input
           type="text"
           placeholder="Search Users"
           className="input "
           onChange={handleInputChange}
+        /> */}
+
+        <Autocomplete
+          disablePortal
+          id="find-user-search"
+          options={filteredList}
+          getOptionLabel={(option) => option.username}
+          sx={{
+            width: 300,
+            backgroundColor: "#000",
+          }}
+          renderInput={(params) => (
+            <StyledTextField
+              {...params}
+              label="Search Users"
+              inputProps={{
+                ...params.inputProps,
+              }}
+            />
+          )}
+          renderOption={(props, option) => (
+            <Link
+              sx={{
+                "& > img": { mr: 2, flexShrink: 0 },
+              }}
+              {...props}
+              to={`/profile/${option.id}`}
+            >
+              <img
+                loading="lazy"
+                width="30"
+                src={option.image_url}
+                srcSet={option.image_url}
+                className="mr-5"
+              />
+              {option.username}
+            </Link>
+          )}
         />
       </div>
 
