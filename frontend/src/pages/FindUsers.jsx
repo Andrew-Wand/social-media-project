@@ -192,7 +192,7 @@ const FindUsers = () => {
         />
       </div>
 
-      <div className="flex xl:justify-center xl:flex-row flex-col items-center xl:w-8/12 xl:flex-wrap xl:m-auto mt-10 ">
+      <div className="flex xl:justify-center xl:flex-row flex-col items-center xl:w-8/12 xl:flex-wrap xl:m-auto xl:pt-5 ">
         {allUserList?.map((user) => (
           <div className="card w-80 mx-2 bg-base-100 shadow-xl my-5 ">
             <div className="card-body">

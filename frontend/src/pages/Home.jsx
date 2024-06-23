@@ -126,7 +126,7 @@ const Home = () => {
   }, []);
 
   const newUserArr = allUsers?.filter((user) => user.id === currentUser?.id);
-  console.log(newUserArr);
+  console.log(user);
   const handleFollowListMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -242,7 +242,7 @@ const Home = () => {
           <div className="px-5 pt-8">
             <div className="avatar mr-2">
               <div className="w-20 rounded-full">
-                <img src={newUserArr.map((user) => user.image_url)} />
+                <img src={user.image_url} />
               </div>
             </div>
 
