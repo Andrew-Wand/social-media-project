@@ -118,13 +118,13 @@ const FindUsers = () => {
       color: "#fff",
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "white",
+      borderColor: "#434548",
     },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,  ": {
-      borderColor: "white",
+      borderColor: "#434548",
     },
     "& .MuiButtonBase-root": {
-      color: "white",
+      color: "#434548",
     },
     "& .MuiAutocomplete-listbox": {
       "& .MuiAutocomplete-option[aria-selected='true']": {

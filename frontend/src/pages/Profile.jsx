@@ -54,6 +54,7 @@ const Profile = () => {
     const user = AuthService.getCurrentUser();
     const userId = user?.id;
     const name = user.username;
+
     const followerId = Number(profileIdParams);
 
     FollowService.createFollower(name, userId, followerId).then(
@@ -93,12 +94,13 @@ const Profile = () => {
     // setKeyIndex(e.target.getAttribute("key"));
     // console.log(e.target.entry, index);
     const userId = user.id;
+    const username = user.username;
     const fart = Number(keyIndex);
     const like = likeCount + 1;
     setIsLoading(true);
     // console.log(fart);
 
-    PostService.createLike(like, fart, userId).then(
+    PostService.createLike(like, username, fart, userId).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
