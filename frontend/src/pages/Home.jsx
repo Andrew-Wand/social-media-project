@@ -169,7 +169,7 @@ const Home = () => {
         className={
           !isOpen
             ? "hidden xl:block fixed translate-x-[-27rem] bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll transition ease  opacity-0 duration-500 "
-            : "hidden xl:block fixed translate-x-14 bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll  transition ease  opacity-1 duration-500   "
+            : "hidden xl:block fixed translate-x-14 bg-black/25 w-[400px] h-[364px] mt-8  overflow-y-scroll  transition ease  opacity-1 duration-500 rounded-xl  "
         }
       >
         <div className="flex justify-between border-b-[1px] border-neutral-500/50">

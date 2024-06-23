@@ -51,6 +51,51 @@ exports.findAllUsers = async (req, res) => {
     console.log(error);
   }
 };
+
+// Find Users page/pagination
+
+const getPagination = (page, size) => {
+  const limit = size ? +size : 5;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: users } = data;
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  return { totalItems, users, totalPages, currentPage };
+};
+
+exports.findUsersPage = async (req, res) => {
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
+  try {
+    const data = await User.findAndCountAll({
+      include: [
+        {
+          model: User,
+          as: "userFollowers",
+
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+      limit,
+      offset,
+      distinct: true,
+    });
+
+    const response = getPagingData(data, page, limit);
+    res.status(200).send(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 exports.findMyFollowers = async (req, res) => {
   try {
     const response = await User.findAll({

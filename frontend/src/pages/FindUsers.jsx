@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import styled from "@emotion/styled";
+import Pagination from "@mui/material/Pagination";
 // import Link from "@mui/material/Link";
 
 const FindUsers = () => {
@@ -15,9 +16,34 @@ const FindUsers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredList, setFilteredList] = useState([]);
 
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
+  const [totalUsers, setTotalUsers] = useState();
+
   const userIdParam = window.location.pathname.slice(-1);
 
   const user = AuthService.getCurrentUser();
+
+  const getRequestParams = (page, pageSize) => {
+    let params = {};
+
+    if (page) {
+      params["page"] = page - 1;
+    }
+
+    if (pageSize) {
+      params["size"] = pageSize;
+    }
+
+    return params;
+  };
+
+  const handlePageChange = (e, value) => {
+    setPage(value);
+
+    // fetchPostComments();
+  };
 
   const fetchUserById = async (id) => {
     try {
@@ -46,19 +72,32 @@ const FindUsers = () => {
 
   useEffect(() => {
     const fetchAllUsers = async () => {
+      const params = getRequestParams(page, pageSize);
       try {
-        const userList = await UserService.getAllUsers();
+        // Search bar data
+        const userListForSearch = await UserService.getAllUsers();
+        const userListForSearchData = userListForSearch.data;
+        const searchDataFilter = userListForSearchData?.filter(
+          (j) => j.id !== user.id
+        );
+
+        // Main user list on page
+        const userList = await UserService.getFindUsersPageData(params);
         const listData = userList.data;
-        const filteredUserList = listData?.filter((j) => j.id !== user.id);
-        setAllUserList(filteredUserList);
-        setFilteredList(filteredUserList);
+
+        const { users, totalPages } = listData;
+
+        setTotalUsers(users.totalItems);
+        setCount(totalPages);
+        setAllUserList(users);
+        setFilteredList(searchDataFilter);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchAllUsers();
-  }, []);
+  }, [page]);
 
   const handleInputChange = (e) => {
     const searchTerm = e.target.value;
@@ -81,7 +120,7 @@ const FindUsers = () => {
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: "white",
     },
-    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,  ": {
       borderColor: "white",
     },
     "& .MuiButtonBase-root": {
@@ -100,7 +139,6 @@ const FindUsers = () => {
     },
   });
 
-  console.log(filteredList);
   return (
     <div className="bg-base-300 min-h-screen ">
       <div>
@@ -154,8 +192,8 @@ const FindUsers = () => {
         />
       </div>
 
-      <div className="flex xl:justify-center xl:flex-row flex-col items-center ">
-        {filteredList?.map((user) => (
+      <div className="flex xl:justify-center xl:flex-row flex-col items-center xl:w-8/12 xl:flex-wrap xl:m-auto mt-10 ">
+        {allUserList?.map((user) => (
           <div className="card w-80 mx-2 bg-base-100 shadow-xl my-5 ">
             <div className="card-body">
               <div className="avatar justify-center">
@@ -173,12 +211,26 @@ const FindUsers = () => {
                 >
                   Profile
                 </Link>
-                {/* <button className="btn btn-primary">Follow</button> */}
               </div>
             </div>
           </div>
         ))}
       </div>
+      <Pagination
+        className={
+          allUserList?.length > 0
+            ? "flex justify-center mt-2"
+            : "flex justify-center hidden"
+        }
+        count={count}
+        page={page}
+        siblingCount={1}
+        boundaryCount={1}
+        variant="outlined"
+        shape="rounded"
+        color="primary"
+        onChange={handlePageChange}
+      />
     </div>
   );
 };

@@ -14,6 +14,9 @@ const getPublicContent = () => {
 const getAllUsers = () => {
   return axios.get(API_URL + "findAllUsers");
 };
+const getFindUsersPageData = (params) => {
+  return axios.get(API_URL + "findUsersPage", { params });
+};
 const getUserById = (profileId) => {
   return axios.get(API_URL + `findProfileDataById/${profileId}`);
 };
@@ -46,6 +49,7 @@ const UserService = {
   findMyFollowers,
   editProfile,
   editProfilePic,
+  getFindUsersPageData,
 };
 
 export default UserService;

@@ -240,7 +240,7 @@ const Chat = () => {
               <div className=" artboard artboard-horizontal bg-base-200 shadow-lg overflow-auto flex flex-col-reverse lg:h-full lg:border-b-2 lg:border-b-neutral-500/50 lg:border-r-2 lg:border-r-neutral-500/50">
                 {/* Messages in chat room box */}
 
-                <ul className="">
+                <ul className="lg:mx-20 ">
                   {filteredMessageList.map((message, i) => (
                     <div key={i}>
                       {message.receiver !== selectedUser ? (
