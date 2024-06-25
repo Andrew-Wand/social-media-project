@@ -91,21 +91,18 @@ const Profile = () => {
   const handleCreateLike = async (e) => {
     e.preventDefault();
 
-    // setKeyIndex(e.target.getAttribute("key"));
-    // console.log(e.target.entry, index);
     const userId = user.id;
     const username = user.username;
     const fart = Number(keyIndex);
     const like = likeCount + 1;
     setIsLoading(true);
-    // console.log(fart);
 
     PostService.createLike(like, username, fart, userId).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
         setIsLoading(false);
-        // console.log(response.config.data.slice(-2, -1));
+
         fetchUserById(profileIdParams);
       },
       (error) => {
