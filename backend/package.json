@@ -8,6 +8,7 @@
     "serverstart": "DEBUG=messaging-app-odin:* npm run devstart"
   },
   "dependencies": {
+    "@prisma/client": "^5.16.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -29,5 +30,8 @@
   "main": "app.js",
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "prisma": "^5.16.0"
+  }
 }
