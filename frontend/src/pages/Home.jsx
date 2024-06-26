@@ -29,6 +29,7 @@ const required = (value) => {
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [userProfileData, setUserProfileData] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [likeCount, setLikeCount] = useState(0);
   const [successful, setSuccessful] = useState(false);
@@ -39,7 +40,6 @@ const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mouseHoverActive, setMouseHoverActive] = useState(false);
   const checkBtn = useRef();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -48,6 +48,9 @@ const Home = () => {
   const guestUsername = import.meta.env.VITE_GUEST_USERNAME;
   const guestPassword = import.meta.env.VITE_GUEST_PASSWORD;
   const navigate = useNavigate();
+
+  const profileIdParams = window.location.pathname.slice(-1);
+
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
@@ -126,10 +129,24 @@ const Home = () => {
   }, []);
 
   const newUserArr = allUsers?.filter((user) => user.id === currentUser?.id);
-  console.log(user);
+
   const handleFollowListMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const fetchUserById = async (id) => {
+    try {
+      const currentUserProfile = await UserService.getUserById(id);
+      setUserProfileData(currentUserProfile.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchUserById(profileIdParams);
+  }, []);
+
+  console.log(userProfileData);
 
   return (
     <div className="  bg-base-300 min-h-screen xl:min-h-screen  xl:w-full     ">
@@ -242,7 +259,7 @@ const Home = () => {
           <div className="px-5 pt-8">
             <div className="avatar mr-2">
               <div className="w-20 rounded-full">
-                <img src={user.image_url} />
+                <img src={userProfileData?.image_url} />
               </div>
             </div>
 
