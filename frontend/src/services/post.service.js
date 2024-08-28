@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:8080/test/";
-const API_URL = "https://nyghrdxtnpowbwajnqmu.supabase.co/test/";
+const API_URL = "http://localhost:8080/test/";
 
 const postCreatePost = (Title, Text, userId, owner) => {
   return axios

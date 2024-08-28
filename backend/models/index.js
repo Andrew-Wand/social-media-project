@@ -19,13 +19,11 @@ const db_password = "M00shym00m001!";
 //     dialect: "postgres",
 //   }
 // );
-const sequelize = new Sequelize(
-  "postgresql://postgres.nyghrdxtnpowbwajnqmu:[M00shym00m001!]@aws-0-us-east-1.pooler.supabase.com:6543/postgres"
-);
-// const sequelize = new Sequelize(db_name, db_user, db_password, {
-//   dialect: "postgres",
-//   host: db_host,
-// });
+
+const sequelize = new Sequelize(db_name, db_user, db_password, {
+  dialect: "postgres",
+  host: db_host,
+});
 
 const db = {};
 
