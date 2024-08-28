@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/test/";
+// const API_URL = "http://localhost:8080/test/";
+const API_URL = "https://nyghrdxtnpowbwajnqmu.supabase.co/test/";
 
 const getMessageList = () => {
   return axios.get(API_URL + "allMessageList");
