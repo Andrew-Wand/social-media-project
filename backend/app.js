@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 db.sequelize.sync().then(() => {});
 
 // set port, listen for requests
-const PORT = process.env.VITE_PORT || 8080;
+const PORT = process.env.VITE_PORT || process.env.PORT || 8080 || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
