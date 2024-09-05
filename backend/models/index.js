@@ -26,14 +26,14 @@ const db_password = "M00shym00m001!";
 //   );
 // }
 
-const sequelize = new Sequelize(
-  "postgresdb_eocs",
-  "postgresdb_eocs_user",
-  "bzV5avV0fFiFvOiw069FXWXX0hDhYinP",
-  {
-    dialect: "postgres",
-  }
-);
+// const sequelize = new Sequelize(
+//   "postgresdb_eocs",
+//   "postgresdb_eocs_user",
+//   "bzV5avV0fFiFvOiw069FXWXX0hDhYinP",
+//   {
+//     dialect: "postgres",
+//   }
+// );
 
 // const sequelize = new Sequelize(
 //   process.env.VITE_DATABASE_NAME,
@@ -48,6 +48,13 @@ const sequelize = new Sequelize(
 //   dialect: "postgres",
 //   host: db_host,
 // });
+
+const sequelize = new Sequelize(
+  "postgresql://postgresdb_eocs_user:bzV5avV0fFiFvOiw069FXWXX0hDhYinP@dpg-crce44t2ng1s739roh90-a/postgresdb_eocs",
+  {
+    dialect: "postgres",
+  }
+);
 
 const db = {};
 
