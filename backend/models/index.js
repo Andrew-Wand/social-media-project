@@ -10,31 +10,30 @@ const db_user = "postgres.nyghrdxtnpowbwajnqmu";
 const db_host = "aws-0-us-east-1.pooler.supabase.com";
 
 const db_password = "M00shym00m001!";
-let sequelize;
+// let sequelize;
 
-if (process.env.DB_URL) {
-  sequelize = new Sequelize(process.env.DB_URL);
-} else {
-  sequelize = new Sequelize(
-    process.env.VITE_DATABASE_NAME,
-    process.env.VITE_DATABASE_USER,
-    process.env.VITE_DATABASE_PASSWORD,
-    {
-      host: "localhost",
-      dialect: "postgres",
-    }
-  );
-}
+// if (process.env.DB_URL) {
+//   sequelize = new Sequelize(process.env.DB_URL);
+// } else {
+//   sequelize = new Sequelize(
+//     process.env.VITE_DATABASE_NAME,
+//     process.env.VITE_DATABASE_USER,
+//     process.env.VITE_DATABASE_PASSWORD,
+//     {
+//       host: "localhost",
+//       dialect: "postgres",
+//     }
+//   );
+// }
 
-// const sequelize = new Sequelize(
-//   process.env.VITE_DATABASE_NAME,
-//   process.env.VITE_DATABASE_USER,
-//   process.env.VITE_DATABASE_PASSWORD,
-//   {
-//     host: 'localhost',
-//     dialect: "postgres",
-//   }
-// );
+const sequelize = new Sequelize(
+  "postgresdb_eocs",
+  "postgresdb_eocs_user",
+  "bzV5avV0fFiFvOiw069FXWXX0hDhYinP",
+  {
+    dialect: "postgres",
+  }
+);
 
 // const sequelize = new Sequelize(
 //   process.env.VITE_DATABASE_NAME,
