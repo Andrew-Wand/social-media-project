@@ -44,17 +44,17 @@ const db_password = "M00shym00m001!";
 //   }
 // );
 
-// const sequelize = new Sequelize(db_name, db_user, db_password, {
-//   dialect: "postgres",
-//   host: db_host,
-// });
+const sequelize = new Sequelize(db_name, db_user, db_password, {
+  dialect: "postgres",
+  host: db_host,
+});
 
-const sequelize = new Sequelize(
-  "postgresql://postgresdb_eocs_user:bzV5avV0fFiFvOiw069FXWXX0hDhYinP@dpg-crce44t2ng1s739roh90-a/postgresdb_eocs",
-  {
-    dialect: "postgres",
-  }
-);
+// const sequelize = new Sequelize(
+//   "postgresql://postgresdb_eocs_user:bzV5avV0fFiFvOiw069FXWXX0hDhYinP@dpg-crce44t2ng1s739roh90-a/postgresdb_eocs",
+//   {
+//     dialect: "postgres",
+//   }
+// );
 
 const db = {};
 
