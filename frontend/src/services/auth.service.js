@@ -12,20 +12,10 @@ const register = (username, email, password) => {
 
 const login = (username, password) => {
   return axios
-    .post(
-      API_URL + "signin",
-      {
-        username,
-        password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55Z2hyZHh0bnBvd2J3YWpucW11Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTQyODcwNCwiZXhwIjoyMDM1MDA0NzA0fQ.imPAucL-dl0tfUT9WrUeOAGIPfVC98bTMGHdyohHsu4",
-        },
-      }
-    )
+    .post(API_URL + "signin", {
+      username,
+      password,
+    })
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("SMuser", JSON.stringify(response.data));
