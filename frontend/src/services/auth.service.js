@@ -22,7 +22,7 @@ const login = (username, password) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55Z2hyZHh0bnBvd2J3YWpucW11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk0Mjg3MDQsImV4cCI6MjAzNTAwNDcwNH0.6h6wCEgvile6QBimGPBqemYkwqDdQNtSfkG8GoOOK-4",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55Z2hyZHh0bnBvd2J3YWpucW11Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTQyODcwNCwiZXhwIjoyMDM1MDA0NzA0fQ.imPAucL-dl0tfUT9WrUeOAGIPfVC98bTMGHdyohHsu4",
         },
       }
     )
