@@ -20,6 +20,7 @@ const login = (username, password) => {
       },
       {
         headers: {
+          "Content-Type": "application/json",
           "x-api-key":
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55Z2hyZHh0bnBvd2J3YWpucW11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk0Mjg3MDQsImV4cCI6MjAzNTAwNDcwNH0.6h6wCEgvile6QBimGPBqemYkwqDdQNtSfkG8GoOOK-4",
         },
