@@ -21,8 +21,8 @@ const login = (username, password) => {
       {
         headers: {
           "Content-Type": "application/json",
-          "X-API-Key":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55Z2hyZHh0bnBvd2J3YWpucW11Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTQyODcwNCwiZXhwIjoyMDM1MDA0NzA0fQ.imPAucL-dl0tfUT9WrUeOAGIPfVC98bTMGHdyohHsu4",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55Z2hyZHh0bnBvd2J3YWpucW11Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTQyODcwNCwiZXhwIjoyMDM1MDA0NzA0fQ.imPAucL-dl0tfUT9WrUeOAGIPfVC98bTMGHdyohHsu4",
         },
       }
     )
