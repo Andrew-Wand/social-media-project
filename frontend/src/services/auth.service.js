@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://nyghrdxtnpowbwajnqmu.supabase.co/rest/v1/auth/";
+const API_URL = "http://localhost:8080/auth/";
 
 const register = (username, email, password) => {
   return axios.post(API_URL + "signup", {
