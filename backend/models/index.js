@@ -10,6 +10,14 @@ const db_user = "postgres.nyghrdxtnpowbwajnqmu";
 const db_host = "aws-0-us-east-1.pooler.supabase.com";
 
 const db_password = "M00shym00m001!";
+
+// const db_name = "socialmediaproject";
+
+// const db_user = "postgres";
+
+// const db_host = "165.232.148.251";
+
+// const db_password = "m00shym00m00321";
 // let sequelize;
 
 // if (process.env.DB_URL) {
